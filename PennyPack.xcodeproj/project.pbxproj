@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3023B4DE2CD4859D005049C1 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023B4DD2CD4859D005049C1 /* CameraService.swift */; };
 		7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3912CD477470039B60C /* PennyPackApp.swift */; };
 		7126C3942CD477470039B60C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3932CD477470039B60C /* ContentView.swift */; };
 		7126C3962CD477480039B60C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3952CD477480039B60C /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3023B4DD2CD4859D005049C1 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CameraService.swift; path = PennyPack/CameraService.swift; sourceTree = SOURCE_ROOT; };
 		7126C38E2CD477470039B60C /* PennyPack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PennyPack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7126C3912CD477470039B60C /* PennyPackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PennyPackApp.swift; sourceTree = "<group>"; };
 		7126C3932CD477470039B60C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 		7126C3A32CD47B590039B60C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				3023B4DD2CD4859D005049C1 /* CameraService.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				7126C3B02CD47BE50039B60C /* ResultView.swift in Sources */,
 				7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */,
 				7126C3AC2CD47BD40039B60C /* ScanView.swift in Sources */,
+				3023B4DE2CD4859D005049C1 /* CameraService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,12 +337,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PennyPack/Preview Content\"";
-				DEVELOPMENT_TEAM = R83JF9K5WA;
+				DEVELOPMENT_TEAM = 7P4U6S44RJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -349,8 +355,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Apple-Developer-Academy---POSTECH.PennyPack";
+				PRODUCT_BUNDLE_IDENTIFIER = com.winter.PennyPack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -362,12 +369,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PennyPack/Preview Content\"";
-				DEVELOPMENT_TEAM = R83JF9K5WA;
+				DEVELOPMENT_TEAM = 7P4U6S44RJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -378,8 +387,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Apple-Developer-Academy---POSTECH.PennyPack";
+				PRODUCT_BUNDLE_IDENTIFIER = com.winter.PennyPack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
