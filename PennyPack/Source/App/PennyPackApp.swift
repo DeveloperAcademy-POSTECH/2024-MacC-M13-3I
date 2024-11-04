@@ -12,7 +12,7 @@ struct PennyPackApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ScanView()
+            MainView()
         }
     }
 }

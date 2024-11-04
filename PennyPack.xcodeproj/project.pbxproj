@@ -18,10 +18,12 @@
 		7126C3AC2CD47BD40039B60C /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3AB2CD47BD40039B60C /* ScanView.swift */; };
 		7126C3AE2CD47BDC0039B60C /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3AD2CD47BDC0039B60C /* CartView.swift */; };
 		7126C3B02CD47BE50039B60C /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3AF2CD47BE50039B60C /* ResultView.swift */; };
+		71C23EB82CD8514E006F7A1E /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EB72CD8514E006F7A1E /* CurrencyService.swift */; };
+		71C23EBC2CD85C5D006F7A1E /* TranslationSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3023B4DD2CD4859D005049C1 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CameraService.swift; path = PennyPack/CameraService.swift; sourceTree = SOURCE_ROOT; };
+		3023B4DD2CD4859D005049C1 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CameraService.swift; path = PennyPack/ViewModel/CameraService.swift; sourceTree = SOURCE_ROOT; };
 		7126C38E2CD477470039B60C /* PennyPack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PennyPack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7126C3912CD477470039B60C /* PennyPackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PennyPackApp.swift; sourceTree = "<group>"; };
 		7126C3932CD477470039B60C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -33,6 +35,9 @@
 		7126C3AB2CD47BD40039B60C /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
 		7126C3AD2CD47BDC0039B60C /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		7126C3AF2CD47BE50039B60C /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		71C23EB72CD8514E006F7A1E /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
+		71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationSerivce.swift; sourceTree = "<group>"; };
+		71C23EBE2CD867AC006F7A1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +70,7 @@
 		7126C3902CD477470039B60C /* PennyPack */ = {
 			isa = PBXGroup;
 			children = (
+				71C23EBE2CD867AC006F7A1E /* Info.plist */,
 				7126C39F2CD47B150039B60C /* Font */,
 				7126C3A02CD47B240039B60C /* Source */,
 				7126C3952CD477480039B60C /* Assets.xcassets */,
@@ -116,8 +122,11 @@
 			isa = PBXGroup;
 			children = (
 				3023B4DD2CD4859D005049C1 /* CameraService.swift */,
+				71C23EB72CD8514E006F7A1E /* CurrencyService.swift */,
+				71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */,
 			);
-			path = ViewModel;
+			name = ViewModel;
+			path = ../ViewModel;
 			sourceTree = "<group>";
 		};
 		7126C3A42CD47B840039B60C /* App */ = {
@@ -198,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71C23EB82CD8514E006F7A1E /* CurrencyService.swift in Sources */,
 				7126C3942CD477470039B60C /* ContentView.swift in Sources */,
 				7126C3AE2CD47BDC0039B60C /* CartView.swift in Sources */,
 				7126C3A62CD47BA30039B60C /* MainView.swift in Sources */,
@@ -207,6 +217,7 @@
 				7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */,
 				7126C3AC2CD47BD40039B60C /* ScanView.swift in Sources */,
 				3023B4DE2CD4859D005049C1 /* CameraService.swift in Sources */,
+				71C23EBC2CD85C5D006F7A1E /* TranslationSerivce.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,9 +352,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PennyPack/Preview Content\"";
-				DEVELOPMENT_TEAM = 7P4U6S44RJ;
+				DEVELOPMENT_TEAM = 3GZ89KX5PP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PennyPack/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -355,7 +368,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.winter.PennyPack;
+				PRODUCT_BUNDLE_IDENTIFIER = com.easy.PennyPack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -373,9 +386,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PennyPack/Preview Content\"";
-				DEVELOPMENT_TEAM = 7P4U6S44RJ;
+				DEVELOPMENT_TEAM = 3GZ89KX5PP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PennyPack/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -387,7 +402,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.winter.PennyPack;
+				PRODUCT_BUNDLE_IDENTIFIER = com.easy.PennyPack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -406,7 +421,7 @@
 				7126C39B2CD477480039B60C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7126C39C2CD477480039B60C /* Build configuration list for PBXNativeTarget "PennyPack" */ = {
 			isa = XCConfigurationList;
@@ -415,7 +430,7 @@
 				7126C39E2CD477480039B60C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
