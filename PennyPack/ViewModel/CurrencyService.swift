@@ -19,7 +19,7 @@ class CurrencyService: ObservableObject {
     
     func fetchCurrencyData() {
         
-        let apiKey = "Io8cUPkoj2z2gELlTeFzNW2uYfEyBTwm"
+        let apiKey = ""
         
         let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyyMMdd" // "YYYYMMDD" 형식

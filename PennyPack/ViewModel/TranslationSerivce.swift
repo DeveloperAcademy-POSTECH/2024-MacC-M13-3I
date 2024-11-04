@@ -11,7 +11,7 @@ class TranslationSerivce: ObservableObject {
     @Published var translatedText: String = "번역 결과가 여기에 표시됩니다."
     
     func translateText(text: String) {
-        let apiKey = "d6e694c4-255d-49ba-b214-06d295fcdd29:fx"
+        let apiKey = ""
         let urlString = "https://api-free.deepl.com/v2/translate?auth_key=\(apiKey)&text=\(text)&target_lang=KO&source_lang=FR"
         
         // URL 인코딩
