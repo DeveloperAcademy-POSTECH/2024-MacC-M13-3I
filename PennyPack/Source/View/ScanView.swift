@@ -11,12 +11,16 @@ import Vision
 
 struct ScanView: View {
     @State private var recognizedText = ""
-
+    @StateObject var translation = TranslationSerivce()
     var body: some View {
         VStack {
             DocumentScannerView(recognizedText: $recognizedText)
             ScrollView {
                 Text(recognizedText)
+                Button("번역하기") {
+                    translation.translateText(text: recognizedText)
+                }
+                Text(translation.translatedText)
             }
         }
     }
