@@ -18,6 +18,10 @@
 		7126C3AC2CD47BD40039B60C /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3AB2CD47BD40039B60C /* ScanView.swift */; };
 		7126C3AE2CD47BDC0039B60C /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3AD2CD47BDC0039B60C /* CartView.swift */; };
 		7126C3B02CD47BE50039B60C /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3AF2CD47BE50039B60C /* ResultView.swift */; };
+		7126C3B22CDA6DA70039B60C /* GmarketSansBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3B12CDA6DA70039B60C /* GmarketSansBold.otf */; };
+		7126C3B42CDA6DDE0039B60C /* GmarketSansMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3B32CDA6DDE0039B60C /* GmarketSansMedium.otf */; };
+		7126C3B62CDA6E3D0039B60C /* SpoqaHanSansNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3B52CDA6E3D0039B60C /* SpoqaHanSansNeo-Bold.ttf */; };
+		7126C3B82CDA6E980039B60C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3B72CDA6E980039B60C /* FontExtension.swift */; };
 		71C23EB82CD8514E006F7A1E /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EB72CD8514E006F7A1E /* CurrencyService.swift */; };
 		71C23EBC2CD85C5D006F7A1E /* TranslationSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */; };
 /* End PBXBuildFile section */
@@ -35,6 +39,10 @@
 		7126C3AB2CD47BD40039B60C /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
 		7126C3AD2CD47BDC0039B60C /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		7126C3AF2CD47BE50039B60C /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		7126C3B12CDA6DA70039B60C /* GmarketSansBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansBold.otf; sourceTree = "<group>"; };
+		7126C3B32CDA6DDE0039B60C /* GmarketSansMedium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansMedium.otf; sourceTree = "<group>"; };
+		7126C3B52CDA6E3D0039B60C /* SpoqaHanSansNeo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.ttf"; sourceTree = "<group>"; };
+		7126C3B72CDA6E980039B60C /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		71C23EB72CD8514E006F7A1E /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationSerivce.swift; sourceTree = "<group>"; };
 		71C23EBE2CD867AC006F7A1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -92,6 +100,10 @@
 		7126C39F2CD47B150039B60C /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				7126C3B32CDA6DDE0039B60C /* GmarketSansMedium.otf */,
+				7126C3B52CDA6E3D0039B60C /* SpoqaHanSansNeo-Bold.ttf */,
+				7126C3B12CDA6DA70039B60C /* GmarketSansBold.otf */,
+				7126C3B72CDA6E980039B60C /* FontExtension.swift */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -198,6 +210,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7126C3992CD477480039B60C /* Preview Assets.xcassets in Resources */,
+				7126C3B62CDA6E3D0039B60C /* SpoqaHanSansNeo-Bold.ttf in Resources */,
+				7126C3B42CDA6DDE0039B60C /* GmarketSansMedium.otf in Resources */,
+				7126C3B22CDA6DA70039B60C /* GmarketSansBold.otf in Resources */,
 				7126C3962CD477480039B60C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,6 +230,7 @@
 				7126C3A62CD47BA30039B60C /* MainView.swift in Sources */,
 				7126C3AA2CD47BCB0039B60C /* ReceiptView.swift in Sources */,
 				7126C3A82CD47BBE0039B60C /* CalendarView.swift in Sources */,
+				7126C3B82CDA6E980039B60C /* FontExtension.swift in Sources */,
 				7126C3B02CD47BE50039B60C /* ResultView.swift in Sources */,
 				7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */,
 				7126C3AC2CD47BD40039B60C /* ScanView.swift in Sources */,
