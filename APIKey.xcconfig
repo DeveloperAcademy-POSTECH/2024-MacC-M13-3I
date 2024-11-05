@@ -1,5 +1,5 @@
 //
-//  API Key.xcconfig
+//  APIKey.xcconfig
 //  PennyPack
 //
 //  Created by 임이지 on 11/4/24.
@@ -8,5 +8,4 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-APIKey = Io8cUPkoj2z2gELlTeFzNW2uYfEyBTwm
-
+APIKey = 

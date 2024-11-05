@@ -13,18 +13,21 @@ struct ScanView: View {
     @State private var recognizedText = ""
     @StateObject var translation = TranslationSerivce()
     var body: some View {
-        VStack {
-            DocumentScannerView(recognizedText: $recognizedText)
-            ScrollView {
-                Text(recognizedText)
-                Button("번역하기") {
-                    translation.translateText(text: recognizedText)
+            VStack {
+                DocumentScannerView(recognizedText: $recognizedText)
+                ScrollView {
+                    Text(recognizedText)
+                    Text(translation.translatedText)
                 }
-                Text(translation.translatedText)
+            }
+            .onChange(of: recognizedText) { newText in
+                // recognizedText의 값이 변경될 때마다 자동으로 번역 함수 호출
+                if !newText.isEmpty {
+                    translation.translateText(text: newText)
+                }
             }
         }
     }
-}
 
 #Preview {
     ScanView()
