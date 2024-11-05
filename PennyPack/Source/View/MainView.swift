@@ -9,22 +9,32 @@ import Foundation
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var currency = CurrencyService()
+    @ObservedObject var currencyService = CurrencyService()
+    @State private var selectedCurrencyType: CurrencyType = .usd  // 기본 선택 통화 설정
+
     var body: some View {
-        NavigationView {
-            VStack {
-                Text("환율")
-                Text("프랑스")
-                Button("업데이트") {
-                    currency.fetchCurrencyData()
-                }
-                Text(currency.currencyData)
-                    .font(.title2) // 스타일
-                    .padding()
-                NavigationLink(destination: ScanView()) {
-                    Text("스캔하러 가기")
+        VStack {
+            Picker("Select Currency", selection: $selectedCurrencyType) {
+                ForEach(CurrencyType.allCases) { currencyType in
+                    Text(currencyType.rawValue).tag(currencyType)
                 }
             }
+            .pickerStyle(.menu)
+            .onChange(of: selectedCurrencyType) { newCurrencyType in
+                currencyService.getRate(for: newCurrencyType.cur_unit)
+            }
+
+            if let rate = currencyService.selectedRate {
+                Text("Exchange Rate for \(selectedCurrencyType.rawValue): \(String(format: "%.0f", rate))")
+                    .padding()
+            } else {
+                Text("Select a currency to see the rate")
+                    .padding()
+            }
+        }
+        .onAppear {
+            currencyService.fetchCurrencies()
+            currencyService.getRate(for: selectedCurrencyType.cur_unit)
         }
     }
 }

@@ -38,6 +38,7 @@
 		71C23EB72CD8514E006F7A1E /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationSerivce.swift; sourceTree = "<group>"; };
 		71C23EBE2CD867AC006F7A1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = APIKey.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +55,7 @@
 		7126C3852CD477470039B60C = {
 			isa = PBXGroup;
 			children = (
+				71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */,
 				7126C3902CD477470039B60C /* PennyPack */,
 				7126C38F2CD477470039B60C /* Products */,
 			);
@@ -226,6 +228,7 @@
 /* Begin XCBuildConfiguration section */
 		7126C39A2CD477480039B60C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -289,6 +292,7 @@
 		};
 		7126C39B2CD477480039B60C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -345,6 +349,7 @@
 		};
 		7126C39D2CD477480039B60C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -379,6 +384,7 @@
 		};
 		7126C39E2CD477480039B60C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -421,7 +427,7 @@
 				7126C39B2CD477480039B60C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		7126C39C2CD477480039B60C /* Build configuration list for PBXNativeTarget "PennyPack" */ = {
 			isa = XCConfigurationList;
@@ -430,7 +436,7 @@
 				7126C39E2CD477480039B60C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
