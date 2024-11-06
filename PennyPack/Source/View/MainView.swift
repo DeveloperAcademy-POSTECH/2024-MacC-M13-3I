@@ -60,15 +60,6 @@ func printjson() {
 }
 
 struct MainView: View {
-    var body: some View {
-        Text("Hello, World!")
-            .onAppear {
-                let inputText = "The price is 14.99 € for this item"
-                let jsonOutput = processTextForCreateML(inputText)
-                print(jsonOutput)
-                saveJsonToFile()
-            }
-struct MainView: View {
     @ObservedObject var currencyService = CurrencyService()
     @State private var selectedCurrencyType: CurrencyType = .usd  // 기본 선택 통화 설정
 
@@ -102,14 +93,3 @@ struct MainView: View {
 #Preview {
     MainView()
 }
-
-func saveJsonToFile() {
-    do {
-        let fileURL = URL(fileURLWithPath: "path/to/your/output.json")
-        try jsonOutput.write(to: fileURL, atomically: true, encoding: .utf8)
-    } catch {
-        print("Error writing to file: \(error)")
-    }
-}
-
-
