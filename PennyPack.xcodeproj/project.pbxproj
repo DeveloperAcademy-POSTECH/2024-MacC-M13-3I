@@ -22,6 +22,8 @@
 		7126C3B42CDA6DDE0039B60C /* GmarketSansMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3B32CDA6DDE0039B60C /* GmarketSansMedium.otf */; };
 		7126C3B62CDA6E3D0039B60C /* SpoqaHanSansNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3B52CDA6E3D0039B60C /* SpoqaHanSansNeo-Bold.ttf */; };
 		7126C3B82CDA6E980039B60C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3B72CDA6E980039B60C /* FontExtension.swift */; };
+		7126C3BA2CDA80230039B60C /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3B92CDA80230039B60C /* ListModel.swift */; };
+		7126C3BC2CDA84CF0039B60C /* DocumentScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3BB2CDA84CF0039B60C /* DocumentScannerView.swift */; };
 		71C23EB82CD8514E006F7A1E /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EB72CD8514E006F7A1E /* CurrencyService.swift */; };
 		71C23EBC2CD85C5D006F7A1E /* TranslationSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +45,8 @@
 		7126C3B32CDA6DDE0039B60C /* GmarketSansMedium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansMedium.otf; sourceTree = "<group>"; };
 		7126C3B52CDA6E3D0039B60C /* SpoqaHanSansNeo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.ttf"; sourceTree = "<group>"; };
 		7126C3B72CDA6E980039B60C /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
+		7126C3B92CDA80230039B60C /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
+		7126C3BB2CDA84CF0039B60C /* DocumentScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentScannerView.swift; sourceTree = "<group>"; };
 		71C23EB72CD8514E006F7A1E /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationSerivce.swift; sourceTree = "<group>"; };
 		71C23EBE2CD867AC006F7A1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -100,10 +104,10 @@
 		7126C39F2CD47B150039B60C /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				7126C3B72CDA6E980039B60C /* FontExtension.swift */,
+				7126C3B12CDA6DA70039B60C /* GmarketSansBold.otf */,
 				7126C3B32CDA6DDE0039B60C /* GmarketSansMedium.otf */,
 				7126C3B52CDA6E3D0039B60C /* SpoqaHanSansNeo-Bold.ttf */,
-				7126C3B12CDA6DA70039B60C /* GmarketSansBold.otf */,
-				7126C3B72CDA6E980039B60C /* FontExtension.swift */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -121,13 +125,13 @@
 		7126C3A22CD47B510039B60C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7126C3A72CD47BBE0039B60C /* CalendarView.swift */,
+				7126C3AD2CD47BDC0039B60C /* CartView.swift */,
 				7126C3932CD477470039B60C /* ContentView.swift */,
 				7126C3A52CD47BA30039B60C /* MainView.swift */,
-				7126C3A72CD47BBE0039B60C /* CalendarView.swift */,
-				7126C3AB2CD47BD40039B60C /* ScanView.swift */,
-				7126C3AF2CD47BE50039B60C /* ResultView.swift */,
-				7126C3AD2CD47BDC0039B60C /* CartView.swift */,
 				7126C3A92CD47BCB0039B60C /* ReceiptView.swift */,
+				7126C3AF2CD47BE50039B60C /* ResultView.swift */,
+				7126C3AB2CD47BD40039B60C /* ScanView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -136,7 +140,9 @@
 			isa = PBXGroup;
 			children = (
 				3023B4DD2CD4859D005049C1 /* CameraService.swift */,
+				7126C3BB2CDA84CF0039B60C /* DocumentScannerView.swift */,
 				71C23EB72CD8514E006F7A1E /* CurrencyService.swift */,
+				7126C3B92CDA80230039B60C /* ListModel.swift */,
 				71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */,
 			);
 			name = ViewModel;
@@ -224,6 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7126C3BC2CDA84CF0039B60C /* DocumentScannerView.swift in Sources */,
 				71C23EB82CD8514E006F7A1E /* CurrencyService.swift in Sources */,
 				7126C3942CD477470039B60C /* ContentView.swift in Sources */,
 				7126C3AE2CD47BDC0039B60C /* CartView.swift in Sources */,
@@ -234,6 +241,7 @@
 				7126C3B02CD47BE50039B60C /* ResultView.swift in Sources */,
 				7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */,
 				7126C3AC2CD47BD40039B60C /* ScanView.swift in Sources */,
+				7126C3BA2CDA80230039B60C /* ListModel.swift in Sources */,
 				3023B4DE2CD4859D005049C1 /* CameraService.swift in Sources */,
 				71C23EBC2CD85C5D006F7A1E /* TranslationSerivce.swift in Sources */,
 			);
@@ -373,7 +381,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PennyPack/Preview Content\"";
-				DEVELOPMENT_TEAM = 3GZ89KX5PP;
+				DEVELOPMENT_TEAM = R83JF9K5WA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PennyPack/Info.plist;
@@ -408,7 +416,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PennyPack/Preview Content\"";
-				DEVELOPMENT_TEAM = 3GZ89KX5PP;
+				DEVELOPMENT_TEAM = R83JF9K5WA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PennyPack/Info.plist;
