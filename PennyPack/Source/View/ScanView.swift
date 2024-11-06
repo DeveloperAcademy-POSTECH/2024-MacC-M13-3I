@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
-import VisionKit
-import Vision
+
 
 struct ScanView: View {
+    @ObservedObject var shoppingViewModel: ShoppingViewModel
     @State private var recognizedText = ""
     @State private var recognizedTexts: [String] = []
 
@@ -33,14 +33,12 @@ struct ScanView: View {
 // UIViewControllerRepresentable
 struct DocumentScannerView: UIViewControllerRepresentable {
     @Binding var recognizedText: String
+    @StateObject var translation : TranslationSerivce
     
-    func makeUIViewController(context: Context) -> VNDocumentCameraViewController {
-        let viewController = VNDocumentCameraViewController()
-        viewController.delegate = context.coordinator
-        return viewController
-    }
-    
-    func updateUIViewController(_ uiViewController: VNDocumentCameraViewController, context: Context) { }
+    init(shoppingViewModel: ShoppingViewModel) {
+           self.shoppingViewModel = shoppingViewModel
+           _translation = StateObject(wrappedValue: TranslationSerivce(shoppingViewModel: shoppingViewModel))
+       }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -72,10 +70,27 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
             
             let recognizedStrings = observations.compactMap { observation in
                 observation.topCandidates(1).first?.string
+    var body: some View {
+        NavigationStack{
+            VStack {
+                NavigationLink(
+                    destination: CartView(shoppingViewModel: shoppingViewModel),
+                    label: {
+                        Text("CartView로 ㄱㄱ").font(.RTitle)
+                    })
+                
+                DocumentScannerView(recognizedText: $recognizedText)
+                ScrollView {
+                    Text(recognizedText)
+                    Text(translation.translatedText)
+                }
+                
             }
-            
-            DispatchQueue.main.async {
-                self.parent.recognizedText += recognizedStrings.joined(separator: "\n")
+            .onChange(of: recognizedText) { newText in
+                // recognizedText의 값이 변경될 때마다 자동으로 번역 함수 호출
+                if !newText.isEmpty {
+                    translation.translateText(text: newText)
+                }
             }
         }
         
@@ -92,12 +107,8 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
     }
 }
 
-struct DocumentScannerView_Previews: PreviewProvider {
-    @State static var sampleText = "Sample Recognized Text"
-    
-    static var previews: some View {
-        DocumentScannerView(recognizedText: $sampleText)
-    }
+#Preview {
+    ScanView(shoppingViewModel: ShoppingViewModel())
 }
 
 //#Preview {

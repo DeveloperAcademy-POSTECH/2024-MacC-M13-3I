@@ -9,7 +9,10 @@ import SwiftUI
 import Foundation
 
 struct ContentView: View {
+    @StateObject private var shoppingViewModel = ShoppingViewModel()
+    
     var body: some View {
+
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
@@ -17,8 +20,24 @@ struct ContentView: View {
             Text("Hello, world!")
 //            print(isValidPhoneNumber("1234567890"))
 //            isValidPhoneNumber(price: "1234567890")
+
+        NavigationStack{
+            VStack {
+                NavigationLink( destination: MainView(), label: { Text("MainView").font(.RTitle) } )
+                    .padding(.bottom)
+                NavigationLink( destination: CalendarView(), label: { Text("CalendarView").font(.RTitle) } )
+                    .padding(.bottom)
+                NavigationLink( destination: ScanView(shoppingViewModel: shoppingViewModel), label: { Text("ScanView").font(.RTitle) } )
+                    .padding(.bottom)
+                NavigationLink( destination: ResultView(), label: { Text("ResultView").font(.RTitle) } )
+                    .padding(.bottom)
+                NavigationLink( destination: CartView(shoppingViewModel: shoppingViewModel), label: { Text("CartView").font(.RTitle) } )
+                    .padding(.bottom)
+                NavigationLink( destination: ReceiptView(), label: { Text("ReceiptView").font(.RTitle) } )
+                    .padding(.bottom)
+            }
+            .padding()
         }
-        .padding()
     }
 }
 

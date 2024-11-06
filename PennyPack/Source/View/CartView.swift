@@ -27,6 +27,7 @@ struct ShoppingItem: Identifiable, Codable, Hashable {
 //    @Published var shoppingItem: [ShoppingItem] = []
     
 struct CartView: View {
+
 //    @ObservedObject var shoppingViewModel: ShoppingViewModel
     @State var shoppingItems: [ShoppingItem] = []
     @Binding var recognizedText: String
@@ -44,6 +45,33 @@ struct CartView: View {
 //            .navigationBarItems(trailing: EditButton())
 //        }
 //        Text(recognizedText)
+=======
+    @ObservedObject var shoppingViewModel: ShoppingViewModel
+    @State var recognizedText = ["씨씨", "윈터", "이지"]
+    @State private var multiSelection = Set<UUID>()
+    
+    var body: some View {
+        VStack{
+            List{
+                ForEach(shoppingViewModel.testModel, id: \.id){ item in
+                    VStack{
+                        Text("\(item.testText)")
+                    }
+                }
+            }
+            
+            NavigationView {
+                List(selection: $multiSelection) {
+                    ForEach(recognizedText, id: \.self) { recognizedText in Text(recognizedText)
+                    }
+                    .onMove(perform: move)
+                    .onDelete(perform: delete)
+                }
+                .navigationBarItems(trailing: EditButton())
+            }
+        }
+
+
     }
     
     func addList(_ text: String) {
@@ -66,6 +94,12 @@ struct CartView: View {
 //    }
 }
 
+
 //#Preview {
 //      CartView(recognizedText: $recognizedText)
 //}
+
+#Preview {
+    CartView(shoppingViewModel: ShoppingViewModel())
+}
+
