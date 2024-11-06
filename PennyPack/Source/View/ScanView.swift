@@ -11,7 +11,12 @@ import SwiftUI
 struct ScanView: View {
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @State private var recognizedText = ""
-    @State private var recognizedTexts: [String] = []
+    @StateObject var translation : TranslationSerivce
+    
+    init(shoppingViewModel: ShoppingViewModel) {
+           self.shoppingViewModel = shoppingViewModel
+           _translation = StateObject(wrappedValue: TranslationSerivce(shoppingViewModel: shoppingViewModel))
+       }
 
     var body: some View {
         VStack {
@@ -19,6 +24,8 @@ struct ScanView: View {
                 .frame(width: 353, height: 300)
             ScrollView {
                 Text(recognizedText)
+                Text("번역된 거 밑에 ~")
+                Text(translation.translatedText)
             }.frame(height: 100)
             CartView(shoppingViewModel: shoppingViewModel)
         }
