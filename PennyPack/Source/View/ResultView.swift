@@ -9,11 +9,12 @@ import Foundation
 import SwiftUI
 
 struct ResultView: View {
+    @ObservedObject var shoppingViewModel: ShoppingViewModel
     var body: some View {
         Text("ResultView")
     }
 }
 
 #Preview {
-    ResultView()
+    ResultView(shoppingViewModel: ShoppingViewModel())
 }

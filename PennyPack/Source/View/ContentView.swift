@@ -16,17 +16,17 @@ struct ContentView: View {
         VStack {
             NavigationStack{
                 VStack {
-                    NavigationLink( destination: MainView(), label: { Text("MainView").font(.RTitle) } )
+                    NavigationLink( destination: MainView(shoppingViewModel: shoppingViewModel), label: { Text("MainView").font(.RTitle) } )
                         .padding(.bottom)
                     NavigationLink( destination: CalendarView(), label: { Text("CalendarView").font(.RTitle) } )
                         .padding(.bottom)
                     NavigationLink( destination: ScanView(shoppingViewModel: shoppingViewModel), label: { Text("ScanView").font(.RTitle) } )
                         .padding(.bottom)
-                    NavigationLink( destination: ResultView(), label: { Text("ResultView").font(.RTitle) } )
+                    NavigationLink( destination: ResultView(shoppingViewModel: shoppingViewModel), label: { Text("ResultView").font(.RTitle) } )
                         .padding(.bottom)
                     NavigationLink( destination: CartView(shoppingViewModel: shoppingViewModel), label: { Text("CartView").font(.RTitle) } )
                         .padding(.bottom)
-                    NavigationLink( destination: ReceiptView(), label: { Text("ReceiptView").font(.RTitle) } )
+                    NavigationLink( destination: ReceiptView(shoppingViewModel: shoppingViewModel), label: { Text("ReceiptView").font(.RTitle) } )
                         .padding(.bottom)
                 }
                 .padding()

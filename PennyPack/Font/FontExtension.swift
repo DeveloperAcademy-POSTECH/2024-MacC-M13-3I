@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Font {
-    static let RMainTitle: Font = .custom("GmarketSansBold", size: 30)
+    static let RMainTitle: Font = .custom("GmarketSansBold", size: 24)
     static let RLargeTitle: Font = .custom("SpoqaHanSansNeo-Bold", size: 32)
     static let RTitle: Font = .custom("SpoqaHanSansNeo-Bold", size: 24)
     static let RTitle1: Font = .custom("SpoqaHanSansNeo-Bold", size: 20)

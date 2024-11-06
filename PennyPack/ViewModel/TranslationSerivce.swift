@@ -40,10 +40,10 @@ class TranslationSerivce: ObservableObject {
                        let translatedText = translations.first?["text"] as? String {
                         let testData = TestModel(testText: translatedText)
                         
-                        self.shoppingViewModel.testModel.append(testData)
+                        
                         DispatchQueue.main.async {
                             self.translatedText = translatedText // 번역 결과 저장
-                            
+                            self.shoppingViewModel.testModel.append(testData)
                         }
                     }
                 } catch {
