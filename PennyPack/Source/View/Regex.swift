@@ -9,20 +9,20 @@ import SwiftUI
 import Foundation
 
 struct RegexView: View {
-//    @Binding var recognizedText = String
-//    @ObservedObject var viewModel: ScanViewModel
+    @Binding var recognizedText: String
     var validPrices: [Double]
-
 
     var body: some View {
         VStack {
 //            print(isValidPhoneNumber("1234567890"))
 //            isValidPhoneNumber(price: "1234567890")
 //            DocumentScannerView(recognizedText: $viewModel.recognizedText)
-//            let validPrices = extractValidNumbers(viewModel.recognizedText.components(separatedBy: .newlines))
-            Text("가격: \(validPrices.map { String($0)}.joined(separator: ", "))")
+            let validPrices = extractValidNumbers(recognizedText.components(separatedBy: .newlines)) 
+            //separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
             
-//            Text(viewModel.recognizedText)
+            Text("가격: \(validPrices.map { String($0)}.joined(separator: ", "))")
+            //.map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
+            
             Text("Valid Prices: \(valid.map { String($0) }.joined(separator: ", "))")
         }
         .padding()
@@ -34,7 +34,8 @@ let testPrices = ["12.34", "1.20", "123.45", "5.6", "4.33€", "7.89€/Kg", "4.
 let valid = extractValidNumbers(testPrices)
 
 func extractValidNumbers(_ strings: [String]) -> [Double] {
-    let pattern = #"^\d{1,}\.\d{1,2}€?$"#
+    let pattern = #"^\d*\.\d{1,2}€?$"#
+
     let regex = try! NSRegularExpression(pattern: pattern)
     
     return strings.compactMap { string in
@@ -48,7 +49,7 @@ func extractValidNumbers(_ strings: [String]) -> [Double] {
 }
 
 #Preview {
-    RegexView(validPrices: [0.81])
+    RegexView(recognizedText: .constant("Sample text"), validPrices: [0.81])
 }
 
 //스캔된 ocr -> 정규표현식으로 걸러내 -> ml 돌리기

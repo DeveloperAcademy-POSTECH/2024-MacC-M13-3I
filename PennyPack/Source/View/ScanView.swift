@@ -35,7 +35,8 @@ struct ScanView: View {
                     Text(recognizedText)
                     Text(translation.translatedText)
                 }
-            }            
+                RegexView(recognizedText: $recognizedText, validPrices: [0.81])
+            }
             .onChange(of: recognizedText) { newText in
                 // recognizedText의 값이 변경될 때마다 자동으로 번역 함수 호출
                 if !newText.isEmpty {
