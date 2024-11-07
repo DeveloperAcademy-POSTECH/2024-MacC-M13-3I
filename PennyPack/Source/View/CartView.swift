@@ -32,11 +32,11 @@ struct CartView: View {
                             .foregroundColor(.white)
                         Spacer()
                         VStack(alignment: .trailing){
-                            Text("45,000 원")
-                                .font(.headline)
+                            Text("\(shoppingViewModel.dateItem.last?.korTotal ?? 61500) 원")
+                                .font(.RTitle1)
                                 .foregroundColor(.rStrokeGray)
-                            Text("30.00 €")
-                                .font(.title2)
+                            Text("\(shoppingViewModel.dateItem.last?.frcTotal ?? 59) €")
+                                .font(.RTitle)
                                 .foregroundColor(.white)
                         }
                     }
@@ -82,10 +82,10 @@ struct CartView: View {
                                 )
                             }
                             .padding(.horizontal)
-
+                            
                             // 드롭다운 내용
                             if isDropdownExpanded {
-                                DropdownView(listViewModel: listViewModel)
+                                DropdownListView(listViewModel: listViewModel)
                             }
                             
                             HStack{
@@ -93,41 +93,57 @@ struct CartView: View {
                                 Spacer()
                             }.padding(.horizontal)
                                 .padding(.vertical, 20)
-                            List{
-                                ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
+                            if shoppingViewModel.shoppingItem.isEmpty {
+                                ZStack{
+                                    Color.white
+                                        .cornerRadius(12)
+                                        .padding(.horizontal)
+                                        .ignoresSafeArea()
                                     VStack{
-                                        HStack{
-                                            Text("\(item.korName)")
-                                            Spacer()
-                                            Text("\(item.quantity)개")
-                                            Spacer()
-                                            Text("\(item.frcUnitPrice) €")
-                                        }
-                                        HStack{
-                                            Text("\(item.frcName)")
-                                            Spacer()
-                                            Text("\(item.korUnitPrice) 원")
-                                        }
+                                        Text("버튼을 눌러")
+                                        Text("카트에 담긴 물건을 입력해주세요.")
                                     }
-                                    .listRowBackground(
-                                        index == 0 ?
-                                        AnyView(
-                                            Rectangle()
-                                                .foregroundColor(.white)
-                                                .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                                        ) :
-                                            AnyView(Color.clear) // 나머지 항목은 배경 없음 또는 기본 배경
-                                    )
                                 }
+                                
                             }
-                            .listStyle(PlainListStyle())
-                            .background(
-                                Color.white
-                                .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                                .ignoresSafeArea()
-                            )
-                            .padding(.horizontal)
-                        }
+                            else{
+                                List{
+                                    ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
+                                        VStack{
+                                            HStack{
+                                                Text("\(item.korName)")
+                                                Spacer()
+                                                Text("\(item.quantity)개")
+                                                Spacer()
+                                                Text("\(item.frcUnitPrice) €")
+                                            }
+                                            HStack{
+                                                Text("\(item.frcName)")
+                                                Spacer()
+                                                Text("\(item.korUnitPrice) 원")
+                                            }
+                                        }
+                                        .listRowBackground(
+                                            index == 0 ?
+                                            AnyView(
+                                                Rectangle()
+                                                    .foregroundColor(.white)
+                                                    .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                                            ) :
+                                                AnyView(Color.clear) // 나머지 항목은 배경 없음 또는 기본 배경
+                                        )
+                                    }
+                                }
+                                .listStyle(PlainListStyle())
+                                .background(
+                                    Color.white
+                                        .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                                        .ignoresSafeArea()
+                                )
+                                .padding(.horizontal)
+                                
+                                
+                            }                        }
                     }
                 }
                 HStack{

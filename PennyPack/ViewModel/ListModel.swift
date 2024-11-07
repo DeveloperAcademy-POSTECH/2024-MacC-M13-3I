@@ -11,7 +11,6 @@ struct ShoppingList: Identifiable, Codable, Hashable {
     var id: UUID = UUID()
     var title: String
     var isChoise: Bool
-    
 }
 
 //extension ShoppingList {
