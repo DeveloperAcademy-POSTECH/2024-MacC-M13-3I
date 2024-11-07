@@ -11,6 +11,7 @@ import SwiftUI
 struct CartView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var shoppingViewModel: ShoppingViewModel
+    @ObservedObject var listViewModel: ListViewModel
     @State var shoppingItems: [ShoppingItem] = []
     
     
@@ -125,7 +126,7 @@ struct CartView: View {
                                 }
                             }.background()
                             NavigationLink(
-                                destination: ScanView(shoppingViewModel: shoppingViewModel),
+                                destination: ScanView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel),
                                 label: {
                                     ZStack{
                                         Circle()
@@ -176,11 +177,22 @@ struct CartView: View {
                       message: Text("다시는 이 화면으로 돌아오지 못합니다."),
                       primaryButton: .destructive(Text("종료하기"), action: {
                     isFinish=true
+                    
+                    let korTotalPrice = shoppingViewModel.korTotalPricing(from: shoppingViewModel.shoppingItem)
+                    
+                    let frcTotalPrice = shoppingViewModel.frcTotalPricing(from: shoppingViewModel.shoppingItem)
+                    
+                    let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: korTotalPrice, frcTotal: frcTotalPrice, place: "프랑스마트")
+                    
+                    shoppingViewModel.dateItem.append(dateItem)
+                    
+                    shoppingViewModel.saveShoppingListToUserDefaults()
+                    
                 }),
                       secondaryButton: .cancel(Text("돌아가기")))
             }
             
-            NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel), isActive: $isFinish) {
+            NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel), isActive: $isFinish) {
                 EmptyView()
             }
         }
@@ -191,6 +203,6 @@ struct CartView: View {
 }
 
 #Preview {
-    CartView(shoppingViewModel: ShoppingViewModel())
+    CartView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel())
 }
 

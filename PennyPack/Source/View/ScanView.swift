@@ -10,19 +10,21 @@ import SwiftUI
 
 struct ScanView: View {
     @ObservedObject var shoppingViewModel: ShoppingViewModel
+    @ObservedObject var listViewModel: ListViewModel
     @State private var recognizedText = ""
     @StateObject var translation : TranslationSerivce
     
-    init(shoppingViewModel: ShoppingViewModel) {
+    init(shoppingViewModel: ShoppingViewModel, listViewModel: ListViewModel) {
            self.shoppingViewModel = shoppingViewModel
            _translation = StateObject(wrappedValue: TranslationSerivce(shoppingViewModel: shoppingViewModel))
+        self.listViewModel = listViewModel
        }
 
     var body: some View {
         NavigationStack{
             VStack {
                 NavigationLink(
-                    destination: CartView(shoppingViewModel: shoppingViewModel),
+                    destination: CartView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel),
                     label: {
                         Text("CartView로 ㄱㄱ").font(.RTitle)
                     })
@@ -45,5 +47,5 @@ struct ScanView: View {
 }
 
 #Preview {
-    ScanView(shoppingViewModel: ShoppingViewModel())
+    ScanView(shoppingViewModel: ShoppingViewModel(),listViewModel: ListViewModel())
 }
