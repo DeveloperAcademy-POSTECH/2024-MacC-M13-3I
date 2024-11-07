@@ -37,6 +37,12 @@ struct ResultView: View {
                     Text("티끌 모아, 여행")
                         .foregroundColor(.white)
                 }
+                
+                NavigationLink(
+                    destination: ResultModalView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel,isButton: .constant(false)),
+                    label: {
+                        Text("TestView")
+                    })
             }.toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {

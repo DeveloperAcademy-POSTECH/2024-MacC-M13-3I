@@ -31,6 +31,13 @@ class ShoppingViewModel:ObservableObject {
     @Published var nowPlace: String = ""
     
     init(){
+        if shoppingItem.isEmpty {
+            self.shoppingItem = [
+                ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 1, korPrice: 1000, frcPrice: 1, time: Date()),
+                ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 1, korPrice: 2000, frcPrice: 2, time: Date())
+            ]
+        }
+        
         loadShoppingListFromUserDefaults()
     }
     
@@ -65,9 +72,10 @@ class ShoppingViewModel:ObservableObject {
     // MARK: 현재 날짜 출력
     func formatDate(from date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd"
+        formatter.dateFormat = "yyyy년 M월 d일 HH:mm"
         return formatter.string(from: date)
     }
+    
     // MARK: 현재 시간 출력
     func formatDateToHHMM(from date: Date) -> String {
         let formatter = DateFormatter()
