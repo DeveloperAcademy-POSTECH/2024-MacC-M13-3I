@@ -15,8 +15,3 @@ struct RoundedCorner: Shape {
         return Path(path.cgPath)
     }
 }
-
-
-class ScanViewModel: ObservableObject {
-    @Published var recognizedText: String = ""
-}
