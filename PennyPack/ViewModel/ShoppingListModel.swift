@@ -16,10 +16,13 @@ struct DateItem: Codable, Hashable {
 
 struct ShoppingItem: Identifiable, Codable, Hashable {
     var id = UUID()
-    var name: String
+    var korName: String
+    var frcName: String
     var quantity: Int
-    var unitPrice: Int //단가
-    var price: Int //수량*단가
+    var korUnitPrice: Int //단가
+    var frcUnitPrice: Int //단가
+    var korPrice: Int //수량*단가
+    var frcPrice: Int //수량*단가
     var time: Date
 }
 
@@ -36,10 +39,8 @@ class ShoppingViewModel:ObservableObject {
         loadShoppingListFromUserDefaults()
         if shoppingItem.isEmpty {
             shoppingItem = [
-                ShoppingItem(name: "예시 리스트", quantity: 1, unitPrice: 10, price: 10, time: Date()),
-                ShoppingItem(name: "사과", quantity: 1, unitPrice: 1500, price: 1500, time: Date()),
-                ShoppingItem(name: "바나나", quantity: 1, unitPrice: 2000, price: 2000, time: Date()),
-                ShoppingItem(name: "오렌지", quantity: 1, unitPrice: 3500, price: 3500, time: Date())
+                ShoppingItem(korName: "예시리스트1", frcName: "example1", quantity: 1, korUnitPrice: 1200, frcUnitPrice: 1, korPrice: 1200, frcPrice: 1, time: Date()),
+                ShoppingItem(korName: "예시리스트2", frcName: "example2", quantity: 2, korUnitPrice: 1200, frcUnitPrice: 1, korPrice: 2400, frcPrice: 2, time: Date())
             ]
             saveShoppingListToUserDefaults()
         }
@@ -101,7 +102,7 @@ class ShoppingViewModel:ObservableObject {
     func totalPricing(from items: [ShoppingItem]) -> Int {
         var total = 0
         for index in items.indices {
-            total += items[index].price
+            total += items[index].korPrice
         }
 
         if var lastDateItem = dateItem.last {
@@ -116,12 +117,12 @@ class ShoppingViewModel:ObservableObject {
     // MARK: 전체 쇼핑 항목에 대한 가격 계산
     func pricing(from items: [ShoppingItem]) {
         for index in shoppingItem.indices {
-            shoppingItem[index].price = shoppingItem[index].unitPrice * shoppingItem[index].quantity
+            shoppingItem[index].korPrice = shoppingItem[index].korUnitPrice * shoppingItem[index].quantity
         }
 
         if var lastDateItem = dateItem.last {
             lastDateItem.items = shoppingItem
-            lastDateItem.total = shoppingItem.reduce(0) { $0 + $1.price }
+            lastDateItem.total = shoppingItem.reduce(0) { $0 + $1.korPrice }
             if let lastIndex = dateItem.indices.last {
                 dateItem[lastIndex] = lastDateItem
             }
@@ -130,14 +131,14 @@ class ShoppingViewModel:ObservableObject {
 
     // MARK: 개별 쇼핑 항목에 대한 가격 계산
     func pricingItem(for item: inout ShoppingItem) {
-        item.price = item.unitPrice * item.quantity
+        item.korPrice = item.korUnitPrice * item.quantity
 
         if let index = shoppingItem.firstIndex(where: { $0.id == item.id }) {
             shoppingItem[index] = item
 
             if var lastDateItem = dateItem.last {
                 lastDateItem.items = shoppingItem
-                lastDateItem.total = shoppingItem.reduce(0) { $0 + $1.price }
+                lastDateItem.total = shoppingItem.reduce(0) { $0 + $1.korPrice }
                 if let lastIndex = dateItem.indices.last {
                     dateItem[lastIndex] = lastDateItem
                 }

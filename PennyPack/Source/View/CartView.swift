@@ -16,7 +16,7 @@ struct CartView: View {
     
     @State private var isAlert = false
     @State private var isFinish = false
-    
+    @State private var isPlus = false
     var body: some View {
         NavigationStack{
             ZStack{
@@ -51,28 +51,106 @@ struct CartView: View {
                                     .foregroundColor(.gray)
                                     .padding()
                             }
-                            
-                            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                            Button {
+                                
+                            } label: {
                                 HStack{
                                     Text("오늘의 장보기 리스트")
                                     Spacer()
                                     Image(systemName: "chevron.down")
-                                }.padding()
-                                    .padding(.horizontal)
-                                    .background(.green)
-                            })
-                            List{
-                                ForEach(shoppingViewModel.testModel, id: \.id){ item in
-                                    VStack{
-                                        Text("\(item.testText)")
-                                    }
                                 }
-                            } .listStyle(PlainListStyle())
+                                .foregroundColor(.black)
                                 .padding(.horizontal)
-                                .background(.rBackgroundGray)
+                                .padding(.vertical, 12)
+                                .background(.white)
+                                .cornerRadius(12)
+                            }.padding(.horizontal)
+                            
+                            HStack{
+                                Text("장바구니에는 무엇이 있을까?")
+                                Spacer()
+                            }.padding(.horizontal)
+                                .padding(.vertical, 20)
+                            List{
+                                ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
+                                    VStack{
+                                        HStack{
+                                            Text("\(item.korName)")
+                                            Spacer()
+                                            Text("\(item.quantity)개")
+                                            Spacer()
+                                            Text("\(item.frcUnitPrice) €")
+                                        }
+                                        HStack{
+                                            Text("\(item.frcName)")
+                                            Spacer()
+                                            Text("\(item.korUnitPrice) 원")
+                                        }
+                                    }
+                                    .listRowBackground(
+                                        index == 0 ?
+                                        AnyView(
+                                            Rectangle()
+                                                .foregroundColor(.white)
+                                                .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                                        ) :
+                                            AnyView(Color.clear) // 나머지 항목은 배경 없음 또는 기본 배경
+                                    )
+                                }
+                            }
+                            .listStyle(PlainListStyle())
+                            .background(
+                                Color.white
+                                .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                                .ignoresSafeArea()
+                            )
+                            .padding(.horizontal)
                         }
                     }
                 }
+                HStack{
+                    Spacer()
+                    VStack(spacing: 8){
+                        Spacer()
+                        if isPlus {
+                            Button{
+                                
+                            } label: {
+                                ZStack{
+                                    Circle()
+                                        .frame(width: 40)
+                                        .foregroundColor(.gray)
+                                    Text("Aa")
+                                        .foregroundColor(.white)
+                                }
+                            }.background()
+                            NavigationLink(
+                                destination: ScanView(shoppingViewModel: shoppingViewModel),
+                                label: {
+                                    ZStack{
+                                        Circle()
+                                            .frame(width: 40)
+                                            .foregroundColor(.gray)
+                                        Image(systemName: "camera.fill")
+                                            .font(.system(size: 15))
+                                            .foregroundColor(.white)
+                                    }
+                                })
+                        }
+                        Button{
+                            isPlus.toggle()
+                        } label: {
+                            ZStack{
+                                Circle()
+                                    .frame(width: 50)
+                                    .foregroundColor(.rMainBlue)
+                                Image(systemName: "plus")
+                                    .font(.system(size: 28))
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    }
+                }.padding(.horizontal,30)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
