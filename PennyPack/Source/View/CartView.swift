@@ -11,12 +11,13 @@ import SwiftUI
 struct CartView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var shoppingViewModel: ShoppingViewModel
+    @ObservedObject var listViewModel: ListViewModel
     @State var shoppingItems: [ShoppingItem] = []
     
     
     @State private var isAlert = false
     @State private var isFinish = false
-    
+    @State private var isPlus = false
     var body: some View {
         NavigationStack{
             ZStack{
@@ -51,28 +52,106 @@ struct CartView: View {
                                     .foregroundColor(.gray)
                                     .padding()
                             }
-                            
-                            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                            Button {
+                                
+                            } label: {
                                 HStack{
                                     Text("오늘의 장보기 리스트")
                                     Spacer()
                                     Image(systemName: "chevron.down")
-                                }.padding()
-                                    .padding(.horizontal)
-                                    .background(.green)
-                            })
-                            List{
-                                ForEach(shoppingViewModel.testModel, id: \.id){ item in
-                                    VStack{
-                                        Text("\(item.testText)")
-                                    }
                                 }
-                            } .listStyle(PlainListStyle())
+                                .foregroundColor(.black)
                                 .padding(.horizontal)
-                                .background(.rBackgroundGray)
+                                .padding(.vertical, 12)
+                                .background(.white)
+                                .cornerRadius(12)
+                            }.padding(.horizontal)
+                            
+                            HStack{
+                                Text("장바구니에는 무엇이 있을까?")
+                                Spacer()
+                            }.padding(.horizontal)
+                                .padding(.vertical, 20)
+                            List{
+                                ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
+                                    VStack{
+                                        HStack{
+                                            Text("\(item.korName)")
+                                            Spacer()
+                                            Text("\(item.quantity)개")
+                                            Spacer()
+                                            Text("\(item.frcUnitPrice) €")
+                                        }
+                                        HStack{
+                                            Text("\(item.frcName)")
+                                            Spacer()
+                                            Text("\(item.korUnitPrice) 원")
+                                        }
+                                    }
+                                    .listRowBackground(
+                                        index == 0 ?
+                                        AnyView(
+                                            Rectangle()
+                                                .foregroundColor(.white)
+                                                .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                                        ) :
+                                            AnyView(Color.clear) // 나머지 항목은 배경 없음 또는 기본 배경
+                                    )
+                                }
+                            }
+                            .listStyle(PlainListStyle())
+                            .background(
+                                Color.white
+                                .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                                .ignoresSafeArea()
+                            )
+                            .padding(.horizontal)
                         }
                     }
                 }
+                HStack{
+                    Spacer()
+                    VStack(spacing: 8){
+                        Spacer()
+                        if isPlus {
+                            Button{
+                                
+                            } label: {
+                                ZStack{
+                                    Circle()
+                                        .frame(width: 40)
+                                        .foregroundColor(.gray)
+                                    Text("Aa")
+                                        .foregroundColor(.white)
+                                }
+                            }.background()
+                            NavigationLink(
+                                destination: ScanView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel),
+                                label: {
+                                    ZStack{
+                                        Circle()
+                                            .frame(width: 40)
+                                            .foregroundColor(.gray)
+                                        Image(systemName: "camera.fill")
+                                            .font(.system(size: 15))
+                                            .foregroundColor(.white)
+                                    }
+                                })
+                        }
+                        Button{
+                            isPlus.toggle()
+                        } label: {
+                            ZStack{
+                                Circle()
+                                    .frame(width: 50)
+                                    .foregroundColor(.rMainBlue)
+                                Image(systemName: "plus")
+                                    .font(.system(size: 28))
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    }
+                }.padding(.horizontal,30)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -98,11 +177,22 @@ struct CartView: View {
                       message: Text("다시는 이 화면으로 돌아오지 못합니다."),
                       primaryButton: .destructive(Text("종료하기"), action: {
                     isFinish=true
+                    
+                    let korTotalPrice = shoppingViewModel.korTotalPricing(from: shoppingViewModel.shoppingItem)
+                    
+                    let frcTotalPrice = shoppingViewModel.frcTotalPricing(from: shoppingViewModel.shoppingItem)
+                    
+                    let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: korTotalPrice, frcTotal: frcTotalPrice, place: "프랑스마트")
+                    
+                    shoppingViewModel.dateItem.append(dateItem)
+                    
+                    shoppingViewModel.saveShoppingListToUserDefaults()
+                    
                 }),
                       secondaryButton: .cancel(Text("돌아가기")))
             }
             
-            NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel), isActive: $isFinish) {
+            NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel), isActive: $isFinish) {
                 EmptyView()
             }
         }
@@ -113,6 +203,6 @@ struct CartView: View {
 }
 
 #Preview {
-    CartView(shoppingViewModel: ShoppingViewModel())
+    CartView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel())
 }
 

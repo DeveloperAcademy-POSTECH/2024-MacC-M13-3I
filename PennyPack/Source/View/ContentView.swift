@@ -10,21 +10,21 @@ import Foundation
 
 struct ContentView: View {
     @StateObject private var shoppingViewModel = ShoppingViewModel()
-    
+    @StateObject private var listViewModel = ListViewModel()
     var body: some View {
         
         VStack {
             NavigationStack{
                 VStack {
-                    NavigationLink( destination: MainView(shoppingViewModel: shoppingViewModel), label: { Text("MainView").font(.RTitle) } )
+                    NavigationLink( destination: MainView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel), label: { Text("MainView").font(.RTitle) } )
                         .padding(.bottom)
                     NavigationLink( destination: CalendarView(), label: { Text("CalendarView").font(.RTitle) } )
                         .padding(.bottom)
-                    NavigationLink( destination: ScanView(shoppingViewModel: shoppingViewModel), label: { Text("ScanView").font(.RTitle) } )
+                    NavigationLink( destination: ScanView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel), label: { Text("ScanView").font(.RTitle) } )
                         .padding(.bottom)
-                    NavigationLink( destination: ResultView(shoppingViewModel: shoppingViewModel), label: { Text("ResultView").font(.RTitle) } )
+                    NavigationLink( destination: ResultView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel), label: { Text("ResultView").font(.RTitle) } )
                         .padding(.bottom)
-                    NavigationLink( destination: CartView(shoppingViewModel: shoppingViewModel), label: { Text("CartView").font(.RTitle) } )
+                    NavigationLink( destination: CartView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel), label: { Text("CartView").font(.RTitle) } )
                         .padding(.bottom)
                     NavigationLink( destination: ReceiptView(shoppingViewModel: shoppingViewModel), label: { Text("ReceiptView").font(.RTitle) } )
                         .padding(.bottom)

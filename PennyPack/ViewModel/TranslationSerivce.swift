@@ -38,12 +38,12 @@ class TranslationSerivce: ObservableObject {
                     if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                        let translations = json["translations"] as? [[String: Any]],
                        let translatedText = translations.first?["text"] as? String {
-                        let testData = TestModel(testText: translatedText)
                         
+                        let data = ShoppingItem(korName: translatedText, frcName: "프랑스어", quantity: 1, korUnitPrice: 1, frcUnitPrice: 1, korPrice: 1, frcPrice: 1, time: Date())
                         
                         DispatchQueue.main.async {
                             self.translatedText = translatedText // 번역 결과 저장
-                            self.shoppingViewModel.testModel.append(testData)
+                            self.shoppingViewModel.shoppingItem.append(data)
                         }
                     }
                 } catch {

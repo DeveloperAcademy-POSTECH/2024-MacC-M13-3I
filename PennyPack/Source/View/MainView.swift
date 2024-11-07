@@ -4,10 +4,12 @@ struct MainView: View {
 //    @StateObject private var shoppingViewModel = ShoppingViewModel()
     
     @ObservedObject var shoppingViewModel: ShoppingViewModel
-    @ObservedObject var linkListStore: LinkListStore = LinkListStore()
+    @ObservedObject var listViewModel: ListViewModel
    
     @State private var listText = ""
+    
     var body: some View {
+        
         NavigationStack{
             ZStack{
                 Color.rBackgroundGray
@@ -25,6 +27,13 @@ struct MainView: View {
                             .font(.RMainTitle)
                             .foregroundColor(.white)
                         Spacer()
+                        NavigationLink(
+                            destination: CalendarView(),
+                            label: {
+                                Image(systemName: "calendar")
+                                    .font(.system(size: 24))
+                                    .foregroundColor(.white)
+                            })
                     }.padding(.horizontal)
                     
                     HStack{
@@ -69,9 +78,11 @@ struct MainView: View {
                             
                             VStack(spacing: 0){
                                 List{
-                                    ForEach($linkListStore.linkLists, id: \.id){ $item in
+                                    ForEach($listViewModel.shoppingList, id: \.id){ $item in
                                         TextField("마트에서 살 물건을 이곳에 적어주세요.", text: $item.title)
-                                        
+                                            .onSubmit {
+                                                listViewModel.saveShoppingListToUserDefaults()
+                                            }
                                     }
                                     .listRowBackground(
                                         Rectangle()
@@ -79,7 +90,7 @@ struct MainView: View {
                                             .cornerRadius(12)
                                     )
                                     Button {
-                                        linkListStore.addLinkList(title: listText)
+                                        listViewModel.addLinkList(title: "")
                                         
                                     } label: {
                                         HStack{
@@ -99,12 +110,12 @@ struct MainView: View {
                                     .listStyle(PlainListStyle())
                                     .padding(.horizontal)
                                     .background(.rLightGray)
-                                
+                                    
                                 
                             }.padding(.vertical)
                         }.padding(.horizontal)
                         NavigationLink(
-                            destination: CartView(shoppingViewModel: shoppingViewModel),
+                            destination: CartView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel),
                             label: {
                                 HStack{
                                     Image(systemName: "cart")
@@ -125,7 +136,11 @@ struct MainView: View {
                     }
                 }
             }
-        }
+            .onAppear{
+                shoppingViewModel.loadShoppingListFromUserDefaults()
+                listViewModel.loadShoppingListFromUserDefaults()
+            }
+        }.navigationBarBackButtonHidden()
     }
 }
 
@@ -133,6 +148,6 @@ struct MainView: View {
 
 
 #Preview {
-    MainView(shoppingViewModel: ShoppingViewModel())
+    MainView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel())
 }
 
