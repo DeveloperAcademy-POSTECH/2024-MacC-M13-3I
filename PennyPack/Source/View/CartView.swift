@@ -18,6 +18,8 @@ struct CartView: View {
     @State private var isAlert = false
     @State private var isFinish = false
     @State private var isPlus = false
+    @State private var isDropdownExpanded = false
+    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -43,7 +45,7 @@ struct CartView: View {
                     ZStack{
                         Color.rBackgroundGray
                             .ignoresSafeArea()
-                        VStack{
+                        VStack(spacing: 0){
                             HStack{
                                 Spacer()
                                 Text("€ 1 = ₩ 1499.62 (EUR/KRW)")
@@ -52,20 +54,39 @@ struct CartView: View {
                                     .foregroundColor(.gray)
                                     .padding()
                             }
-                            Button {
-                                
-                            } label: {
-                                HStack{
-                                    Text("오늘의 장보기 리스트")
+                            
+                            // 드롭다운 토글 버튼
+                            Button(action: {
+                                isDropdownExpanded.toggle() // 드롭다운 열림/닫힘 제어
+                            }) {
+                                HStack {
+                                    Text("오늘의 장보기 리스트" )
                                     Spacer()
-                                    Image(systemName: "chevron.down")
+                                    Image(systemName: isDropdownExpanded ? "chevron.up" : "chevron.down") // 커스텀 아이콘
                                 }
                                 .foregroundColor(.black)
                                 .padding(.horizontal)
                                 .padding(.vertical, 12)
-                                .background(.white)
-                                .cornerRadius(12)
-                            }.padding(.horizontal)
+                                .background(
+                                    Group {
+                                        if isDropdownExpanded {
+                                            Rectangle()
+                                                .fill(Color.white)
+                                                .clipShape(RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
+                                        } else {
+                                            Rectangle()
+                                                .fill(Color.white)
+                                                .cornerRadius(12)
+                                        }
+                                    }
+                                )
+                            }
+                            .padding(.horizontal)
+
+                            // 드롭다운 내용
+                            if isDropdownExpanded {
+                                DropdownView(listViewModel: listViewModel)
+                            }
                             
                             HStack{
                                 Text("장바구니에는 무엇이 있을까?")
@@ -187,6 +208,7 @@ struct CartView: View {
                     shoppingViewModel.dateItem.append(dateItem)
                     
                     shoppingViewModel.saveShoppingListToUserDefaults()
+                    listViewModel.saveShoppingListToUserDefaults()
                     
                 }),
                       secondaryButton: .cancel(Text("돌아가기")))

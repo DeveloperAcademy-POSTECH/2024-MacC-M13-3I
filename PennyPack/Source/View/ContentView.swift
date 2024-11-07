@@ -28,6 +28,8 @@ struct ContentView: View {
                         .padding(.bottom)
                     NavigationLink( destination: ReceiptView(shoppingViewModel: shoppingViewModel), label: { Text("ReceiptView").font(.RTitle) } )
                         .padding(.bottom)
+                    NavigationLink( destination: TestView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel), label: { Text("TestView").font(.RTitle) } )
+                        .padding(.bottom)
                 }
                 .padding()
             }
