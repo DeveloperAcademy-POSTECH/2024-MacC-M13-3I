@@ -143,7 +143,8 @@ struct CartView: View {
                                 .padding(.horizontal)
                                 
                                 
-                            }                        }
+                            }
+                        }
                     }
                 }
                 HStack{
