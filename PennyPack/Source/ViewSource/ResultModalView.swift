@@ -11,7 +11,7 @@ struct ResultModalView: View {
         NavigationStack{
             VStack (alignment: .leading) {
                 HStack {
-                    Text(shoppingViewModel.formatDate(from: shoppingViewModel.dateItem.last?.date ?? Date()))
+                    Text(shoppingViewModel.formatDateToYYYYMDHHMM(from: shoppingViewModel.dateItem.last?.date ?? Date()))
                         .font(.RTitle)
                     Spacer()
                 }
@@ -29,7 +29,6 @@ struct ResultModalView: View {
                 
                 HStack {
                     Spacer()
-//                    Text(shoppingViewModel.dateItem.last?.place ?? "장소")
                     Text("€ 1 = ₩ 1499.62 (EUR/KRW)")
                         .font(.RCallout)
                 }
@@ -113,17 +112,6 @@ struct ResultModalView: View {
                                 .foregroundColor(.rLightGray)
                                 .cornerRadius(12)
                             DropdownListView(listViewModel: listViewModel)
-//                            VStack(spacing: 0){
-//                                if !isButton {
-//                                    DropdownListView(listViewModel: listViewModel)
-//                                }
-//                            }
-                            //체킹 안한것만 뜨게 해주기.!!!&********
-//                            VStack(spacing: 0){
-//                                if (listViewModel.shoppingList.last) {
-//                                    DropdownListView(listViewModel: listViewModel)
-//                                }
-//                            }
                         }
                         
                     }
@@ -132,19 +120,24 @@ struct ResultModalView: View {
             }
             .padding(.horizontal, 32)
             .padding(.top, 36)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        isMainViewActive = true
-                    }) {
-                        Image(systemName: "xmark")
-                    }
-                }
-            }
-            
-            NavigationLink(destination: MainView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel), isActive: $isMainViewActive) {
-                EmptyView()
-            }
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Button(action: {
+//                        isMainViewActive = true
+//                        
+//                        for index in listViewModel.shoppingList.indices {
+//                            listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
+//                        }
+//                        listViewModel.saveShoppingListToUserDefaults()
+//                    }) {
+//                        Image(systemName: "xmark")
+//                    }
+//                }
+//            }
+//            
+//            NavigationLink(destination: MainView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel), isActive: $isMainViewActive) {
+//                EmptyView()
+//            }
 
         }.navigationBarBackButtonHidden()
        

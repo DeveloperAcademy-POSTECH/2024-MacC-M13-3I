@@ -11,13 +11,12 @@ struct DropdownListView: View {
            
                 VStack(alignment: .leading) {
                     ForEach($listViewModel.shoppingList) { $list in
-                        Button(action: {
-                            list.isChoise.toggle()
-                        }) {
-                            HStack{
-                                Button{
-                                    list.isChoise.toggle()
-                                } label: {
+                        if !list.isPurchase {
+                            Button(action: {
+                                list.isChoise.toggle()
+                                print (listViewModel.shoppingList)
+                            }) {
+                                HStack{
                                     if list.isChoise {
                                         ZStack{
                                             RoundedRectangle(cornerRadius: 4)
@@ -31,7 +30,8 @@ struct DropdownListView: View {
                                             Image(systemName: "checkmark")
                                                 .font(.system(size: 12))
                                                 .foregroundColor(.white)
-                                        }
+                                        }.padding(.leading)
+                                       
                                     }
                                     else {
                                         ZStack{
@@ -43,19 +43,18 @@ struct DropdownListView: View {
                                                         lineWidth: 1.5)
                                                 )
                                                 .frame(width: 15, height: 15)
-                                        }
+                                        }.padding(.leading)
+                                        
                                     }
-                                   
+                                    Text(list.title)
+                                    Spacer()
                                 }
-                                .padding(.leading)
-                                Text(list.title)
-                                Spacer()
+                                .foregroundColor(.black)
+                                .padding(.vertical, 12)
+                                .background(.white)
+                                .cornerRadius(12)
+                                
                             }
-                            .foregroundColor(.black)
-                            .padding(.vertical, 12)
-                            .background(.white)
-                            .cornerRadius(12)
-                            
                         }
                     }
                 }

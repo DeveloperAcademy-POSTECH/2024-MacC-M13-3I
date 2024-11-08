@@ -215,6 +215,10 @@ struct CartView: View {
                       primaryButton: .destructive(Text("종료하기"), action: {
                     isFinish=true
                     
+                    for index in listViewModel.shoppingList.indices {
+                        listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
+                    }
+                    
                     let korTotalPrice = shoppingViewModel.korTotalPricing(from: shoppingViewModel.shoppingItem)
                     
                     let frcTotalPrice = shoppingViewModel.frcTotalPricing(from: shoppingViewModel.shoppingItem)

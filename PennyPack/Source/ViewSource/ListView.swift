@@ -8,10 +8,12 @@ struct ListView: View {
         VStack{
             List{
                 ForEach($listViewModel.shoppingList, id: \.id){ $item in
-                    TextField("마트에서 살 물건을 이곳에 적어주세요.", text: $item.title)
-                        .onSubmit {
-                            listViewModel.saveShoppingListToUserDefaults()
-                        }
+                    if !item.isPurchase {
+                        TextField("마트에서 살 물건을 이곳에 적어주세요.", text: $item.title)
+                            .onSubmit {
+                                listViewModel.saveShoppingListToUserDefaults()
+                            }
+                    }
                 }
                 .listRowBackground(
                     Rectangle()

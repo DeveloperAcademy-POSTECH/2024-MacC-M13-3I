@@ -12,7 +12,10 @@ struct ResultView: View {
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @ObservedObject var listViewModel: ListViewModel
     
-    @State private var isMainViewActive = false
+    @State private var isMainViewActive: Bool = false
+    
+    @State var showSheet: Bool = true
+    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -37,23 +40,27 @@ struct ResultView: View {
                     Text("티끌 모아, 여행")
                         .foregroundColor(.white)
                 }
-                
-                NavigationLink(
-                    destination: ResultModalView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel,isButton: .constant(false)),
-                    label: {
-                        Text("TestView")
-                    })
-            }.toolbar {
+            }
+            .sheet(isPresented: $showSheet) {
+                ResultModalView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, isButton: .constant(false))
+                    .presentationDetents([.height(150.0), .height(700)])
+            }
+            .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         isMainViewActive = true
+                        
+                        for index in listViewModel.shoppingList.indices {
+                            listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
+                        }
+                        listViewModel.saveShoppingListToUserDefaults()
                     }) {
                         Text("닫기")
                             .foregroundColor(.rMainBlue)
                     }
                 }
             }
-            
+
             NavigationLink(destination: MainView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel), isActive: $isMainViewActive) {
                 EmptyView()
             }
