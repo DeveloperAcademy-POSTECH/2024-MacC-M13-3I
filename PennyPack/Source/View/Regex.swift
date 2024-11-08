@@ -29,13 +29,12 @@ struct RegexView: View {
     }
 }
 
-let testPrices = ["12.34", "1.20", "123.45", "5.6", "4.33€", "7.89€/Kg", "4.33€/Kg"]
+let testPrices = ["12.34", "123.45", ".33€", ",88€", "7.89€/Kg", "4.33€/Kg"]
 //let testItems = ["^[\\W]*$"]
 let valid = extractValidNumbers(testPrices)
 
 func extractValidNumbers(_ strings: [String]) -> [Double] {
-    let pattern = #"^\d*\.\d{1,2}€?$"#
-
+    let pattern = #"^\d*[.,]\d{1,2}€?$"#
     let regex = try! NSRegularExpression(pattern: pattern)
     
     return strings.compactMap { string in
