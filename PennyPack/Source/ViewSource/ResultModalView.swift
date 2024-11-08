@@ -11,7 +11,7 @@ struct ResultModalView: View {
         NavigationStack{
             VStack (alignment: .leading) {
                 HStack {
-                    Text(shoppingViewModel.formatDate(from: shoppingViewModel.dateItem.last?.date ?? Date()))
+                    Text(shoppingViewModel.formatDateToYYYYMDHHMM(from: shoppingViewModel.dateItem.last?.date ?? Date()))
                         .font(.RTitle)
                     Spacer()
                 }
@@ -29,7 +29,6 @@ struct ResultModalView: View {
                 
                 HStack {
                     Spacer()
-//                    Text(shoppingViewModel.dateItem.last?.place ?? "장소")
                     Text("€ 1 = ₩ 1499.62 (EUR/KRW)")
                         .font(.RCallout)
                 }

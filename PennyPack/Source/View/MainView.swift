@@ -28,7 +28,7 @@ struct MainView: View {
                             .foregroundColor(.white)
                         Spacer()
                         NavigationLink(
-                            destination: CalendarView(),
+                            destination: CalendarView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel),
                             label: {
                                 Image(systemName: "calendar")
                                     .font(.system(size: 24))

@@ -32,9 +32,20 @@ class ShoppingViewModel:ObservableObject {
     
     init(){
         if shoppingItem.isEmpty {
-            self.shoppingItem = [
-                ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 1, korPrice: 1000, frcPrice: 1, time: Date()),
-                ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 1, korPrice: 2000, frcPrice: 2, time: Date())
+            if let customDate = Calendar.current.date(byAdding: .day, value: -10, to: Date()) {
+                self.shoppingItem = [
+                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 1, korPrice: 1000, frcPrice: 1, time: customDate),
+                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 1, korPrice: 2000, frcPrice: 2, time: Date())
+                ]
+            }
+        }
+        
+        if dateItem.isEmpty {
+            self.dateItem = [
+                DateItem(date: Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
+                DateItem(date: Calendar.current.date(byAdding: .day, value: -4, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
+                DateItem(date: Calendar.current.date(byAdding: .day, value: -10, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소")
+
             ]
         }
         
@@ -70,9 +81,15 @@ class ShoppingViewModel:ObservableObject {
     }
 
     // MARK: 현재 날짜 출력
-    func formatDate(from date: Date) -> String {
+    func formatDateToYYYYMDHHMM(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 M월 d일 HH:mm"
+        return formatter.string(from: date)
+    }
+    // MARK: 현재 날짜 출력
+    func formatDate(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 M월 d일"
         return formatter.string(from: date)
     }
     
@@ -83,6 +100,18 @@ class ShoppingViewModel:ObservableObject {
         let formattedTime = formatter.string(from: date)
         return formattedTime
     }
+    
+    func formatDateToDate(from date: Date) -> Date? {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day], from: date)
+        
+        return calendar.date(from: DateComponents(
+            year: components.year,
+            month: components.month,
+            day: components.day
+        ))
+    }
+
     
     // MARK: 총 금액 계산
     func korTotalPricing(from items: [ShoppingItem]) -> Int {
