@@ -11,26 +11,8 @@ struct ShoppingList: Identifiable, Codable, Hashable {
     var id: UUID = UUID()
     var title: String
     var isChoise: Bool
+    var isPurchase: Bool
 }
-
-//extension ShoppingList {
-//    static let testSingleMonth: ShoppingList = ShoppingList(title: "March")
-//    static let testAllMonths: [ShoppingList] = [
-//        ShoppingList(title: "January"),
-//        ShoppingList(title: "February"),
-//        ShoppingList(title: "March"),
-//        ShoppingList(title: "April"),
-//        ShoppingList(title: "May"),
-//        ShoppingList(title: "June"),
-//        ShoppingList(title: "July"),
-//        ShoppingList(title: "August"),
-//        ShoppingList(title: "September"),
-//        ShoppingList(title: "October"),
-//        ShoppingList(title: "November"),
-//        ShoppingList(title: "December")
-//    ]
-//}
-
 
 class ListViewModel: ObservableObject {
     @Published var shoppingList: [ShoppingList] = []
@@ -38,11 +20,11 @@ class ListViewModel: ObservableObject {
     init() {
         if shoppingList.isEmpty {
             self.shoppingList = [
-                    ShoppingList(title: "January", isChoise: false),
-                    ShoppingList(title: "February", isChoise: false),
-                    ShoppingList(title: "March", isChoise: false),
-                    ShoppingList(title: "April", isChoise: false),
-                    ShoppingList(title: "May", isChoise: false)
+                    ShoppingList(title: "January", isChoise: false, isPurchase: false),
+                    ShoppingList(title: "February", isChoise: false, isPurchase: false),
+                    ShoppingList(title: "March", isChoise: false, isPurchase: false),
+                    ShoppingList(title: "April", isChoise: false, isPurchase: false),
+                    ShoppingList(title: "May", isChoise: false, isPurchase: false)
             ]
         }
         loadShoppingListFromUserDefaults()
@@ -50,7 +32,7 @@ class ListViewModel: ObservableObject {
     
     // MARK: 리스트에 새 값 추가 함수
     func addLinkList(title: String) {
-        let linkList: ShoppingList = ShoppingList(title: title, isChoise: false)
+        let linkList: ShoppingList = ShoppingList(title: title, isChoise: false, isPurchase: false)
         shoppingList.append(linkList)
     }
     
