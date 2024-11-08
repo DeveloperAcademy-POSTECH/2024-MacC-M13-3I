@@ -28,7 +28,7 @@ struct ListView: View {
                         Spacer()
                         Image(systemName: "plus.circle.fill")
                             .font(.system(size: 18))
-                            .foregroundStyle(.gray, .rBackgroundGray)
+                            .foregroundStyle(.pBlue, .pLightGray)
                         Spacer()
                     }
                 }
@@ -40,7 +40,7 @@ struct ListView: View {
             }.listRowSpacing(8)
                 .listStyle(PlainListStyle())
                 .padding(.horizontal)
-                .background(.rLightGray)
+                .background(.pLightGray)
                 
 
         }

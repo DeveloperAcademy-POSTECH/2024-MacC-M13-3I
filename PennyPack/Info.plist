@@ -17,8 +17,9 @@ currency_APIKey</key>
 	<key>UIAppFonts</key>
 	<array>
 		<string>GmarketSansBold.otf</string>
-		<string>GmarketSansMedium.otf</string>
-		<string>SpoqaHanSansNeo-Bold</string>
+		<string>Pretendard-Bold.otf</string>
+		<string>Pretendard-Medium.otf</string>
+		<string>Pretendard-SemiBold.otf</string>
 	</array>
 </dict>
 </plist>

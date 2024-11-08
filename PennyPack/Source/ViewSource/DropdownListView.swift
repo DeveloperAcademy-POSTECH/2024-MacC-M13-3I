@@ -6,7 +6,7 @@ struct DropdownListView: View {
     var body: some View {
         ScrollView{
             ZStack{
-                Color.rLightGray
+                Color.pLightGray
                     .clipShape(RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight]))
            
                 VStack(alignment: .leading) {
@@ -20,9 +20,9 @@ struct DropdownListView: View {
                                     if list.isChoise {
                                         ZStack{
                                             RoundedRectangle(cornerRadius: 4)
-                                                .fill(.rMainBlue)
+                                                .fill(.pBlue)
                                                 .stroke(
-                                                    Color.rMainBlue,
+                                                    Color.pBlue,
                                                     style: StrokeStyle(
                                                         lineWidth: 1.5)
                                                 )
@@ -38,7 +38,7 @@ struct DropdownListView: View {
                                             RoundedRectangle(cornerRadius: 4)
                                                 .fill(.white)
                                                 .stroke(
-                                                    Color.rMainBlue,
+                                                    Color.pBlue,
                                                     style: StrokeStyle(
                                                         lineWidth: 1.5)
                                                 )

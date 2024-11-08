@@ -23,7 +23,7 @@ struct CartView: View {
     var body: some View {
         NavigationStack{
             ZStack{
-                Color.rBlack
+                Color.pBlack
                     .ignoresSafeArea()
                 VStack{
                     HStack(alignment: .bottom){
@@ -33,17 +33,17 @@ struct CartView: View {
                         Spacer()
                         VStack(alignment: .trailing){
                             Text("\(shoppingViewModel.dateItem.last?.korTotal ?? 61500) 원")
-                                .font(.RTitle1)
-                                .foregroundColor(.rStrokeGray)
+                                .font(.PTitle3)
+                                .foregroundColor(.pGray)
                             Text("\(shoppingViewModel.dateItem.last?.frcTotal ?? 59) €")
-                                .font(.RTitle)
+                                .font(.PTitle2)
                                 .foregroundColor(.white)
                         }
                     }
                     .padding(.horizontal)
                     .padding(.top,20)
                     ZStack{
-                        Color.rBackgroundGray
+                        Color.pBackground
                             .ignoresSafeArea()
                         VStack(spacing: 0){
                             HStack{
@@ -51,7 +51,7 @@ struct CartView: View {
                                 Text("€ 1 = ₩ 1499.62 (EUR/KRW)")
                                     .bold()
                                     .font(.caption)
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(.pDarkGray)
                                     .padding()
                             }
                             
@@ -158,7 +158,7 @@ struct CartView: View {
                                 ZStack{
                                     Circle()
                                         .frame(width: 40)
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(.pBlue)
                                     Text("Aa")
                                         .foregroundColor(.white)
                                 }
@@ -169,7 +169,7 @@ struct CartView: View {
                                     ZStack{
                                         Circle()
                                             .frame(width: 40)
-                                            .foregroundColor(.gray)
+                                            .foregroundColor(.pBlue)
                                         Image(systemName: "camera.fill")
                                             .font(.system(size: 15))
                                             .foregroundColor(.white)
@@ -182,7 +182,7 @@ struct CartView: View {
                             ZStack{
                                 Circle()
                                     .frame(width: 50)
-                                    .foregroundColor(.rMainBlue)
+                                    .foregroundColor(.pBlue)
                                 Image(systemName: "plus")
                                     .font(.system(size: 28))
                                     .foregroundColor(.white)
@@ -197,7 +197,7 @@ struct CartView: View {
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
-                            .foregroundColor(.rMainBlue)
+                            .foregroundColor(.pBlue)
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -205,7 +205,7 @@ struct CartView: View {
                         isAlert = true
                     }) {
                         Text("종료")
-                            .foregroundColor(.rMainBlue)
+                            .foregroundColor(.pBlue)
                         
                     }
                 }

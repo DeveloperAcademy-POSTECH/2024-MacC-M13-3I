@@ -24,7 +24,7 @@ struct ScanView: View {
     var body: some View {
         NavigationStack{
             ZStack{
-                Color.rBlack
+                Color.pBlack
                     .ignoresSafeArea()
                 VStack {
                     DocumentScannerView(recognizedText: $recognizedText)
@@ -44,7 +44,7 @@ struct ScanView: View {
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
-                            .foregroundColor(.rMainBlue)
+                            .foregroundColor(.pBlue)
                     }
                 }
             }

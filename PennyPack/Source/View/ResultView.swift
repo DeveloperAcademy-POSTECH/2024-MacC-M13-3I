@@ -19,12 +19,12 @@ struct ResultView: View {
     var body: some View {
         NavigationStack{
             ZStack{
-                Color.rBlack
+                Color.pBlack
                     .ignoresSafeArea()
                 VStack{
                     HStack(spacing: 0){
                         Text("새로운 여행지")
-                            .foregroundColor(.rMainBlue)
+                            .foregroundColor(.pBlue)
                         Text("가")
                             .foregroundColor(.white)
                     }
@@ -56,7 +56,7 @@ struct ResultView: View {
                         listViewModel.saveShoppingListToUserDefaults()
                     }) {
                         Text("닫기")
-                            .foregroundColor(.rMainBlue)
+                            .foregroundColor(.pBlue)
                     }
                 }
             }

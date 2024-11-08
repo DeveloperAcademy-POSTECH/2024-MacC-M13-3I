@@ -12,10 +12,10 @@ struct MainView: View {
         
         NavigationStack{
             ZStack{
-                Color.rBackgroundGray
+                Color.pBackground
                     .ignoresSafeArea()
                 VStack{
-                    Color.rBlack
+                    Color.pBlack
                         .ignoresSafeArea()
                         .frame(height: 339)
                     Spacer()
@@ -24,7 +24,7 @@ struct MainView: View {
                 VStack(spacing: 24){
                     HStack{
                         Text("PennyPack")
-                            .font(.RMainTitle)
+                            .font(.PLargeTitle)
                             .foregroundColor(.white)
                         Spacer()
                         NavigationLink(
@@ -54,7 +54,7 @@ struct MainView: View {
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.rStrokeGray, lineWidth: 1)
+                            .stroke(Color.pGray, lineWidth: 1)
                         
                     )
                     .padding(.horizontal)
@@ -73,7 +73,7 @@ struct MainView: View {
                         .padding(.horizontal)
                         ZStack{
                             Rectangle()
-                                .foregroundColor(.rLightGray)
+                                .foregroundColor(.pLightGray)
                                 .clipShape(RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight]))
                             
                             VStack(spacing: 0){
@@ -94,7 +94,7 @@ struct MainView: View {
                                     .padding(.horizontal,111)
                                 .background(
                                     Rectangle()
-                                        .foregroundColor(.rMainBlue)
+                                        .foregroundColor(.pBlue)
                                         .cornerRadius(24)
                                 )
                             })

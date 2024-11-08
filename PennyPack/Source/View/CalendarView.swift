@@ -24,12 +24,12 @@ struct CalendarView: View {
                 }
                 if !isShopping {
                     ZStack{
-                        Color.rMainBlue
+                        Color.pBlue
                             .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
                             .ignoresSafeArea()
                         
                         Text("\(shoppingViewModel.formatDate(from: clickedCurrentMonthDates ?? Date()))은 장을 안봤네요!")
-                            .font(.RMainTitle)
+                            .font(.PLargeTitle)
                             .foregroundColor(.white)
                     }.padding(.top,650)
                 }
@@ -72,7 +72,7 @@ struct CalendarView: View {
             HStack {
                 ForEach(Self.weekdaySymbols.indices, id: \.self) { symbol in
                     Text(Self.weekdaySymbols[symbol].uppercased())
-                        .foregroundColor(.gray)
+                        .foregroundColor(.pDarkGray)
                         .frame(maxWidth: .infinity)
                 }
             }
@@ -90,7 +90,7 @@ struct CalendarView: View {
                 label: {
                     Image(systemName: "chevron.left")
                         .font(.title)
-                        .foregroundColor(canMoveToPreviousMonth() ? .black : . gray)
+                        .foregroundColor(canMoveToPreviousMonth() ? .black : . pDarkGray)
                 }
             )
             .disabled(!canMoveToPreviousMonth())
@@ -111,7 +111,7 @@ struct CalendarView: View {
                 label: {
                     Image(systemName: "chevron.right")
                         .font(.title)
-                        .foregroundColor(canMoveToNextMonth() ? .black : .gray)
+                        .foregroundColor(canMoveToNextMonth() ? .black : .pDarkGray)
                 }
             )
             .disabled(!canMoveToNextMonth())
@@ -188,14 +188,14 @@ private struct CellView: View {
     } else if isCurrentMonthDay {
       return Color.black
     } else {
-      return Color.gray
+      return Color.pDarkGray
     }
   }
   private var backgroundColor: Color {
     if clicked {
       return Color.black
     } else if isToday {
-      return Color.gray
+      return Color.pDarkGray
     } else {
       return Color.white
     }
