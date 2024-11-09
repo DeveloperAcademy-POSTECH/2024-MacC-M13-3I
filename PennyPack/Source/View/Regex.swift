@@ -40,10 +40,16 @@ let valid = extractValidPrices(testPrices)
 let valid2 = extractValidItems(testItems)
 
 func extractValidItems(_ strings: [String]) -> [String] {
-    let itemPattern = "[a-zA-Z]+"
+    let itemPattern = "[a-zA-ZàâäæáãåāèéêëęėēîïīįíìôōøõóòöœùûüūúÿçćčńñÀÂÄÆÁÃÅĀÈÉÊËĘĖĒÎÏĪĮÍÌÔŌØÕÓÒÖŒÙÛÜŪÚŸÇĆČŃÑ]+"
     let regex = try! NSRegularExpression(pattern: itemPattern, options: .caseInsensitive) //정규 표현식을 생성할 때 대소문자 구분 여부와 같은 전역적인 옵션을 설정하고, 개별 매칭 호출에서는 기본 동작을 유지하는 것이 일반적인 패턴. 필요에 따라 특정 매칭 호출에 대해 다른 옵션을 지정할 수 있지만, 대부분의 경우에는 정규 표현식 생성 시 설정한 옵션이 그대로 적용됨.
     
     return strings.compactMap { string in
+        let filteredString = string.filter {
+            $0.isLetter
+        }
+        guard filteredString.count >= 4 else {
+            return nil
+        }
         let range = NSRange(location:0, length: string.utf16.count)
         guard regex .firstMatch(in: string, options: [], range: range) != nil else {
             return nil
