@@ -11,31 +11,50 @@ import Foundation
 struct RegexView: View {
     @Binding var recognizedText: String
     var validPrices: [Double]
+    var validItems: String
 
     var body: some View {
         VStack {
 //            print(isValidPhoneNumber("1234567890"))
 //            isValidPhoneNumber(price: "1234567890")
 //            DocumentScannerView(recognizedText: $viewModel.recognizedText)
-            let validPrices = extractValidNumbers(recognizedText.components(separatedBy: .newlines)) 
+            let validPrices = extractValidPrices(recognizedText.components(separatedBy: .newlines))
             //separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
-            
+            let validItems = extractValidItems(recognizedText.components(separatedBy: .newlines))
+            Text("상품명: \(validItems)")
             Text("가격: \(validPrices.map { String($0)}.joined(separator: ", "))")
             //.map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
-            
+            //Test
             Text("Valid Prices: \(valid.map { String($0) }.joined(separator: ", "))")
+            Text("Valid Items: \(valid2.map { String($0)}.joined(separator: ","))")
+            
         }
         .padding()
     }
 }
 
-let testPrices = ["12.34", "123.45", ".33€", ",88€", "7.89€/Kg", "4.33€/Kg"]
-//let testItems = ["^[\\W]*$"]
-let valid = extractValidNumbers(testPrices)
+let testPrices = ["12.34", "€123.45", ".33€", ",88€", "7.89€/Kg", "4.33€/Kg"]
+let testItems = ["soupe à l'oignon", "1.30€/Kg", "234729", "500015740722", "0.84", "43/-/A/ ----"]
 
-func extractValidNumbers(_ strings: [String]) -> [Double] {
-    let pattern = #"^\d*[.,]\d{1,2}€?$"#
-    let regex = try! NSRegularExpression(pattern: pattern)
+let valid = extractValidPrices(testPrices)
+let valid2 = extractValidItems(testItems)
+
+func extractValidItems(_ strings: [String]) -> [String] {
+    let itemPattern = "[a-zA-Z]+"
+    let regex = try! NSRegularExpression(pattern: itemPattern, options: .caseInsensitive) //정규 표현식을 생성할 때 대소문자 구분 여부와 같은 전역적인 옵션을 설정하고, 개별 매칭 호출에서는 기본 동작을 유지하는 것이 일반적인 패턴. 필요에 따라 특정 매칭 호출에 대해 다른 옵션을 지정할 수 있지만, 대부분의 경우에는 정규 표현식 생성 시 설정한 옵션이 그대로 적용됨.
+    
+    return strings.compactMap { string in
+        let range = NSRange(location:0, length: string.utf16.count)
+        guard regex .firstMatch(in: string, options: [], range: range) != nil else {
+            return nil
+        }
+        return string
+    }
+}
+
+func extractValidPrices(_ strings: [String]) -> [Double] {
+    let pricePattern = #"^€?\d*[.,]\d{1,2}€?$"#
+    let regex = try! NSRegularExpression(pattern: pricePattern)
     
     return strings.compactMap { string in
         let range = NSRange(location: 0, length: string.utf16.count)
@@ -43,15 +62,19 @@ func extractValidNumbers(_ strings: [String]) -> [Double] {
             return nil
         }
         let numberString = string.replacingOccurrences(of: "€", with: "")
+            .replacingOccurrences(of: ",", with: ".")
         return Double(numberString)
     }
 }
 
 #Preview {
-    RegexView(recognizedText: .constant("Sample text"), validPrices: [0.81])
+    RegexView(recognizedText: .constant("Sample text"), validPrices: [0.81], validItems: "item")
 }
 
 //스캔된 ocr -> 정규표현식으로 걸러내 -> ml 돌리기
+
+
+
 
 
 
@@ -122,7 +145,7 @@ func pickout(_ text: String) -> String? {
 //func tokenizeAndLabel(_ text: String) -> [(String, String)] {
 //    let priced = pickout(text)
 //    let tokens = priced!.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }
-//    
+//
 //    // 토큰에 라벨 붙이기
 //    return tokens.map { token in
 //        if let _ = Double(token) {
@@ -141,7 +164,7 @@ func pickout(_ text: String) -> String? {
 //        "tokens": labeledTokens.map { $0.0 },
 //        "labels": labeledTokens.map { $0.1 }
 //    ]
-//    
+//
 //    let jsonData = try! JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
 //    return String(data: jsonData, encoding: .utf8)!
 //}

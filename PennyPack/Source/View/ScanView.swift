@@ -35,7 +35,7 @@ struct ScanView: View {
                         Text(translation.translatedText)
                             .foregroundColor(.white)
                     }
-                    RegexView(recognizedText: $recognizedText, validPrices: [0.81])
+                    RegexView(recognizedText: $recognizedText, validPrices: [0.81], validItems: "")
                 }
             }
             .toolbar {
