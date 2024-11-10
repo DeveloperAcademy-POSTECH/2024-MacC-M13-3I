@@ -36,6 +36,12 @@ class ListViewModel: ObservableObject {
         shoppingList.append(linkList)
     }
     
+    func removeList(at offsets: IndexSet) {
+        shoppingList.remove(atOffsets: offsets)
+        saveShoppingListToUserDefaults()
+
+        print("Updated shoppingList: \(shoppingList)")
+    }
                      
     // MARK: 데이터를 인코딩하고 UserDefaults에 저장
     func saveShoppingListToUserDefaults() {
