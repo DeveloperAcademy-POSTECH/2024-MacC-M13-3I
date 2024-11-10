@@ -5,8 +5,9 @@ struct DropdownListView: View {
     @State var isButton: Bool = false
     var body: some View {
         ScrollView{
-            ZStack{
+            ZStack(alignment: .top){
                 Color.pLightGray
+                    .frame(height: 156)
                     .clipShape(RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight]))
            
                 VStack(alignment: .leading) {
@@ -29,8 +30,8 @@ struct DropdownListView: View {
                                                 .frame(width: 15, height: 15)
                                             Image(systemName: "checkmark")
                                                 .font(.system(size: 12))
-                                                .foregroundColor(.white)
-                                        }.padding(.leading)
+                                                .foregroundColor(.pWhite)
+                                        }
                                        
                                     }
                                     else {
@@ -43,15 +44,17 @@ struct DropdownListView: View {
                                                         lineWidth: 1.5)
                                                 )
                                                 .frame(width: 15, height: 15)
-                                        }.padding(.leading)
+                                        }
                                         
                                     }
                                     Text(list.title)
+                                        .font(.PBody)
+                                        .foregroundColor(.pBlack)
                                     Spacer()
                                 }
-                                .foregroundColor(.black)
-                                .padding(.vertical, 12)
-                                .background(.white)
+                                .padding(.leading)
+                                .padding(.vertical, 8)
+                                .background(.pWhite)
                                 .cornerRadius(12)
                                 
                             }
@@ -59,9 +62,10 @@ struct DropdownListView: View {
                     }
                 }
                 .padding()
-            }.padding(.horizontal)
-            
+            }
+            .padding(.horizontal)
         }
+        .frame(height: 156)
     }
 }
 

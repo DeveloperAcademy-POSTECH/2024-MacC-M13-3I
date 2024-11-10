@@ -25,58 +25,65 @@ struct CartView: View {
             ZStack{
                 Color.pBlack
                     .ignoresSafeArea()
-                VStack{
+                VStack(spacing: 0){
                     HStack(alignment: .bottom){
-                        Text("합산 가격")
-                            .font(.title2)
-                            .foregroundColor(.white)
+                        Text("장바구니 합계")
+                            .font(.PTitle2)
+                            .foregroundColor(.pWhite)
                         Spacer()
-                        VStack(alignment: .trailing){
+                        VStack(alignment: .trailing, spacing: 0){
                             Text("\(shoppingViewModel.dateItem.last?.korTotal ?? 61500) 원")
                                 .font(.PTitle3)
                                 .foregroundColor(.pGray)
                             Text("\(shoppingViewModel.dateItem.last?.frcTotal ?? 59) €")
-                                .font(.PTitle2)
-                                .foregroundColor(.white)
+                                .font(.PTitle1)
+                                .foregroundColor(.pWhite)
                         }
                     }
                     .padding(.horizontal)
-                    .padding(.top,20)
+                    .padding(.bottom,12)
+                    .padding(.top, 24)
+                    
                     ZStack{
                         Color.pBackground
                             .ignoresSafeArea()
                         VStack(spacing: 0){
-                            HStack{
+                            HStack(spacing: 0){
                                 Spacer()
-                                Text("€ 1 = ₩ 1499.62 (EUR/KRW)")
-                                    .bold()
-                                    .font(.caption)
+                                Text("€ 1 = ₩ 1499.62")
+                                    .font(.PSubhead)
                                     .foregroundColor(.pDarkGray)
-                                    .padding()
-                            }
+                                    .padding(.trailing,4)
+                                Text("(EUR/KRW)")
+                                    .font(.PFootnote)
+                                    .foregroundColor(.pDarkGray)
+                            }.padding()
                             
                             // 드롭다운 토글 버튼
                             Button(action: {
                                 isDropdownExpanded.toggle() // 드롭다운 열림/닫힘 제어
                             }) {
-                                HStack {
-                                    Text("오늘의 장보기 리스트" )
+                                HStack{
+                                    Text("오늘의 장보기 리스트")
+                                        .font(.PTitle2)
+                                        .foregroundColor(.pBlack)
                                     Spacer()
                                     Image(systemName: isDropdownExpanded ? "chevron.up" : "chevron.down") // 커스텀 아이콘
                                 }
-                                .foregroundColor(.black)
+                                .foregroundColor(.pBlack)
                                 .padding(.horizontal)
                                 .padding(.vertical, 12)
                                 .background(
                                     Group {
                                         if isDropdownExpanded {
                                             Rectangle()
-                                                .fill(Color.white)
+                                                .fill(Color.pWhite)
                                                 .clipShape(RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
                                         } else {
-                                            Rectangle()
-                                                .fill(Color.white)
-                                                .cornerRadius(12)
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .fill(Color.pWhite)
+                                                .stroke(Color.pGray, lineWidth: 2)
+                                                
                                         }
                                     }
                                 )
@@ -85,24 +92,34 @@ struct CartView: View {
                             
                             // 드롭다운 내용
                             if isDropdownExpanded {
-                                DropdownListView(listViewModel: listViewModel)
+                                ZStack{
+                                    Color.pLightGray
+                                        .frame(height: 156)
+                                        .clipShape(RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight]))
+                                        .padding(.horizontal)
+                                    DropdownListView(listViewModel: listViewModel)
+                                }
                             }
                             
                             HStack{
                                 Text("장바구니에는 무엇이 있을까?")
+                                    .font(.PTitle2)
+                                    .foregroundColor(.pBlack)
                                 Spacer()
                             }.padding(.horizontal)
-                                .padding(.vertical, 20)
+                                .padding(.vertical, 24)
                             if shoppingViewModel.shoppingItem.isEmpty {
-                                ZStack{
-                                    Color.white
+                                ZStack(alignment: .top){
+                                    Color.pWhite
                                         .cornerRadius(12)
                                         .padding(.horizontal)
                                         .ignoresSafeArea()
                                     VStack{
                                         Text("버튼을 눌러")
                                         Text("카트에 담긴 물건을 입력해주세요.")
-                                    }
+                                    }.font(.PTitle3)
+                                        .foregroundColor(.pDarkGray)
+                                    .padding(.top,80)
                                 }
                                 
                             }
@@ -192,6 +209,7 @@ struct CartView: View {
                     }
                 }.padding(.horizontal,30)
             }
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
@@ -200,6 +218,11 @@ struct CartView: View {
                         Image(systemName: "chevron.left")
                             .foregroundColor(.pBlue)
                     }
+                }
+                ToolbarItem(placement: .principal){
+                    Text("장보기")
+                        .font(.PTitle2)
+                        .foregroundColor(.pWhite)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -235,13 +258,11 @@ struct CartView: View {
                 }),
                       secondaryButton: .cancel(Text("돌아가기")))
             }
-            
             NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel), isActive: $isFinish) {
                 EmptyView()
             }
         }
         .navigationBarBackButtonHidden()
-        .navigationTitle("장보기")
     }
     
 }
