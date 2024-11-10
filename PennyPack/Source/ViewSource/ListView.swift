@@ -15,6 +15,7 @@ struct ListView: View {
                             }
                     }
                 }
+                .onDelete(perform: listViewModel.removeList)
                 .listRowBackground(
                     Rectangle()
                         .foregroundColor(.white)
@@ -37,12 +38,11 @@ struct ListView: View {
                         .foregroundColor(.white)
                         .cornerRadius(12)
                 )
-            }.listRowSpacing(8)
-                .listStyle(PlainListStyle())
-                .padding(.horizontal)
-                .background(.pLightGray)
-                
-
+            }
+            .listRowSpacing(8)
+            .listStyle(PlainListStyle())
+            .padding(.horizontal)
+            .background(.pLightGray)
         }
     }
 }

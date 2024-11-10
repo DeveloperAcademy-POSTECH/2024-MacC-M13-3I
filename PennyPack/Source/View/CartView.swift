@@ -133,6 +133,7 @@ struct CartView: View {
                                                 AnyView(Color.clear) // 나머지 항목은 배경 없음 또는 기본 배경
                                         )
                                     }
+                                    .onDelete(perform: shoppingViewModel.removeList)
                                 }
                                 .listStyle(PlainListStyle())
                                 .background(

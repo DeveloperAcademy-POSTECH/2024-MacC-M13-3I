@@ -31,14 +31,14 @@ class ShoppingViewModel:ObservableObject {
     @Published var nowPlace: String = ""
     
     init(){
-//        if shoppingItem.isEmpty {
-//            if let customDate = Calendar.current.date(byAdding: .day, value: -10, to: Date()) {
-//                self.shoppingItem = [
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 1, korPrice: 1000, frcPrice: 1, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 1, korPrice: 2000, frcPrice: 2, time: Date())
-//                ]
-//            }
-//        }
+        if shoppingItem.isEmpty {
+            if let customDate = Calendar.current.date(byAdding: .day, value: -10, to: Date()) {
+                self.shoppingItem = [
+                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 1, korPrice: 1000, frcPrice: 1, time: customDate),
+                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 1, korPrice: 2000, frcPrice: 2, time: Date())
+                ]
+            }
+        }
 //        
 //        if dateItem.isEmpty {
 //            self.dateItem = [
@@ -50,6 +50,11 @@ class ShoppingViewModel:ObservableObject {
 //        }
         
         loadShoppingListFromUserDefaults()
+    }
+    
+    func removeList(at offsets: IndexSet) {
+        shoppingItem.remove(atOffsets: offsets)
+        print("Updated shoppingList: \(shoppingItem)")
     }
     
     // MARK: 데이터를 인코딩하고 UserDefaults에 저장
