@@ -1,46 +1,70 @@
-//
-//  ScanView.swift
-//  PennyPack
-//
-//  Created by siye on 11/1/24.
-//
-
 import SwiftUI
 
-
-struct TestView: View {
-    @ObservedObject var shoppingViewModel: ShoppingViewModel
+struct DropdownListView: View {
     @ObservedObject var listViewModel: ListViewModel
-    @State private var recognizedText = ""
-    @StateObject var translation : TranslationSerivce
+    @State var isButton: Bool = false
     
-    init(shoppingViewModel: ShoppingViewModel, listViewModel: ListViewModel) {
-           self.shoppingViewModel = shoppingViewModel
-           _translation = StateObject(wrappedValue: TranslationSerivce(shoppingViewModel: shoppingViewModel))
-        self.listViewModel = listViewModel
-       }
-
     var body: some View {
-        NavigationStack{
-            VStack {
-                DocumentScannerView(recognizedText: $recognizedText)
-                
-                ScrollView {
-                    Text(recognizedText)
-                    Text(translation.translatedText)
+        VStack{
+            List{
+                ForEach($listViewModel.shoppingList) { $list in
+                    if !list.isPurchase {
+                        Button(action: {
+                            list.isChoise.toggle()
+                            print (listViewModel.shoppingList)
+                        }) {
+                            HStack{
+                                if list.isChoise {
+                                    ZStack{
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(.pBlue)
+                                            .stroke(
+                                                Color.pBlue,
+                                                style: StrokeStyle(
+                                                    lineWidth: 1.5)
+                                            )
+                                            .frame(width: 15, height: 15)
+                                        Image(systemName: "checkmark")
+                                            .font(.system(size: 12))
+                                            .foregroundColor(.pWhite)
+                                    }
+                                    Text(list.title)
+                                        .font(.PBody)
+                                        .foregroundColor(.pBlack)
+                                }
+                                else {
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .fill(.white)
+                                        .stroke(
+                                            Color.pBlue,
+                                            style: StrokeStyle(
+                                                lineWidth: 1.5)
+                                        )
+                                    .frame(width: 15, height: 15)
+                                    Text(list.title)
+                                        .font(.PBody)
+                                        .foregroundColor(.pBlack)
+                                    Spacer()
+                                }
+                            }
+                        }
+                    }
                 }
-                RegexView(recognizedText: $recognizedText, validPrices: [0.81], validItems: "")
+                .listRowSeparator(.hidden)
+                .listRowBackground(
+                    Rectangle()
+                        .foregroundColor(.pWhite)
+                        .cornerRadius(12)
+                )
             }
-            .onChange(of: recognizedText) { newText in
-                // recognizedText의 값이 변경될 때마다 자동으로 번역 함수 호출
-                if !newText.isEmpty {
-                    translation.translateText(text: newText)
-                }
-            }
+            .listRowSpacing(8)
+            .listStyle(PlainListStyle())
+            .padding(.horizontal)
+            .background(.pLightGray)
         }
     }
 }
 
 #Preview {
-    TestView(shoppingViewModel: ShoppingViewModel(),listViewModel: ListViewModel())
+    DropdownListView(listViewModel: ListViewModel())
 }

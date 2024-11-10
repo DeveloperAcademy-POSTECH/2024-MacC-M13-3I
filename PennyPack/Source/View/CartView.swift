@@ -107,7 +107,8 @@ struct CartView: View {
                                     .foregroundColor(.pBlack)
                                 Spacer()
                             }.padding(.horizontal)
-                                .padding(.vertical, 24)
+                                .padding(.top, 24)
+                                .padding(.bottom,4)
                             if shoppingViewModel.shoppingItem.isEmpty {
                                 ZStack(alignment: .top){
                                     Color.pWhite
@@ -176,7 +177,7 @@ struct CartView: View {
                                 ZStack{
                                     Circle()
                                         .frame(width: 40)
-                                        .foregroundColor(.pBlue)
+                                        .foregroundColor(.pDarkGray)
                                     Text("Aa")
                                         .foregroundColor(.white)
                                 }
@@ -187,7 +188,7 @@ struct CartView: View {
                                     ZStack{
                                         Circle()
                                             .frame(width: 40)
-                                            .foregroundColor(.pBlue)
+                                            .foregroundColor(.pDarkGray)
                                         Image(systemName: "camera.fill")
                                             .font(.system(size: 15))
                                             .foregroundColor(.white)
