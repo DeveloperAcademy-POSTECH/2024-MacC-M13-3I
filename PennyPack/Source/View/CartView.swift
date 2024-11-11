@@ -125,7 +125,7 @@ struct CartView: View {
                                             Text("카트에 담긴 물건을 입력해주세요.")
                                         }.font(.PTitle3)
                                             .foregroundColor(.pDarkGray)
-                                        .padding(.top,80)
+                                            .padding(.top,80)
                                     }
                                     
                                 }
@@ -232,7 +232,7 @@ struct CartView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        shoppingViewModel.shoppingItem = []
+                        //                        shoppingViewModel.shoppingItem = []
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -267,7 +267,7 @@ struct CartView: View {
                     let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: totalPriceWon, frcTotal: Int(totalPriceEuro), place: "프랑스마트")
                     
                     shoppingViewModel.dateItem.append(dateItem)
-                    shoppingViewModel.shoppingItem = []
+                    //                    shoppingViewModel.shoppingItem = []
                     shoppingViewModel.saveShoppingListToUserDefaults()
                     listViewModel.saveShoppingListToUserDefaults()
                     
