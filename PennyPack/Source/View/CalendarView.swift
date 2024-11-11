@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CalendarView: View {
+    @Environment(\.dismiss) var dismiss
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @ObservedObject var listViewModel: ListViewModel
     @State private var month: Date = Date()
@@ -18,12 +19,9 @@ struct CalendarView: View {
     var body: some View {
         NavigationStack{
             ZStack{
-                
-                Image("Background")
-                    .resizable()
-                    .ignoresSafeArea()
-                
-                
+                Image("CalendarBackground")
+                        .resizable()
+                        .ignoresSafeArea()
                 VStack {
                     yearMonthView
                         .padding(.top, 40)
@@ -60,9 +58,25 @@ struct CalendarView: View {
                     }.padding(.top,650)
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            Image(systemName: "chevron.left")
+                                .foregroundColor(.pBlue)
+                        }
+                    }
+                    ToolbarItem(placement: .principal){
+                        Text("달력")
+                            .font(.PTitle2)
+                            .foregroundColor(.pWhite)
+                    }
+                }
             .sheet(isPresented: $showSheet) {
                 ReceiptView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, isButton: .constant(false))
-                    .presentationDetents([.height(150.0), .height(700)])
+                    .presentationDetents([.height(130), .height(540)])
             }
             .onAppear {
                 let dateToCheck = clickedCurrentMonthDates ?? Date() // 기본값 설정
@@ -82,8 +96,7 @@ struct CalendarView: View {
                     }
                 }
             }
-        }
-       
+        }.navigationBarBackButtonHidden()
     }
     
     
