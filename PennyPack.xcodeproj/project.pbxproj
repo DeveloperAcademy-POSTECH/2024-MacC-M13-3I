@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3023B4DE2CD4859D005049C1 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023B4DD2CD4859D005049C1 /* CameraService.swift */; };
 		309158682CDBC59200C62DA8 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309158672CDBC59200C62DA8 /* Regex.swift */; };
+		3091586A2CE10B4900C62DA8 /* Scan2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309158692CE10B4900C62DA8 /* Scan2Service.swift */; };
+		3091586C2CE10C2700C62DA8 /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586B2CE10C2700C62DA8 /* CameraModel.swift */; };
+		3091586E2CE10C5200C62DA8 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586D2CE10C5200C62DA8 /* CameraPreview.swift */; };
 		7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3912CD477470039B60C /* PennyPackApp.swift */; };
 		7126C3942CD477470039B60C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3932CD477470039B60C /* ContentView.swift */; };
 		7126C3962CD477480039B60C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3952CD477480039B60C /* Assets.xcassets */; };
@@ -41,6 +44,9 @@
 /* Begin PBXFileReference section */
 		3023B4DD2CD4859D005049C1 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CameraService.swift; path = PennyPack/ViewModel/CameraService.swift; sourceTree = SOURCE_ROOT; };
 		309158672CDBC59200C62DA8 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
+		309158692CE10B4900C62DA8 /* Scan2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan2Service.swift; sourceTree = "<group>"; };
+		3091586B2CE10C2700C62DA8 /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
+		3091586D2CE10C5200C62DA8 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
 		7126C38E2CD477470039B60C /* PennyPack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PennyPack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7126C3912CD477470039B60C /* PennyPackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PennyPackApp.swift; sourceTree = "<group>"; };
 		7126C3932CD477470039B60C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -170,6 +176,9 @@
 				714E72612CDB8EB400982A20 /* OtherFuncs.swift */,
 				7126C3B92CDA80230039B60C /* ShoppingListModel.swift */,
 				71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */,
+				309158692CE10B4900C62DA8 /* Scan2Service.swift */,
+				3091586B2CE10C2700C62DA8 /* CameraModel.swift */,
+				3091586D2CE10C5200C62DA8 /* CameraPreview.swift */,
 			);
 			name = ViewModel;
 			path = ../ViewModel;
@@ -278,10 +287,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7126C3BC2CDA84CF0039B60C /* DocumentScannerView.swift in Sources */,
+				3091586E2CE10C5200C62DA8 /* CameraPreview.swift in Sources */,
 				71C23EB82CD8514E006F7A1E /* CurrencyService.swift in Sources */,
+				3091586C2CE10C2700C62DA8 /* CameraModel.swift in Sources */,
 				7126C3942CD477470039B60C /* ContentView.swift in Sources */,
 				7126C3AE2CD47BDC0039B60C /* CartView.swift in Sources */,
 				7126C3A62CD47BA30039B60C /* MainView.swift in Sources */,
+				3091586A2CE10B4900C62DA8 /* Scan2Service.swift in Sources */,
 				714E726C2CDD085200982A20 /* DropdownListView.swift in Sources */,
 				714E72662CDBAC2600982A20 /* LanguageSelectedView.swift in Sources */,
 				714E726F2CDD0DC400982A20 /* ResultModalView.swift in Sources */,
@@ -437,7 +449,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PennyPack/Preview Content\"";
-				DEVELOPMENT_TEAM = R83JF9K5WA;
+				DEVELOPMENT_TEAM = 7P4U6S44RJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PennyPack/Info.plist;
@@ -472,7 +484,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PennyPack/Preview Content\"";
-				DEVELOPMENT_TEAM = R83JF9K5WA;
+				DEVELOPMENT_TEAM = 7P4U6S44RJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PennyPack/Info.plist;
