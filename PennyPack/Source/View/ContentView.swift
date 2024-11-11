@@ -14,7 +14,6 @@ struct ContentView: View {
     var body: some View {
         NavigationStack{
             MainView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)
-            .padding()
         }
     }
 }

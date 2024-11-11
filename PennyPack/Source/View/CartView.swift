@@ -20,6 +20,9 @@ struct CartView: View {
     @State private var isPlus = false
     @State private var isDropdownExpanded = false
     
+    @State private var totalPriceWon: Int = 0
+    @State private var totalPriceEuro: Double = 0.0
+    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -32,10 +35,10 @@ struct CartView: View {
                             .foregroundColor(.pWhite)
                         Spacer()
                         VStack(alignment: .trailing, spacing: 0){
-                            Text("\(shoppingViewModel.dateItem.last?.korTotal ?? 61500) 원")
+                            Text("\(totalPriceWon) 원")
                                 .font(.PTitle3)
                                 .foregroundColor(.pGray)
-                            Text("\(shoppingViewModel.dateItem.last?.frcTotal ?? 59) €")
+                            Text("\(String(format: "%.2f", totalPriceEuro)) €")
                                 .font(.PTitle1)
                                 .foregroundColor(.pWhite)
                         }
@@ -122,7 +125,7 @@ struct CartView: View {
                                             Text("카트에 담긴 물건을 입력해주세요.")
                                         }.font(.PTitle3)
                                             .foregroundColor(.pDarkGray)
-                                        .padding(.top,80)
+                                            .padding(.top,80)
                                     }
                                     
                                 }
@@ -182,7 +185,6 @@ struct CartView: View {
                         Spacer()
                         if isPlus {
                             Button{
-                                
                             } label: {
                                 ZStack{
                                     Circle()
@@ -220,10 +222,17 @@ struct CartView: View {
                     }
                 }.padding(.horizontal,30)
             }
+            .onChange(of: shoppingViewModel.shoppingItem) { _ in
+                pricing()
+            }
+            .onAppear {
+                pricing()
+            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
+                        shoppingViewModel.shoppingItem = []
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -255,13 +264,10 @@ struct CartView: View {
                         listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
                     }
                     
-                    let korTotalPrice = shoppingViewModel.korTotalPricing(from: shoppingViewModel.shoppingItem)
-                    
-                    let frcTotalPrice = shoppingViewModel.frcTotalPricing(from: shoppingViewModel.shoppingItem)
-                    
-                    let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: korTotalPrice, frcTotal: frcTotalPrice, place: "프랑스마트")
+                    let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: totalPriceWon, frcTotal: Int(totalPriceEuro), place: "프랑스마트")
                     
                     shoppingViewModel.dateItem.append(dateItem)
+                    shoppingViewModel.shoppingItem = []
                     
                     shoppingViewModel.saveShoppingListToUserDefaults()
                     listViewModel.saveShoppingListToUserDefaults()
@@ -274,6 +280,15 @@ struct CartView: View {
             }
         }
         .navigationBarBackButtonHidden()
+    }
+    
+    func pricing() {
+        totalPriceWon = shoppingViewModel.korTotalPricing(from: shoppingViewModel.shoppingItem)
+        
+        totalPriceEuro = Double(shoppingViewModel.frcTotalPricing(from: shoppingViewModel.shoppingItem))
+        
+        print(totalPriceWon,"원")
+        print(totalPriceEuro,"€")
     }
     
 }

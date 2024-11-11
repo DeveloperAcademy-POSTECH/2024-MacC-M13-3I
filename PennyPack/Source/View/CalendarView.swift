@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CalendarView: View {
+    @Environment(\.dismiss) var dismiss
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @ObservedObject var listViewModel: ListViewModel
     @State private var month: Date = Date()
@@ -18,13 +19,10 @@ struct CalendarView: View {
     var body: some View {
         NavigationStack{
             ZStack{
-                
-                Image("Background")
-                    .resizable()
-                    .ignoresSafeArea()
-                
-                
-                VStack(alignment: .center) {
+                Image("CalendarBackground")
+                        .resizable()
+                        .ignoresSafeArea()
+                VStack {
                     yearMonthView
                         .padding(.top, 40)
                         .padding(.bottom, 20)
@@ -54,12 +52,11 @@ struct CalendarView: View {
                 .padding(.horizontal, 16)
                 
                 
-                
-                
                             }
+
             .sheet(isPresented: $showSheet) {
                 ReceiptView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, isButton: .constant(false))
-                    .presentationDetents([.height(150.0), .height(700)])
+                    .presentationDetents([.height(130), .height(540)])
             }
             .onAppear {
                 let dateToCheck = clickedCurrentMonthDates ?? Date() // 기본값 설정
@@ -79,8 +76,7 @@ struct CalendarView: View {
                     }
                 }
             }
-        }
-       
+        }.navigationBarBackButtonHidden()
     }
     
     

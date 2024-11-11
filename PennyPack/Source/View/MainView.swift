@@ -9,14 +9,7 @@ struct MainView: View {
     var body: some View {
         NavigationStack{
             ZStack{
-//                Color.pBackground
-//                    .ignoresSafeArea()
-//                Ellipse()
-//                    .fill(Color.pBlack)
-//                    .frame(width: 770, height: 440, alignment: .center)
-//                    .padding(.bottom, 467)
-                
-                    Image("Background")
+                Image("Background")
                         .resizable()
                         .ignoresSafeArea()
                 VStack(spacing: 0){
@@ -63,32 +56,40 @@ struct MainView: View {
                     .padding(.bottom, 24)
                     
                     VStack(spacing: 0){
-                        HStack{
-                            Text("오늘의 장보기 리스트")
-                                .font(.PTitle2)
-                                .foregroundColor(.pBlack)
-                            Spacer()
-                        }
-                        .padding(.vertical, 12)
-                        .padding(.horizontal)
-                        .background(
-                            Rectangle()
-                                .foregroundColor(.white)
-                                .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                            
-                        )
-                        .padding(.horizontal)
-                        ZStack{
-                            Rectangle()
-                                .foregroundColor(.pLightGray)
-                                .clipShape(RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight]))
-                            
-                            VStack(spacing: 0){
-                                ListView(shoppingViewModel: shoppingViewModel
-                                         , listViewModel: listViewModel)
+                        VStack(spacing: 0){
+                            HStack{
+                                Text("오늘의 장보기 리스트")
+                                    .font(.PTitle2)
+                                    .foregroundColor(.pBlack)
+                                Spacer()
+                            }
+                            .padding(.vertical, 12)
+                            .padding(.horizontal)
+                            .background(
+                                Rectangle()
+                                    .foregroundColor(.white)
+                                    .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
                                 
-                            }.padding(.vertical)
-                        }.padding(.horizontal)
+                            )
+                            Divider() 
+                                .frame(height: 1)
+                                .background(.pGray)
+                            ZStack{
+                                Rectangle()
+                                    .foregroundColor(.pLightGray)
+                                    .clipShape(RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight]))
+                                
+                                VStack(spacing: 0){
+                                    ListView(shoppingViewModel: shoppingViewModel
+                                             , listViewModel: listViewModel)
+                                    
+                                }.padding(.vertical)
+                            }
+                        }
+                        .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.pGray, lineWidth: 2)
+                        ).padding(.horizontal)
                             .padding(.bottom, 24)
                         NavigationLink(
                             destination: CartView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel),
@@ -112,6 +113,7 @@ struct MainView: View {
                         .padding(.bottom,30)
                     }
                 }
+                
             }
             .onAppear{
                 shoppingViewModel.loadShoppingListFromUserDefaults()
