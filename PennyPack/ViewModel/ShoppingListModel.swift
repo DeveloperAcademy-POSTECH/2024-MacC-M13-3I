@@ -31,6 +31,7 @@ class ShoppingViewModel:ObservableObject {
     @Published var nowPlace: String = ""
     
     init(){
+
 //        if shoppingItem.isEmpty {
 //            if let customDate = Calendar.current.date(byAdding: .day, value: -10, to: Date()) {
 //                self.shoppingItem = [
@@ -76,6 +77,7 @@ class ShoppingViewModel:ObservableObject {
 //
 //            ]
 //        }
+
         
         loadShoppingListFromUserDefaults()
     }
