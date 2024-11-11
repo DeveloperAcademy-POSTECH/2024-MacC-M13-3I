@@ -97,7 +97,7 @@ struct CartView: View {
                                         .clipShape(RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight]))
                                         .padding(.horizontal)
                                     DropdownListView(listViewModel: listViewModel)
-                                        .padding(.horizontal)
+                                        .padding()
                                 }
                                 .frame(height: 156)
                             }

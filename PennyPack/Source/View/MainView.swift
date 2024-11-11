@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct MainView: View {
-//    @StateObject private var shoppingViewModel = ShoppingViewModel()
-    
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @ObservedObject var listViewModel: ListViewModel
    
