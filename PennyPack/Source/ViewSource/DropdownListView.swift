@@ -57,7 +57,7 @@ struct DropdownListView: View {
             }
             .listRowSpacing(8)
             .listStyle(PlainListStyle())
-            .padding()
+            .padding(.horizontal)
             .background(.pLightGray)
             
         }
