@@ -57,7 +57,9 @@ struct CartView: View {
                                 Text("(EUR/KRW)")
                                     .font(.PFootnote)
                                     .foregroundColor(.pDarkGray)
-                            }.padding()
+                            }.padding(.horizontal)
+                                .padding(.top)
+                                .padding(.bottom, 12)
                             
                             // 드롭다운 토글 버튼
                             Button(action: {
@@ -83,7 +85,6 @@ struct CartView: View {
                                             RoundedRectangle(cornerRadius: 12)
                                                 .fill(Color.pWhite)
                                                 .stroke(Color.pGray, lineWidth: 2)
-                                                
                                         }
                                     }
                                 )
@@ -94,11 +95,12 @@ struct CartView: View {
                             if isDropdownExpanded {
                                 ZStack{
                                     Color.pLightGray
-                                        .frame(height: 156)
                                         .clipShape(RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight]))
                                         .padding(.horizontal)
                                     DropdownListView(listViewModel: listViewModel)
+                                        .padding(.horizontal)
                                 }
+                                .frame(height: 156)
                             }
                             
                             HStack{
