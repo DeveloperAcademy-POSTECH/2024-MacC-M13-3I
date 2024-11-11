@@ -18,34 +18,10 @@ struct CalendarView: View {
     var body: some View {
         NavigationStack{
             ZStack{
-                Image("Background")
-                    .resizable()
-                    .ignoresSafeArea()
-                
                 VStack {
-                    yearMonthView
-                        .padding(.top, 40)
-                        .padding(.bottom, 20)
-                    VStack{
-                        weekdayView
-                        Divider()
-                        calendarGridView
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.bottom, 8)
-                    .background(Color.pWhite.cornerRadius(12))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.pGray, lineWidth: 2)
-                    )
-                    Spacer()
-                    
+                    headerView
+                    calendarGridView
                 }
-                .padding(.horizontal, 16)
-                
-                
-                
-                
                 if !isShopping {
                     ZStack{
                         Color.pBlue
@@ -84,6 +60,25 @@ struct CalendarView: View {
        
     }
     
+    // MARK: - 헤더 뷰
+    private var headerView: some View {
+        VStack {
+            HStack {
+                yearMonthView
+            }
+            .padding(.horizontal, 10)
+            .padding(.bottom, 5)
+            
+            HStack {
+                ForEach(Self.weekdaySymbols.indices, id: \.self) { symbol in
+                    Text(Self.weekdaySymbols[symbol].uppercased())
+                        .foregroundColor(.pDarkGray)
+                        .frame(maxWidth: .infinity)
+                }
+            }
+            .padding(.bottom, 5)
+        }
+    }
     
     // MARK: - 연월 표시
     private var yearMonthView: some View {
@@ -94,25 +89,18 @@ struct CalendarView: View {
                 },
                 label: {
                     Image(systemName: "chevron.left")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(canMoveToPreviousMonth() ? .pWhite : . pGray)
-                        .padding(8)
-                        .padding(.horizontal, 2)
-                        .background(Color("PDarkGray"))
-                        .cornerRadius(24)
-                    
+                        .font(.title)
+                        .foregroundColor(canMoveToPreviousMonth() ? .black : . pDarkGray)
                 }
             )
             .disabled(!canMoveToPreviousMonth())
             Spacer()
             
-            VStack(alignment: .center){
+            VStack{
                 Text(month, formatter: Self.calendarHeaderDateFormatterMonth)
-                    .font(.PTitle1)
-                    .foregroundColor(.pWhite)
+                    .font(.title.bold())
                 Text(month, formatter: Self.calendarHeaderDateFormatterYear)
-                    .font(.PTitle3)
-                    .foregroundColor(.pWhite)
+                    .font(.title3)
             }
             
             Spacer()
@@ -122,32 +110,12 @@ struct CalendarView: View {
                 },
                 label: {
                     Image(systemName: "chevron.right")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(canMoveToNextMonth() ? .pWhite : . pGray)
-                        .padding(8)
-                        .padding(.horizontal, 2)
-                        .background(Color("PDarkGray"))
-                        .cornerRadius(24)
+                        .font(.title)
+                        .foregroundColor(canMoveToNextMonth() ? .black : .pDarkGray)
                 }
             )
             .disabled(!canMoveToNextMonth())
-        }
-    }
-    
-    
-    // MARK: - 요일 표시
-    
-    private var weekdayView: some View {
-        HStack {
-            ForEach(Self.weekdaySymbols.indices, id: \.self) { symbol in
-                Text(Self.weekdaySymbols[symbol].uppercased())
-                    .font(.PTitle3)
-                    .foregroundColor(.pBlack)
-                    .frame(maxWidth: .infinity)
-            }
-        }
-        .padding(.top, 20)
-        .padding(.bottom, 12)
+        }.padding(.horizontal,40)
     }
     
     // MARK: - 날짜 그리드 뷰
@@ -167,7 +135,7 @@ struct CalendarView: View {
                         let clicked = clickedCurrentMonthDates == date
                         let isToday = date.formattedCalendarDayDate == today.formattedCalendarDayDate
                         
-                        CellView(day: day, clicked: clicked, isToday: isToday, isShopping: $isShopping)
+                        CellView(day: day, clicked: clicked, isToday: isToday)
                     } else if let prevMonthDate = Calendar.current.date(
                         byAdding: .day,
                         value: index + lastDayOfMonthBefore,
@@ -175,7 +143,7 @@ struct CalendarView: View {
                     ) {
                         let day = Calendar.current.component(.day, from: prevMonthDate)
                         
-                        CellView(day: day, isCurrentMonthDay: false, isShopping: $isShopping)
+                        CellView(day: day, isCurrentMonthDay: false)
                     }
                 }
                 .onTapGesture {
@@ -210,98 +178,60 @@ struct CalendarView: View {
 
 // MARK: - 일자 셀 뷰
 private struct CellView: View {
-    @Binding var isShopping: Bool
   private var day: Int
   private var clicked: Bool
   private var isToday: Bool
   private var isCurrentMonthDay: Bool
   private var textColor: Color {
-      if clicked {
-          return Color.pWhite
-      } else if isShopping {
-          return Color.pWhite
+    if clicked {
+      return Color.white
     } else if isCurrentMonthDay {
-        return Color.pBlack
+      return Color.black
     } else {
-        return Color.pWhite
+      return Color.pDarkGray
     }
   }
   private var backgroundColor: Color {
     if clicked {
-        return Color.pDarkGray
-    } else if isShopping {
-        return Color.pBlue
+      return Color.black
     } else if isToday {
       return Color.pDarkGray
     } else {
-        return Color.pWhite
+      return Color.white
     }
   }
   
-      fileprivate init(
-        day: Int,
-        clicked: Bool = false,
-        isToday: Bool = false,
-        isCurrentMonthDay: Bool = true,
-        isShopping: Binding<Bool>
-      ) {
-        self.day = day
-        self.clicked = clicked
-        self.isToday = isToday
-        self.isCurrentMonthDay = isCurrentMonthDay
-          self._isShopping = isShopping
-      }
+  fileprivate init(
+    day: Int,
+    clicked: Bool = false,
+    isToday: Bool = false,
+    isCurrentMonthDay: Bool = true
+  ) {
+    self.day = day
+    self.clicked = clicked
+    self.isToday = isToday
+    self.isCurrentMonthDay = isCurrentMonthDay
+  }
   
   fileprivate var body: some View {
     VStack {
-        if isShopping {
-            Circle()
-                .fill(backgroundColor)
-                .frame(width: 48, height:48)
-                .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(textColor)
-        } else if clicked {
-            Circle()
-                .fill(backgroundColor)
-                .frame(width: 48, height:48)
-                .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(textColor)
-        } else if isToday {
-//            Text(String(day))
-//                .frame(width: 15, height: 15)
-//                .foregroundColor(textColor)
-//                .padding(14)
-//                .background(Color.pWhite)
-//                .cornerRadius(24)
-//            
-
-            Circle()
-                .fill(.pWhite)
-                .stroke(backgroundColor)
-                .frame(width: 48, height:48)
-                .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(textColor)
-            
-        } else {
-            Circle()
-                .fill(backgroundColor)
-                .frame(width: 48, height:48)
-                .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(textColor)
-        }
+      Circle()
+        .fill(backgroundColor)
+        .overlay(Text(String(day)))
+        .foregroundColor(textColor)
       
       Spacer()
       
-//      if clicked {
-//        RoundedRectangle(cornerRadius: 10)
-//          .fill(.red)
-//          .frame(width: 10, height: 10)
-//      } else {
-//        Spacer()
-//          .frame(height: 10)
-//      }
+      if clicked {
+        RoundedRectangle(cornerRadius: 10)
+          .fill(.red)
+          .frame(width: 10, height: 10)
+      } else {
+        Spacer()
+          .frame(height: 10)
+      }
     }
-    .frame(height: 48)
+    .frame(height: 50)
   }
 }
 
@@ -325,11 +255,7 @@ private extension CalendarView {
       return formatter
     }()
     
-    static let weekdaySymbols: [String] = {
-        var calendar = Calendar.current
-        calendar.locale = Locale(identifier: "ko_KR") // 한국어 로케일로 설정
-        return calendar.shortWeekdaySymbols // 요일 이름을 한글로 반환
-    }()
+  static let weekdaySymbols: [String] = Calendar.current.shortWeekdaySymbols
 }
 
 // MARK: - 내부 로직 메서드
