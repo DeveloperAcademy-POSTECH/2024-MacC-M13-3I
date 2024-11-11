@@ -19,15 +19,15 @@ class ListViewModel: ObservableObject {
     
     init() {
 //        if shoppingList.isEmpty {
-            self.shoppingList = [
-                        ShoppingList(title: "January", isChoise: false, isPurchase: false),
-                        ShoppingList(title: "February", isChoise: false, isPurchase: false),
-                        ShoppingList(title: "March", isChoise: false, isPurchase: false),
-                        ShoppingList(title: "April", isChoise: false, isPurchase: false),
-                        ShoppingList(title: "May", isChoise: false, isPurchase: false)
-            ]
+//            self.shoppingList = [
+//                        ShoppingList(title: "January", isChoise: false, isPurchase: false),
+//                        ShoppingList(title: "February", isChoise: false, isPurchase: false),
+//                        ShoppingList(title: "March", isChoise: false, isPurchase: false),
+//                        ShoppingList(title: "April", isChoise: false, isPurchase: false),
+//                        ShoppingList(title: "May", isChoise: false, isPurchase: false)
+//            ]
 //        }
-        saveShoppingListToUserDefaults() // 테스트할때만 있는거고 나중에 앱 출시할땐 save 지워야함.
+//        saveShoppingListToUserDefaults() // 테스트할때만 있는거고 나중에 앱 출시할땐 save 지워야함.
         loadShoppingListFromUserDefaults()
     }
     

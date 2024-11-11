@@ -43,9 +43,6 @@ class CurrencyService: ObservableObject {
     
     func fetchCurrencies() {
         let apiKey = "Io8cUPkoj2z2gELlTeFzNW2uYfEyBTwm"
-//        guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "APIKey") as? String else {
-//                    fatalError("API Key not found in xcconfig")
-//                }
         
         let businessDate = getBusinessDate()  // 영업일 날짜 계산 함수 호출
             
