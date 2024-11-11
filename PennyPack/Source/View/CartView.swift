@@ -25,126 +25,154 @@ struct CartView: View {
             ZStack{
                 Color.pBlack
                     .ignoresSafeArea()
-                VStack{
+                VStack(spacing: 0){
                     HStack(alignment: .bottom){
-                        Text("합산 가격")
-                            .font(.title2)
-                            .foregroundColor(.white)
+                        Text("장바구니 합계")
+                            .font(.PTitle2)
+                            .foregroundColor(.pWhite)
                         Spacer()
-                        VStack(alignment: .trailing){
+                        VStack(alignment: .trailing, spacing: 0){
                             Text("\(shoppingViewModel.dateItem.last?.korTotal ?? 61500) 원")
                                 .font(.PTitle3)
                                 .foregroundColor(.pGray)
                             Text("\(shoppingViewModel.dateItem.last?.frcTotal ?? 59) €")
-                                .font(.PTitle2)
-                                .foregroundColor(.white)
+                                .font(.PTitle1)
+                                .foregroundColor(.pWhite)
                         }
                     }
                     .padding(.horizontal)
-                    .padding(.top,20)
+                    .padding(.bottom,12)
+                    .padding(.top, 24)
+                    
                     ZStack{
                         Color.pBackground
                             .ignoresSafeArea()
                         VStack(spacing: 0){
-                            HStack{
+                            HStack(spacing: 0){
                                 Spacer()
-                                Text("€ 1 = ₩ 1499.62 (EUR/KRW)")
-                                    .bold()
-                                    .font(.caption)
+                                Text("€ 1 = ₩ 1499.62")
+                                    .font(.PSubhead)
                                     .foregroundColor(.pDarkGray)
-                                    .padding()
-                            }
+                                    .padding(.trailing,4)
+                                Text("(EUR/KRW)")
+                                    .font(.PFootnote)
+                                    .foregroundColor(.pDarkGray)
+                            }.padding(.horizontal)
+                                .padding(.top)
+                                .padding(.bottom, 12)
                             
-                            // 드롭다운 토글 버튼
                             Button(action: {
-                                isDropdownExpanded.toggle() // 드롭다운 열림/닫힘 제어
+                                isDropdownExpanded.toggle()
                             }) {
-                                HStack {
-                                    Text("오늘의 장보기 리스트" )
+                                HStack{
+                                    Text("오늘의 장보기 리스트")
+                                        .font(.PTitle2)
+                                        .foregroundColor(.pBlack)
                                     Spacer()
-                                    Image(systemName: isDropdownExpanded ? "chevron.up" : "chevron.down") // 커스텀 아이콘
+                                    Image(systemName: isDropdownExpanded ? "chevron.up" : "chevron.down")
                                 }
-                                .foregroundColor(.black)
+                                .foregroundColor(.pBlack)
                                 .padding(.horizontal)
                                 .padding(.vertical, 12)
                                 .background(
                                     Group {
                                         if isDropdownExpanded {
                                             Rectangle()
-                                                .fill(Color.white)
+                                                .fill(Color.pWhite)
                                                 .clipShape(RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
-                                        } else {
-                                            Rectangle()
-                                                .fill(Color.white)
-                                                .cornerRadius(12)
+                                        }
+                                        else {
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .fill(Color.pWhite)
+                                                .stroke(Color.pGray, lineWidth: 2)
                                         }
                                     }
                                 )
                             }
                             .padding(.horizontal)
                             
-                            // 드롭다운 내용
                             if isDropdownExpanded {
-                                DropdownListView(listViewModel: listViewModel)
+                                ZStack{
+                                    Color.pLightGray
+                                        .clipShape(RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight]))
+                                        .padding(.horizontal)
+                                    DropdownListView(listViewModel: listViewModel)
+                                        .padding(.horizontal)
+                                }
+                                .frame(height: 156)
                             }
                             
                             HStack{
                                 Text("장바구니에는 무엇이 있을까?")
+                                    .font(.PTitle2)
+                                    .foregroundColor(.pBlack)
                                 Spacer()
                             }.padding(.horizontal)
-                                .padding(.vertical, 20)
-                            if shoppingViewModel.shoppingItem.isEmpty {
-                                ZStack{
-                                    Color.white
-                                        .cornerRadius(12)
-                                        .padding(.horizontal)
-                                        .ignoresSafeArea()
-                                    VStack{
-                                        Text("버튼을 눌러")
-                                        Text("카트에 담긴 물건을 입력해주세요.")
-                                    }
-                                }
-                                
-                            }
-                            else{
-                                List{
-                                    ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
+                                .padding(.top, 24)
+                                .padding(.bottom,4)
+                            VStack(spacing: 0){
+                                if shoppingViewModel.shoppingItem.isEmpty {
+                                    ZStack(alignment: .top){
+                                        Color.pWhite
+                                            .cornerRadius(12)
+                                            .padding(.horizontal)
+                                            .ignoresSafeArea()
                                         VStack{
-                                            HStack{
-                                                Text("\(item.korName)")
-                                                Spacer()
-                                                Text("\(item.quantity)개")
-                                                Spacer()
-                                                Text("\(item.frcUnitPrice) €")
-                                            }
-                                            HStack{
-                                                Text("\(item.frcName)")
-                                                Spacer()
-                                                Text("\(item.korUnitPrice) 원")
-                                            }
-                                        }
-                                        .listRowBackground(
-                                            index == 0 ?
-                                            AnyView(
-                                                Rectangle()
-                                                    .foregroundColor(.white)
-                                                    .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                                            ) :
-                                                AnyView(Color.clear) // 나머지 항목은 배경 없음 또는 기본 배경
-                                        )
+                                            Text("버튼을 눌러")
+                                            Text("카트에 담긴 물건을 입력해주세요.")
+                                        }.font(.PTitle3)
+                                            .foregroundColor(.pDarkGray)
+                                        .padding(.top,80)
                                     }
-                                    .onDelete(perform: shoppingViewModel.removeList)
+                                    
                                 }
-                                .listStyle(PlainListStyle())
-                                .background(
-                                    Color.white
-                                        .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                                        .ignoresSafeArea()
-                                )
-                                .padding(.horizontal)
-                                
-                                
-                            }
+                                else{
+                                    List{
+                                        ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
+                                            VStack{
+                                                HStack{
+                                                    Text("\(item.korName)")
+                                                    Spacer()
+                                                    Text("\(item.quantity)개")
+                                                    Spacer()
+                                                    Text("\(item.frcUnitPrice) €")
+                                                }
+                                                HStack{
+                                                    Text("\(item.frcName)")
+                                                    Spacer()
+                                                    Text("\(item.korUnitPrice) 원")
+                                                }
+                                            }
+                                            .listRowBackground(
+                                                index == 0 ?
+                                                AnyView(
+                                                    Rectangle()
+                                                        .foregroundColor(.white)
+                                                        .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                                                ) :
+                                                    AnyView(Color.clear)
+                                            )
+                                        }
+                                        .onDelete(perform: shoppingViewModel.removeList)
+                                    }
+                                    .listStyle(PlainListStyle())
+                                    .background(
+                                        Color.white
+                                            .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                                            .ignoresSafeArea()
+                                    )
+                                    
+                                    .padding(.horizontal)
+                                    
+                                    
+                                }
+                            }.overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.pGray, lineWidth: 2)
+                                    .padding(.horizontal)
+                                    .ignoresSafeArea()
+                            )
+                            
                         }
                     }
                 }
@@ -159,7 +187,7 @@ struct CartView: View {
                                 ZStack{
                                     Circle()
                                         .frame(width: 40)
-                                        .foregroundColor(.pBlue)
+                                        .foregroundColor(.pDarkGray)
                                     Text("Aa")
                                         .foregroundColor(.white)
                                 }
@@ -170,7 +198,7 @@ struct CartView: View {
                                     ZStack{
                                         Circle()
                                             .frame(width: 40)
-                                            .foregroundColor(.pBlue)
+                                            .foregroundColor(.pDarkGray)
                                         Image(systemName: "camera.fill")
                                             .font(.system(size: 15))
                                             .foregroundColor(.white)
@@ -192,6 +220,7 @@ struct CartView: View {
                     }
                 }.padding(.horizontal,30)
             }
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
@@ -200,6 +229,11 @@ struct CartView: View {
                         Image(systemName: "chevron.left")
                             .foregroundColor(.pBlue)
                     }
+                }
+                ToolbarItem(placement: .principal){
+                    Text("장보기")
+                        .font(.PTitle2)
+                        .foregroundColor(.pWhite)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -235,13 +269,11 @@ struct CartView: View {
                 }),
                       secondaryButton: .cancel(Text("돌아가기")))
             }
-            
             NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel), isActive: $isFinish) {
                 EmptyView()
             }
         }
         .navigationBarBackButtonHidden()
-        .navigationTitle("장보기")
     }
     
 }
