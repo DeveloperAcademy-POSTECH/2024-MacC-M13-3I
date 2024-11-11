@@ -61,16 +61,15 @@ struct CartView: View {
                                 .padding(.top)
                                 .padding(.bottom, 12)
                             
-                            // 드롭다운 토글 버튼
                             Button(action: {
-                                isDropdownExpanded.toggle() // 드롭다운 열림/닫힘 제어
+                                isDropdownExpanded.toggle()
                             }) {
                                 HStack{
                                     Text("오늘의 장보기 리스트")
                                         .font(.PTitle2)
                                         .foregroundColor(.pBlack)
                                     Spacer()
-                                    Image(systemName: isDropdownExpanded ? "chevron.up" : "chevron.down") // 커스텀 아이콘
+                                    Image(systemName: isDropdownExpanded ? "chevron.up" : "chevron.down")
                                 }
                                 .foregroundColor(.pBlack)
                                 .padding(.horizontal)
@@ -81,7 +80,8 @@ struct CartView: View {
                                             Rectangle()
                                                 .fill(Color.pWhite)
                                                 .clipShape(RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
-                                        } else {
+                                        }
+                                        else {
                                             RoundedRectangle(cornerRadius: 12)
                                                 .fill(Color.pWhite)
                                                 .stroke(Color.pGray, lineWidth: 2)
@@ -91,7 +91,6 @@ struct CartView: View {
                             }
                             .padding(.horizontal)
                             
-                            // 드롭다운 내용
                             if isDropdownExpanded {
                                 ZStack{
                                     Color.pLightGray
@@ -111,60 +110,69 @@ struct CartView: View {
                             }.padding(.horizontal)
                                 .padding(.top, 24)
                                 .padding(.bottom,4)
-                            if shoppingViewModel.shoppingItem.isEmpty {
-                                ZStack(alignment: .top){
-                                    Color.pWhite
-                                        .cornerRadius(12)
-                                        .padding(.horizontal)
-                                        .ignoresSafeArea()
-                                    VStack{
-                                        Text("버튼을 눌러")
-                                        Text("카트에 담긴 물건을 입력해주세요.")
-                                    }.font(.PTitle3)
-                                        .foregroundColor(.pDarkGray)
-                                    .padding(.top,80)
-                                }
-                                
-                            }
-                            else{
-                                List{
-                                    ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
+                            VStack(spacing: 0){
+                                if shoppingViewModel.shoppingItem.isEmpty {
+                                    ZStack(alignment: .top){
+                                        Color.pWhite
+                                            .cornerRadius(12)
+                                            .padding(.horizontal)
+                                            .ignoresSafeArea()
                                         VStack{
-                                            HStack{
-                                                Text("\(item.korName)")
-                                                Spacer()
-                                                Text("\(item.quantity)개")
-                                                Spacer()
-                                                Text("\(item.frcUnitPrice) €")
-                                            }
-                                            HStack{
-                                                Text("\(item.frcName)")
-                                                Spacer()
-                                                Text("\(item.korUnitPrice) 원")
-                                            }
-                                        }
-                                        .listRowBackground(
-                                            index == 0 ?
-                                            AnyView(
-                                                Rectangle()
-                                                    .foregroundColor(.white)
-                                                    .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                                            ) :
-                                                AnyView(Color.clear) // 나머지 항목은 배경 없음 또는 기본 배경
-                                        )
+                                            Text("버튼을 눌러")
+                                            Text("카트에 담긴 물건을 입력해주세요.")
+                                        }.font(.PTitle3)
+                                            .foregroundColor(.pDarkGray)
+                                        .padding(.top,80)
                                     }
-                                    .onDelete(perform: shoppingViewModel.removeList)
+                                    
                                 }
-                                .listStyle(PlainListStyle())
-                                .background(
-                                    Color.white
-                                        .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                                        .ignoresSafeArea()
-                                )
-                                .padding(.horizontal)
-                                
-                                
-                            }
+                                else{
+                                    List{
+                                        ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
+                                            VStack{
+                                                HStack{
+                                                    Text("\(item.korName)")
+                                                    Spacer()
+                                                    Text("\(item.quantity)개")
+                                                    Spacer()
+                                                    Text("\(item.frcUnitPrice) €")
+                                                }
+                                                HStack{
+                                                    Text("\(item.frcName)")
+                                                    Spacer()
+                                                    Text("\(item.korUnitPrice) 원")
+                                                }
+                                            }
+                                            .listRowBackground(
+                                                index == 0 ?
+                                                AnyView(
+                                                    Rectangle()
+                                                        .foregroundColor(.white)
+                                                        .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                                                ) :
+                                                    AnyView(Color.clear)
+                                            )
+                                        }
+                                        .onDelete(perform: shoppingViewModel.removeList)
+                                    }
+                                    .listStyle(PlainListStyle())
+                                    .background(
+                                        Color.white
+                                            .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                                            .ignoresSafeArea()
+                                    )
+                                    
+                                    .padding(.horizontal)
+                                    
+                                    
+                                }
+                            }.overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.pGray, lineWidth: 2)
+                                    .padding(.horizontal)
+                                    .ignoresSafeArea()
+                            )
+                            
                         }
                     }
                 }
