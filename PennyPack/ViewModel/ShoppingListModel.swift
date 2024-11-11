@@ -40,14 +40,14 @@ class ShoppingViewModel:ObservableObject {
             }
         }
 //        
-//        if dateItem.isEmpty {
-//            self.dateItem = [
-//                DateItem(date: Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
-//                DateItem(date: Calendar.current.date(byAdding: .day, value: -4, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
-//                DateItem(date: Calendar.current.date(byAdding: .day, value: -10, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소")
-//
-//            ]
-//        }
+        if dateItem.isEmpty {
+            self.dateItem = [
+                DateItem(date: Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
+                DateItem(date: Calendar.current.date(byAdding: .day, value: -4, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
+                DateItem(date: Calendar.current.date(byAdding: .day, value: -10, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소")
+
+            ]
+        }
         
         loadShoppingListFromUserDefaults()
     }
