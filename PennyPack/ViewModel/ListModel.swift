@@ -27,7 +27,7 @@ class ListViewModel: ObservableObject {
                         ShoppingList(title: "May", isChoise: false, isPurchase: false)
             ]
 //        }
-        saveShoppingListToUserDefaults() // 테스트할때만 있는거고 나중에 앱 출시할땐 save 지워야함.
+//        saveShoppingListToUserDefaults() // 테스트할때만 있는거고 나중에 앱 출시할땐 save 지워야함.
         loadShoppingListFromUserDefaults()
     }
     
