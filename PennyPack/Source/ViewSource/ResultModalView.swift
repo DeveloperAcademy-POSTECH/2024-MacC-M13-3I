@@ -68,7 +68,7 @@ struct ResultModalView: View {
                                                 Text("\(item.quantity)")
                                                     .font(.PSubhead)
                                                     .frame(width: 80, alignment: .trailing)
-                                                Text("\(item.frcPrice)")
+                                                Text("\(item.frcUnitPrice * item.quantity)")
                                                     .font(.PSubhead)
                                                     .frame(width: 81, alignment: .trailing)
                                             }
