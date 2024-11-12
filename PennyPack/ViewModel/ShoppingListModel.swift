@@ -31,36 +31,16 @@ class ShoppingViewModel:ObservableObject {
     @Published var nowPlace: String = ""
     
     init(){
-//        if shoppingItem.isEmpty {
-//            if let customDate = Calendar.current.date(byAdding: .day, value: -10, to: Date()) {
-//                self.shoppingItem = [
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
-//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date())
-//                ]
-//            }
-//        }
+        if shoppingItem.isEmpty {
+            if let customDate = Calendar.current.date(byAdding: .day, value: -10, to: Date()) {
+                self.shoppingItem = [
+                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date())
+                ]
+            }
+        }
         
 //        if dateItem.isEmpty {
 //            self.dateItem = [
@@ -78,6 +58,12 @@ class ShoppingViewModel:ObservableObject {
 //        }
         
         loadShoppingListFromUserDefaults()
+    }
+    // MARK: 리스트에 새 값 추가 함수
+    func addLinkList(korName: String, frcName: String, quantity: Int, korUnitPrice: Int, frcUnitPrice: Int) -> ShoppingItem {
+        let linkList: ShoppingItem = ShoppingItem(korName: korName, frcName: frcName, quantity: quantity, korUnitPrice: korUnitPrice, frcUnitPrice: frcUnitPrice, korPrice: quantity*korUnitPrice, frcPrice: quantity*frcUnitPrice, time: Date())
+        shoppingItem.append(linkList)
+        return linkList
     }
     
     func removeList(at offsets: IndexSet) {

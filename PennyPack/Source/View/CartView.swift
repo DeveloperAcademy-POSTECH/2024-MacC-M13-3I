@@ -12,7 +12,6 @@ struct CartView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @ObservedObject var listViewModel: ListViewModel
-    @State var shoppingItems: [ShoppingItem] = []
     
     
     @State private var isAlert = false
@@ -22,6 +21,11 @@ struct CartView: View {
     
     @State private var totalPriceWon: Int = 0
     @State private var totalPriceEuro: Double = 0.0
+    @State private var editingItemID: UUID? = nil // 현재 편집 중인 항목의 ID
+    @FocusState private var focusedField: Field? // 포커스 상태 관리
+    enum Field: Hashable {
+            case korName, quantity, frcUnitPrice, frcName, korUnitPrice // 필드 식별
+        }
     
     var body: some View {
         NavigationStack{
@@ -114,6 +118,7 @@ struct CartView: View {
                                 .padding(.top, 24)
                                 .padding(.bottom,4)
                             VStack(spacing: 0){
+                                
                                 if shoppingViewModel.shoppingItem.isEmpty {
                                     ZStack(alignment: .top){
                                         Color.pWhite
@@ -130,41 +135,7 @@ struct CartView: View {
                                     
                                 }
                                 else{
-                                    List{
-                                        ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
-                                            VStack{
-                                                HStack{
-                                                    Text("\(item.korName)")
-                                                    Spacer()
-                                                    Text("\(item.quantity)개")
-                                                    Spacer()
-                                                    Text("\(item.frcUnitPrice) €")
-                                                }
-                                                HStack{
-                                                    Text("\(item.frcName)")
-                                                    Spacer()
-                                                    Text("\(item.korUnitPrice) 원")
-                                                }
-                                            }
-                                            .listRowBackground(
-                                                index == 0 ?
-                                                AnyView(
-                                                    Rectangle()
-                                                        .foregroundColor(.white)
-                                                        .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                                                ) :
-                                                    AnyView(Color.clear)
-                                            )
-                                        }
-                                        .onDelete(perform: shoppingViewModel.removeList)
-                                    }
-                                    .listStyle(PlainListStyle())
-                                    .background(
-                                        Color.white
-                                            .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                                            .ignoresSafeArea()
-                                    )
-                                    
+                                    CartListView
                                     .padding(.horizontal)
                                     
                                     
@@ -185,6 +156,12 @@ struct CartView: View {
                         Spacer()
                         if isPlus {
                             Button{
+                                let newItem = shoppingViewModel.addLinkList(korName: "", frcName: "", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 1)
+                                
+                                    editingItemID = newItem.id
+                                
+                                print("editingItemID: ", editingItemID)
+                                print("shoppingitem: ", shoppingViewModel.shoppingItem.last ?? ShoppingItem(korName: "", frcName: "", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: Date()))
                             } label: {
                                 ZStack{
                                     Circle()
@@ -291,6 +268,111 @@ struct CartView: View {
         print(totalPriceEuro,"€")
     }
     
+    private var CartListView: some View{
+            List{
+                ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
+                    VStack{
+                        if editingItemID == item.id {
+                            HStack{
+                                TextField("상품명", text: Binding(
+                                    get: { item.korName },
+                                    set: { newValue in
+                                        shoppingViewModel.shoppingItem[index].korName = newValue
+                                    }
+                                ))
+                                .focused($focusedField, equals: .korName) // 포커스 상태 관리
+                                .onSubmit {
+                                    focusedField = .quantity
+                                }
+                                Spacer()
+                                TextField("1", text: Binding(
+                                    get: { String(item.quantity) },
+                                    set: { newValue in
+                                        if let intValue = Int(newValue) {
+                                            shoppingViewModel.shoppingItem[index].quantity = intValue
+                                        }
+                                    }
+                                ))
+                                    .focused($focusedField, equals: .quantity)
+                                    .onSubmit {
+                                        focusedField = .frcUnitPrice
+                                    }
+                                Spacer()
+                                TextField("0.00", text: Binding(
+                                    get: { String(item.frcUnitPrice) },
+                                    set: {  newValue in
+                                        if let intValue = Int(newValue){
+                                            shoppingViewModel.shoppingItem[index].frcUnitPrice = intValue
+                                        }
+                                    }
+                                ))
+                                    .focused($focusedField, equals: .frcUnitPrice)
+                                    .onSubmit {
+                                        focusedField = .frcName
+                                    }
+                            }
+                            HStack{
+                                TextField("프랑스 이름", text: Binding(
+                                    get: { item.frcName },
+                                    set: { newValue in
+                                        shoppingViewModel.shoppingItem[index].frcName = newValue
+                                    }
+                                ))
+                                .focused($focusedField, equals: .frcName)
+                                .onSubmit {
+                                    focusedField = .korUnitPrice
+                                }
+                                Spacer()
+                                TextField("0", text: Binding(
+                                    get: { String(item.korUnitPrice) },
+                                    set: { newValue in
+                                        if let intValue = Int(newValue){
+                                            shoppingViewModel.shoppingItem[index].korUnitPrice = intValue
+                                        }
+                                    }
+                                ))
+                                .focused($focusedField, equals: .korUnitPrice)
+                                .onSubmit {
+                                    focusedField = nil
+                                }
+                            }
+                            
+                        }
+                        else {
+                            HStack{
+                                Text("\(item.korName)")
+                                Spacer()
+                                Text("\(item.quantity)개")
+                                Spacer()
+                                Text("\(item.frcUnitPrice) €")
+                            }
+                            HStack{
+                                Text("\(item.frcName)")
+                                Spacer()
+                                Text("\(item.korUnitPrice) 원")
+                            }
+                        }
+                    }
+                    .listRowBackground(
+                        index == 0 ?
+                        AnyView(
+                            Rectangle()
+                                .foregroundColor(.white)
+                                .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                        ) :
+                            AnyView(Color.clear)
+                    )
+                }
+                .onDelete(perform: shoppingViewModel.removeList)
+            }
+            .listStyle(PlainListStyle())
+            .background(
+                Color.white
+                    .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                    .ignoresSafeArea()
+            )
+
+    }
 }
 
 #Preview {

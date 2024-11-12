@@ -24,7 +24,6 @@ struct ListView: View {
                 )
                 Button {
                     listViewModel.addLinkList(title: "")
-                    
                 } label: {
                     HStack{
                         Spacer()
