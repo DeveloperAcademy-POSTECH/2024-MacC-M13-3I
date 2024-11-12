@@ -16,26 +16,31 @@ struct ListView: View {
                     }
                 }
                 .onDelete(perform: listViewModel.removeList)
+                .listRowSeparator(.hidden)
                 .listRowBackground(
                     Rectangle()
-                        .foregroundColor(.white)
+                        .foregroundColor(.pWhite)
                         .cornerRadius(12)
                 )
                 Button {
                     listViewModel.addLinkList(title: "")
-                    
                 } label: {
                     HStack{
                         Spacer()
-                        Image(systemName: "plus.circle.fill")
-                            .font(.system(size: 18))
-                            .foregroundStyle(.pBlue, .pLightGray)
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(.pLightGray)
+                                .frame(width: 18,height: 18)
+                            Image(systemName: "plus")
+                                .font(.system(size: 10))
+                                .foregroundStyle(.pBlue)
+                        }
                         Spacer()
                     }
-                }
+                } .listRowSeparator(.hidden)
                 .listRowBackground(
                     Rectangle()
-                        .foregroundColor(.white)
+                        .foregroundColor(.pWhite)
                         .cornerRadius(12)
                 )
             }

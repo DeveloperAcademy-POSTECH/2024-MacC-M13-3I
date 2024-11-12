@@ -4,6 +4,7 @@ extension Font {
     static let PLargeTitle: Font = .custom("GmarketSansBold", size: 24)
     static let PTitle1: Font = .custom("Pretendard-Bold", size: 24)
     static let PTitle2: Font = .custom("Pretendard-Bold", size: 18)
+    static let PCallout: Font = .custom("Pretendard-Bold", size: 15)
     static let PTitle3: Font = .custom("Pretendard-SemiBold", size: 18)
     
     static let PBody: Font = .custom("Pretendard-Medium", size: 16)

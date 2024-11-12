@@ -21,131 +21,134 @@ struct CartView: View {
     @State private var isPlus = false
     @State private var isDropdownExpanded = false
     
+    @State private var totalPriceWon: Int = 0
+    @State private var totalPriceEuro: Double = 0.0
+    @State private var editingItemID: UUID? = nil // 현재 편집 중인 항목의 ID
+    @FocusState private var focusedField: Field? // 포커스 상태 관리
+    enum Field: Hashable {
+            case korName, quantity, frcUnitPrice, frcName, korUnitPrice // 필드 식별
+        }
+    
     var body: some View {
         NavigationStack{
             ZStack{
                 Color.pBlack
                     .ignoresSafeArea()
-                VStack{
+                VStack(spacing: 0){
                     HStack(alignment: .bottom){
-                        Text("합산 가격")
-                            .font(.title2)
-                            .foregroundColor(.white)
+                        Text("장바구니 합계")
+                            .font(.PTitle2)
+                            .foregroundColor(.pWhite)
                         Spacer()
-                        VStack(alignment: .trailing){
-                            Text("\(shoppingViewModel.dateItem.last?.korTotal ?? 61500) 원")
+                        VStack(alignment: .trailing, spacing: 0){
+                            Text("\(totalPriceWon) 원")
                                 .font(.PTitle3)
                                 .foregroundColor(.pGray)
-                            Text("\(shoppingViewModel.dateItem.last?.frcTotal ?? 59) €")
-                                .font(.PTitle2)
-                                .foregroundColor(.white)
+                            Text("\(String(format: "%.2f", totalPriceEuro)) €")
+                                .font(.PTitle1)
+                                .foregroundColor(.pWhite)
                         }
                     }
                     .padding(.horizontal)
-                    .padding(.top,20)
+                    .padding(.bottom,12)
+                    .padding(.top, 24)
+                    
                     ZStack{
                         Color.pBackground
                             .ignoresSafeArea()
                         VStack(spacing: 0){
-                            HStack{
+                            HStack(spacing: 0){
                                 Spacer()
-                                Text("€ 1 = ₩ 1499.62 (EUR/KRW)")
-                                    .bold()
-                                    .font(.caption)
+                                Text("€ 1 = ₩ 1499.62")
+                                    .font(.PSubhead)
                                     .foregroundColor(.pDarkGray)
-                                    .padding()
-                            }
+                                    .padding(.trailing,4)
+                                Text("(EUR/KRW)")
+                                    .font(.PFootnote)
+                                    .foregroundColor(.pDarkGray)
+                            }.padding(.horizontal)
+                                .padding(.top)
+                                .padding(.bottom, 12)
                             
-                            // 드롭다운 토글 버튼
                             Button(action: {
-                                isDropdownExpanded.toggle() // 드롭다운 열림/닫힘 제어
+                                isDropdownExpanded.toggle()
                             }) {
-                                HStack {
-                                    Text("오늘의 장보기 리스트" )
+                                HStack{
+                                    Text("오늘의 장보기 리스트")
+                                        .font(.PTitle2)
+                                        .foregroundColor(.pBlack)
                                     Spacer()
-                                    Image(systemName: isDropdownExpanded ? "chevron.up" : "chevron.down") // 커스텀 아이콘
+                                    Image(systemName: isDropdownExpanded ? "chevron.up" : "chevron.down")
                                 }
-                                .foregroundColor(.black)
+                                .foregroundColor(.pBlack)
                                 .padding(.horizontal)
                                 .padding(.vertical, 12)
                                 .background(
                                     Group {
                                         if isDropdownExpanded {
                                             Rectangle()
-                                                .fill(Color.white)
+                                                .fill(Color.pWhite)
                                                 .clipShape(RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
-                                        } else {
-                                            Rectangle()
-                                                .fill(Color.white)
-                                                .cornerRadius(12)
+                                        }
+                                        else {
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .fill(Color.pWhite)
+                                                .stroke(Color.pGray, lineWidth: 2)
                                         }
                                     }
                                 )
                             }
                             .padding(.horizontal)
                             
-                            // 드롭다운 내용
                             if isDropdownExpanded {
-                                DropdownListView(listViewModel: listViewModel)
+                                ZStack{
+                                    Color.pLightGray
+                                        .clipShape(RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight]))
+                                        .padding(.horizontal)
+                                    DropdownListView(listViewModel: listViewModel)
+                                        .padding()
+                                }
+                                .frame(height: 156)
                             }
                             
                             HStack{
                                 Text("장바구니에는 무엇이 있을까?")
+                                    .font(.PTitle2)
+                                    .foregroundColor(.pBlack)
                                 Spacer()
                             }.padding(.horizontal)
-                                .padding(.vertical, 20)
-                            if shoppingViewModel.shoppingItem.isEmpty {
-                                ZStack{
-                                    Color.white
-                                        .cornerRadius(12)
-                                        .padding(.horizontal)
-                                        .ignoresSafeArea()
-                                    VStack{
-                                        Text("버튼을 눌러")
-                                        Text("카트에 담긴 물건을 입력해주세요.")
-                                    }
-                                }
+                                .padding(.top, 24)
+                                .padding(.bottom,4)
+                            VStack(spacing: 0){
                                 
-                            }
-                            else{
-                                List{
-                                    ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
+                                if shoppingViewModel.shoppingItem.isEmpty {
+                                    ZStack(alignment: .top){
+                                        Color.pWhite
+                                            .cornerRadius(12)
+                                            .padding(.horizontal)
+                                            .ignoresSafeArea()
                                         VStack{
-                                            HStack{
-                                                Text("\(item.korName)")
-                                                Spacer()
-                                                Text("\(item.quantity)개")
-                                                Spacer()
-                                                Text("\(item.frcUnitPrice) €")
-                                            }
-                                            HStack{
-                                                Text("\(item.frcName)")
-                                                Spacer()
-                                                Text("\(item.korUnitPrice) 원")
-                                            }
-                                        }
-                                        .listRowBackground(
-                                            index == 0 ?
-                                            AnyView(
-                                                Rectangle()
-                                                    .foregroundColor(.white)
-                                                    .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                                            ) :
-                                                AnyView(Color.clear) // 나머지 항목은 배경 없음 또는 기본 배경
-                                        )
+                                            Text("버튼을 눌러")
+                                            Text("카트에 담긴 물건을 입력해주세요.")
+                                        }.font(.PTitle3)
+                                            .foregroundColor(.pDarkGray)
+                                            .padding(.top,80)
                                     }
-                                    .onDelete(perform: shoppingViewModel.removeList)
+                                    
                                 }
-                                .listStyle(PlainListStyle())
-                                .background(
-                                    Color.white
-                                        .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                                        .ignoresSafeArea()
-                                )
-                                .padding(.horizontal)
-                                
-                                
-                            }
+                                else{
+                                    CartListView
+                                    .padding(.horizontal)
+                                    
+                                    
+                                }
+                            }.overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.pGray, lineWidth: 2)
+                                    .padding(.horizontal)
+                                    .ignoresSafeArea()
+                            )
+                            
                         }
                     }
                 }
@@ -155,23 +158,33 @@ struct CartView: View {
                         Spacer()
                         if isPlus {
                             Button{
+                                let newItem = shoppingViewModel.addLinkList(korName: "", frcName: "", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 1)
                                 
+                                    editingItemID = newItem.id
+                                
+                                print("editingItemID: ", editingItemID)
+                                print("shoppingitem: ", shoppingViewModel.shoppingItem.last ?? ShoppingItem(korName: "", frcName: "", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: Date()))
                             } label: {
                                 ZStack{
                                     Circle()
                                         .frame(width: 40)
-                                        .foregroundColor(.pBlue)
+                                        .foregroundColor(.pDarkGray)
                                     Text("Aa")
                                         .foregroundColor(.white)
                                 }
                             }.background()
                             NavigationLink(
                                 destination: ScanView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel),
+
+                                destination: DocumentScannerView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel, recognizedText: $recognizedText),
+
+                                destination: ScanView(viewModel: CameraViewModel()),
+
                                 label: {
                                     ZStack{
                                         Circle()
                                             .frame(width: 40)
-                                            .foregroundColor(.pBlue)
+                                            .foregroundColor(.pDarkGray)
                                         Image(systemName: "camera.fill")
                                             .font(.system(size: 15))
                                             .foregroundColor(.white)
@@ -193,14 +206,27 @@ struct CartView: View {
                     }
                 }.padding(.horizontal,30)
             }
+            .onChange(of: shoppingViewModel.shoppingItem) { _ in
+                pricing()
+            }
+            .onAppear {
+                pricing()
+            }
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
+                        shoppingViewModel.shoppingItem = []
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
                             .foregroundColor(.pBlue)
                     }
+                }
+                ToolbarItem(placement: .principal){
+                    Text("장보기")
+                        .font(.PTitle2)
+                        .foregroundColor(.pWhite)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -222,13 +248,10 @@ struct CartView: View {
                         listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
                     }
                     
-                    let korTotalPrice = shoppingViewModel.korTotalPricing(from: shoppingViewModel.shoppingItem)
-                    
-                    let frcTotalPrice = shoppingViewModel.frcTotalPricing(from: shoppingViewModel.shoppingItem)
-                    
-                    let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: korTotalPrice, frcTotal: frcTotalPrice, place: "프랑스마트")
+                    let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: totalPriceWon, frcTotal: Int(totalPriceEuro), place: "프랑스마트")
                     
                     shoppingViewModel.dateItem.append(dateItem)
+                    shoppingViewModel.shoppingItem = []
                     
                     shoppingViewModel.saveShoppingListToUserDefaults()
                     listViewModel.saveShoppingListToUserDefaults()
@@ -236,15 +259,165 @@ struct CartView: View {
                 }),
                       secondaryButton: .cancel(Text("돌아가기")))
             }
+
             
             NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)) {
+
+            NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel), isActive: $isFinish) {
+
                 EmptyView()
             }
         }
         .navigationBarBackButtonHidden()
-        .navigationTitle("장보기")
     }
     
+    func pricing() {
+        totalPriceWon = shoppingViewModel.korTotalPricing(from: shoppingViewModel.shoppingItem)
+        
+        totalPriceEuro = Double(shoppingViewModel.frcTotalPricing(from: shoppingViewModel.shoppingItem))
+        
+        print(totalPriceWon,"원")
+        print(totalPriceEuro,"€")
+    }
+    
+    private var CartListView: some View{
+            List{
+                ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
+                    VStack{
+                        if editingItemID == item.id {
+                            HStack(spacing: 0){
+                                TextField("상품명", text: Binding(
+                                    get: { item.korName },
+                                    set: { newValue in
+                                        shoppingViewModel.shoppingItem[index].korName = newValue
+                                    }
+                                ))
+                                .font(.PTitle3)
+                                .frame(width: 180, alignment: .leading)
+                                .focused($focusedField, equals: .korName) // 포커스 상태 관리
+                                .onSubmit {
+                                    focusedField = .quantity
+                                }
+                                
+                                HStack(spacing: 0){
+                                    TextField("1", text: Binding(
+                                        get: { String(item.quantity) },
+                                        set: { newValue in
+                                            if let intValue = Int(newValue) {
+                                                shoppingViewModel.shoppingItem[index].quantity = intValue
+                                            }
+                                        }
+                                    ))
+                                    .font(.PBody)
+                                    .multilineTextAlignment(.trailing)
+                                    .focused($focusedField, equals: .quantity)
+                                    .onSubmit {
+                                        focusedField = .frcUnitPrice
+                                    }
+                                    Text("개")
+                                    .font(.PBody)
+                                }
+                                .frame(width: 30, alignment: .trailing)
+                            
+                                HStack(spacing: 0){
+                                    TextField("0.00", text: Binding(
+                                        get: { String(item.frcUnitPrice) },
+                                        set: {  newValue in
+                                            if let intValue = Int(newValue){
+                                                shoppingViewModel.shoppingItem[index].frcUnitPrice = intValue
+                                            }
+                                        }
+                                    ))
+                                    .font(.PTitle3)
+                                    .multilineTextAlignment(.trailing)
+                                    .focused($focusedField, equals: .frcUnitPrice)
+                                    .onSubmit {
+                                        focusedField = .frcName
+                                    }
+                                    Text(" €")
+                                        .font(.PTitle3)
+                                }
+                                .frame(width: 120, alignment: .trailing)
+                                
+                            }
+                            HStack{
+                                TextField("프랑스 이름", text: Binding(
+                                    get: { item.frcName },
+                                    set: { newValue in
+                                        shoppingViewModel.shoppingItem[index].frcName = newValue
+                                    }
+                                ))
+                                .font(.PBody)
+                                .frame(width: 180, alignment: .leading)
+                                .focused($focusedField, equals: .frcName)
+                                .onSubmit {
+                                    focusedField = .korUnitPrice
+                                }
+                                Spacer()
+                                
+                                HStack(spacing: 0){
+                                    TextField("0", text: Binding(
+                                        get: { String(item.korUnitPrice) },
+                                        set: { newValue in
+                                            if let intValue = Int(newValue){
+                                                shoppingViewModel.shoppingItem[index].korUnitPrice = intValue
+                                            }
+                                        }
+                                    ))
+                                    .font(.PBody)
+                                    .multilineTextAlignment(.trailing)
+                                    .focused($focusedField, equals: .korUnitPrice)
+                                    .onSubmit {
+                                        focusedField = nil
+                                    }
+                                    Text(" 원")
+                                    .font(.PBody)
+                                }
+                                .frame(width: 120, alignment: .trailing)
+                            }
+                        }
+                        else {
+                            HStack(spacing: 0){
+                                Text("\(item.korName)")
+                                    .font(.PTitle3)
+                                    .frame(width: 180, alignment: .leading)
+                                Text("\(item.quantity)개")
+                                    .font(.PBody)
+                                    .frame(width: 26, alignment: .trailing)
+                                Text("\(item.frcUnitPrice) €")
+                                    .font(.PTitle3)
+                                    .frame(width: 120, alignment: .trailing)
+                            }
+                            HStack{
+                                Text("\(item.frcName)")
+                                    .font(.PBody)
+                                    .frame(width: 180, alignment: .leading)
+                                Spacer()
+                                Text("\(item.korUnitPrice) 원")
+                                    .font(.PBody)
+                                    .frame(width: 120, alignment: .trailing)
+                            }
+                        }
+                    }
+                    .listRowBackground(
+                        index == 0 ?
+                        AnyView(
+                            Rectangle()
+                                .foregroundColor(.white)
+                                .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                        ) :
+                            AnyView(Color.clear)
+                    )
+                }
+                .onDelete(perform: shoppingViewModel.removeList)
+            }
+            .listStyle(PlainListStyle())
+            .background(
+                Color.white
+                    .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                    .ignoresSafeArea()
+            )
+    }
 }
 
 #Preview {

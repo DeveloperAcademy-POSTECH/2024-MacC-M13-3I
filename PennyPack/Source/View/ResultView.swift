@@ -23,27 +23,24 @@ struct ResultView: View {
                     .ignoresSafeArea()
                 VStack{
                     HStack(spacing: 0){
-                        Text("새로운 여행지")
+                        Text("오늘의 장보기")
                             .foregroundColor(.pBlue)
-                        Text("가")
-                            .foregroundColor(.white)
+                        Text("는")
+                            .foregroundColor(.pWhite)
                     }
-                    .bold()
-                    .font(.largeTitle)
-                    Text("기다리고 있어요")
-                        .foregroundColor(.white)
-                        .bold()
-                            .font(.largeTitle)
+                    .font(.PTitle1)
+                    Text("만족하셨나요?")
+                        .foregroundColor(.pWhite)
+                        .font(.PTitle1)
                     Text("다음 주는 조금 더 아껴볼까요?")
-                        .foregroundColor(.white)
-                    
-                    Text("티끌 모아, 여행")
-                        .foregroundColor(.white)
+                        .font(.PBody)
+                        .foregroundColor(.pWhite)
                 }
             }
             .sheet(isPresented: $showSheet) {
                 ResultModalView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, isButton: .constant(false))
-                    .presentationDetents([.height(150.0), .height(700)])
+                    .presentationDetents([.height(125.0), .height(700)])
+                
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
