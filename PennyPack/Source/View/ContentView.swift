@@ -13,9 +13,14 @@ struct ContentView: View {
     @StateObject private var listViewModel = ListViewModel()
    
     var body: some View {
+
         
             NavigationStack{
                 MainView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)
+
+        NavigationStack{
+            MainView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)
+
         }
     }
 }

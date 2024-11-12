@@ -3,63 +3,62 @@ import SwiftUI
 struct DropdownListView: View {
     @ObservedObject var listViewModel: ListViewModel
     @State var isButton: Bool = false
+    
     var body: some View {
-        ScrollView{
-            ZStack{
-                Color.pLightGray
-                    .clipShape(RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight]))
-           
-                VStack(alignment: .leading) {
-                    ForEach($listViewModel.shoppingList) { $list in
-                        if !list.isPurchase {
-                            Button(action: {
-                                list.isChoise.toggle()
-                                print (listViewModel.shoppingList)
-                            }) {
-                                HStack{
-                                    if list.isChoise {
-                                        ZStack{
-                                            RoundedRectangle(cornerRadius: 4)
-                                                .fill(.pBlue)
-                                                .stroke(
-                                                    Color.pBlue,
-                                                    style: StrokeStyle(
-                                                        lineWidth: 1.5)
-                                                )
-                                                .frame(width: 15, height: 15)
-                                            Image(systemName: "checkmark")
-                                                .font(.system(size: 12))
-                                                .foregroundColor(.white)
-                                        }.padding(.leading)
-                                       
-                                    }
-                                    else {
-                                        ZStack{
-                                            RoundedRectangle(cornerRadius: 4)
-                                                .fill(.white)
-                                                .stroke(
-                                                    Color.pBlue,
-                                                    style: StrokeStyle(
-                                                        lineWidth: 1.5)
-                                                )
-                                                .frame(width: 15, height: 15)
-                                        }.padding(.leading)
-                                        
+        VStack(spacing: 0){
+            List{
+                ForEach($listViewModel.shoppingList) { $list in
+                    if !list.isPurchase {
+                        Button(action: {
+                            list.isChoise.toggle()
+                        }) {
+                            HStack{
+                                if list.isChoise {
+                                    ZStack{
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(.pBlue)
+                                            .stroke(
+                                                Color.pBlue,
+                                                style: StrokeStyle(
+                                                    lineWidth: 1.5)
+                                            )
+                                            .frame(width: 15, height: 15)
+                                        Image(systemName: "checkmark")
+                                            .font(.system(size: 12))
+                                            .foregroundColor(.pWhite)
                                     }
                                     Text(list.title)
-                                    Spacer()
+                                        .font(.PBody)
+                                        .foregroundColor(.pBlack)
                                 }
-                                .foregroundColor(.black)
-                                .padding(.vertical, 12)
-                                .background(.white)
-                                .cornerRadius(12)
-                                
+                                else {
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .fill(.white)
+                                        .stroke(
+                                            Color.pBlue,
+                                            style: StrokeStyle(
+                                                lineWidth: 1.5)
+                                        )
+                                    .frame(width: 15, height: 15)
+                                    Text(list.title)
+                                        .font(.PBody)
+                                        .foregroundColor(.pBlack)
+                                }
                             }
                         }
                     }
-                }
-                .padding()
-            }.padding(.horizontal)
+                }.onDelete(perform: listViewModel.removeList)
+                .listRowSeparator(.hidden)
+                .listRowBackground(
+                    Rectangle()
+                        .foregroundColor(.pWhite)
+                        .cornerRadius(12)
+                )
+            }
+            .listRowSpacing(8)
+            .listStyle(PlainListStyle())
+            .padding(.horizontal)
+            .background(.pLightGray)
             
         }
     }

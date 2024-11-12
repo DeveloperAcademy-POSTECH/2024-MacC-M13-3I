@@ -31,23 +31,53 @@ class ShoppingViewModel:ObservableObject {
     @Published var nowPlace: String = ""
     
     init(){
-        if shoppingItem.isEmpty {
-            if let customDate = Calendar.current.date(byAdding: .day, value: -10, to: Date()) {
-                self.shoppingItem = [
-                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 1, korPrice: 1000, frcPrice: 1, time: customDate),
-                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 1, korPrice: 2000, frcPrice: 2, time: Date())
-                ]
-            }
-        }
-//        
+
+//        if shoppingItem.isEmpty {
+//            if let customDate = Calendar.current.date(byAdding: .day, value: -10, to: Date()) {
+//                self.shoppingItem = [
+//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+//                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+//                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date())
+//                ]
+//            }
+//        }
+        
 //        if dateItem.isEmpty {
 //            self.dateItem = [
+//                DateItem(date: Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
+//                DateItem(date: Calendar.current.date(byAdding: .day, value: -4, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
+//                DateItem(date: Calendar.current.date(byAdding: .day, value: -10, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
+//                DateItem(date: Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
+//                DateItem(date: Calendar.current.date(byAdding: .day, value: -4, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
+//                DateItem(date: Calendar.current.date(byAdding: .day, value: -10, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
 //                DateItem(date: Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
 //                DateItem(date: Calendar.current.date(byAdding: .day, value: -4, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
 //                DateItem(date: Calendar.current.date(byAdding: .day, value: -10, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소")
 //
 //            ]
 //        }
+
         
         loadShoppingListFromUserDefaults()
     }
@@ -124,61 +154,17 @@ class ShoppingViewModel:ObservableObject {
         for index in items.indices {
             total += items[index].korPrice
         }
-
-//        if var lastDateItem = dateItem.last {
-//            lastDateItem.korTotal = total
-//            if let lastIndex = dateItem.indices.last {
-//                dateItem[lastIndex] = lastDateItem
-//            }
-//        }
         return total
     }
+    
     func frcTotalPricing(from items: [ShoppingItem]) -> Int {
         var total = 0
         for index in items.indices {
             total += items[index].frcPrice
         }
-
-//        if var lastDateItem = dateItem.last {
-//            lastDateItem.frcTotal = total
-//            if let lastIndex = dateItem.indices.last {
-//                dateItem[lastIndex] = lastDateItem
-//            }
-//        }
         return total
     }
-
-    // MARK: 전체 쇼핑 항목에 대한 가격 계산
-    func pricing(from items: [ShoppingItem]) {
-        for index in shoppingItem.indices {
-            shoppingItem[index].korPrice = shoppingItem[index].korUnitPrice * shoppingItem[index].quantity
-        }
-
-        if var lastDateItem = dateItem.last {
-            lastDateItem.items = shoppingItem
-            lastDateItem.korTotal = shoppingItem.reduce(0) { $0 + $1.korPrice }
-            if let lastIndex = dateItem.indices.last {
-                dateItem[lastIndex] = lastDateItem
-            }
-        }
-    }
-
-    // MARK: 개별 쇼핑 항목에 대한 가격 계산
-    func pricingItem(for item: inout ShoppingItem) {
-        item.korPrice = item.korUnitPrice * item.quantity
-
-        if let index = shoppingItem.firstIndex(where: { $0.id == item.id }) {
-            shoppingItem[index] = item
-
-            if var lastDateItem = dateItem.last {
-                lastDateItem.items = shoppingItem
-                lastDateItem.korTotal = shoppingItem.reduce(0) { $0 + $1.korPrice }
-                if let lastIndex = dateItem.indices.last {
-                    dateItem[lastIndex] = lastDateItem
-                }
-            }
-        }
-    }
+    
 }
 
 
