@@ -79,20 +79,20 @@ struct TestView: View {
     
     init(shoppingViewModel: ShoppingViewModel, listViewModel: ListViewModel) {
            self.shoppingViewModel = shoppingViewModel
-           _translation = StateObject(wrappedValue: TranslationSerivce(shoppingViewModel: shoppingViewModel))
+           _translation = StateObject(wrappedValue: TranslationSerivce())
         self.listViewModel = listViewModel
        }
 
     var body: some View {
         NavigationStack{
             VStack {
-                DocumentScannerView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, recognizedText: $recognizedText)
+                DocumentScannerView(recognizedText: $recognizedText)
                 
                 ScrollView {
                     Text(recognizedText)
                     Text(translation.translatedText)
                 }
-                RegexView(translation: TranslationSerivce(shoppingViewModel: ShoppingViewModel()), recognizedText: $recognizedText)
+                RegexView(translation: TranslationSerivce(), recognizedText: $recognizedText, shoppingViewModel: shoppingViewModel)
             }
             .onChange(of: recognizedText) { newText in
                 // recognizedText의 값이 변경될 때마다 자동으로 번역 함수 호출

@@ -9,25 +9,18 @@ import SwiftUI
 import Foundation
 
 struct RegexView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject var translation : TranslationSerivce
     @Binding var recognizedText: String
 //    @State private var translatedText11: String = ""
     @State private var validItemsK: [String] = []
+    @ObservedObject var shoppingViewModel: ShoppingViewModel
 
 //    var validPrices: [Double]
 //    var validItems: String
     
     var body: some View {
-        VStack {
-            //            print(isValidPhoneNumber("1234567890"))
-            //            isValidPhoneNumber(price: "1234567890")
-            //            DocumentScannerView(recognizedText: $viewModel.recognizedText)
-
-            Text(recognizedText)
-                .foregroundColor(.white)
-            Text(translation.translatedText)
-                .foregroundColor(.white)
-            
+        VStack {            
             let validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
             //separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
             let validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
@@ -66,9 +59,13 @@ struct RegexView: View {
                     Text("1")
                         .font(.PTitle3)
                 }
-                HStack{
-                    Spacer()
-                    Text("수정, 저장")
+                HStack {
+                    Button {
+                        shoppingViewModel.addNewShoppingItem(korName: "한국 이름", frcName: "프랑스 이름", quantity: 1, korUnitPrice: 1, frcUnitPrice: 1)
+                        dismiss()
+                    } label: {
+                        Text("저장")
+                    }
                 }
             }
             .padding(.top, 50)
@@ -125,7 +122,7 @@ func extractValidPrices(_ strings: [String]) -> [Double] {
 }
 
 #Preview {
-    RegexView(translation: TranslationSerivce(shoppingViewModel: ShoppingViewModel()), recognizedText: .constant("Sample text"))
+    RegexView(translation: TranslationSerivce(), recognizedText: .constant("Sample text"), shoppingViewModel: ShoppingViewModel())
 }
 
 //스캔된 ocr -> 정규표현식으로 걸러내 -> ml 돌리기

@@ -92,10 +92,10 @@ class ShoppingViewModel:ObservableObject {
         loadShoppingListFromUserDefaults()
     }
     // MARK: 리스트에 새 값 추가 함수
-    func addLinkList(korName: String, frcName: String, quantity: Int, korUnitPrice: Int, frcUnitPrice: Int) -> ShoppingItem {
-        let linkList: ShoppingItem = ShoppingItem(korName: korName, frcName: frcName, quantity: quantity, korUnitPrice: korUnitPrice, frcUnitPrice: frcUnitPrice, korPrice: quantity*korUnitPrice, frcPrice: quantity*frcUnitPrice, time: Date())
-        shoppingItem.append(linkList)
-        return linkList
+    func addNewShoppingItem(korName: String, frcName: String, quantity: Int, korUnitPrice: Int, frcUnitPrice: Int) -> ShoppingItem {
+        let newShoppingItem: ShoppingItem = ShoppingItem(korName: korName, frcName: frcName, quantity: quantity, korUnitPrice: korUnitPrice, frcUnitPrice: frcUnitPrice, korPrice: quantity*korUnitPrice, frcPrice: quantity*frcUnitPrice, time: Date())
+        shoppingItem.append(newShoppingItem)
+        return newShoppingItem
     }
     
     func removeList(at offsets: IndexSet) {

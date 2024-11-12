@@ -74,22 +74,14 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
     }
 }
 
-//struct DocumentScannerView_Previews: PreviewProvider {
-//    @State static var sampleText = "Sample Recognized Text"
-//
-//    static var previews: some View {
-//        DocumentScannerView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel(), recognizedText: $recognizedText)
-//    }
-//}
-
 struct DocumentScannerView: View {
     @StateObject private var cameraViewModel = CameraViewModel()
     @Binding var recognizedText: String
     @StateObject var translation : TranslationSerivce
     @State var recentImage: UIImage?
     
-    init(shoppingViewModel: ShoppingViewModel, listViewModel: ListViewModel, recognizedText: Binding<String>) {
-        _translation = StateObject(wrappedValue: TranslationSerivce(shoppingViewModel: shoppingViewModel))
+    init(recognizedText: Binding<String>) {
+        _translation = StateObject(wrappedValue: TranslationSerivce())
         self._recognizedText = recognizedText
     }
     
@@ -173,29 +165,24 @@ struct DocumentScannerView: View {
                         coordinator.recognizeText(in: newImage)
                     }
                     .padding(.top, 18)
-                    VStack {
-                        /// 11. 전달받은 recognizedText와 translation에 있는 translatedText를 화면에 보여준다. 
-                        Text("Recognized Text: \(recognizedText)")
-                        Text("Translated Text: \(translation.translatedText)")
-                    }
-                    .foregroundStyle(.white)
-                    .padding(.vertical, 30)
-                    .onChange(of: recognizedText) { oldValue, newValue in
-                        /// 9. 이미지에서 텍스트 인식이 종료되고 받은 recognizedText를 받아서 번역을 실행. translation 객체의 translateText 함수에 전달받은 텍스트 전달
-                        if oldValue == newValue { return }
-                        translation.translateText(text: newValue) { _ in
-                        }
-                        
-                    }
+//                    VStack {
+//                        /// 11. 전달받은 recognizedText와 translation에 있는 translatedText를 화면에 보여준다. 
+//                        Text("Recognized Text: \(recognizedText)")
+//                        Text("Translated Text: \(translation.translatedText)")
+//                    }
+//                    .foregroundStyle(.white)
+//                    .padding(.vertical, 30)
+//                    .onChange(of: recognizedText) { oldValue, newValue in
+//                        /// 9. 이미지에서 텍스트 인식이 종료되고 받은 recognizedText를 받아서 번역을 실행. translation 객체의 translateText 함수에 전달받은 텍스트 전달
+//                        if oldValue == newValue { return }
+//                        translation.translateText(text: newValue) { _ in
+//                        }
+//                    }
                 }
             }
         }.ignoresSafeArea()
     }
 }
-
-//#Preview {
-//    DocumentScannerView1(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)
-//}
 
 //#Preview {
 //    DocumentScannerView_Previews() as! any View
