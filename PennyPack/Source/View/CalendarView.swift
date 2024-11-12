@@ -38,42 +38,22 @@ struct CalendarView: View {
                         RoundedRectangle(cornerRadius: 12)
                         .stroke(Color.pGray, lineWidth: 2)
                     )
-                    Spacer()
+                    .padding(.bottom, 68)
                     
+                    if !isShopping {
+                        Text("저장된 영수증이 없어요")
+                            .font(.PTitle3)
+                            .foregroundColor(.pDarkGray)
+                        
+                    }
+                    Spacer()
+
                 }
                 .padding(.horizontal, 16)
                 
                 
-                
-                
-                if !isShopping {
-                    ZStack{
-                        Color.pBlue
-                            .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                            .ignoresSafeArea()
-                        
-                        Text("\(shoppingViewModel.formatDate(from: clickedCurrentMonthDates ?? Date()))은 장을 안봤네요!")
-                            .font(.PLargeTitle)
-                            .foregroundColor(.white)
-                    }.padding(.top,650)
-                }
-            }
-            .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Image(systemName: "chevron.left")
-                                .foregroundColor(.pBlue)
-                        }
-                    }
-                    ToolbarItem(placement: .principal){
-                        Text("달력")
-                            .font(.PTitle2)
-                            .foregroundColor(.pWhite)
-                    }
-                }
+                            }
+
             .sheet(isPresented: $showSheet) {
                 ReceiptView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, isButton: .constant(false))
                     .presentationDetents([.height(130), .height(540)])
@@ -181,8 +161,13 @@ struct CalendarView: View {
                         let day = Calendar.current.component(.day, from: date)
                         let clicked = clickedCurrentMonthDates == date
                         let isToday = date.formattedCalendarDayDate == today.formattedCalendarDayDate
+                        let isDateInShoppingList = shoppingViewModel.dateItem.contains { dateItem in
+                                                Calendar.current.isDate(dateItem.date, inSameDayAs: date)
+                                            }
                         
-                        CellView(day: day, clicked: clicked, isToday: isToday, isShopping: $isShopping)
+                        
+                        
+                        CellView(day: day, clicked: clicked, isToday: isToday, isDateInShoppingList: isDateInShoppingList)
                     } else if let prevMonthDate = Calendar.current.date(
                         byAdding: .day,
                         value: index + lastDayOfMonthBefore,
@@ -190,7 +175,7 @@ struct CalendarView: View {
                     ) {
                         let day = Calendar.current.component(.day, from: prevMonthDate)
                         
-                        CellView(day: day, isCurrentMonthDay: false, isShopping: $isShopping)
+                        CellView(day: day, isCurrentMonthDay: false, isDateInShoppingList: false)
                     }
                 }
                 .onTapGesture {
@@ -225,62 +210,67 @@ struct CalendarView: View {
 
 // MARK: - 일자 셀 뷰
 private struct CellView: View {
-    @Binding var isShopping: Bool
+    private var isDateInShoppingList: Bool
   private var day: Int
   private var clicked: Bool
   private var isToday: Bool
   private var isCurrentMonthDay: Bool
-  private var textColor: Color {
-      if clicked {
-          return Color.pWhite
-      } else if isShopping {
-          return Color.pWhite
-    } else if isCurrentMonthDay {
-        return Color.pBlack
-    } else {
-        return Color.pWhite
-    }
-  }
-  private var backgroundColor: Color {
-    if clicked {
-        return Color.pDarkGray
-    } else if isShopping {
-        return Color.pBlue
-    } else if isToday {
-      return Color.pDarkGray
-    } else {
-        return Color.pWhite
-    }
-  }
+//  private var textColor: Color {
+//      if clicked {
+//          return Color.pWhite
+//      } else if isShopping {
+//          return Color.pWhite
+//    } else if isCurrentMonthDay {
+//        return Color.pBlack
+//    } else {
+//        return Color.pWhite
+//    }
+//  }
+//  private var backgroundColor: Color {
+//    if clicked {
+//        return Color.pDarkGray
+//    } else if isShopping {
+//        return Color.pBlue
+//    } else if isToday {
+//      return Color.pDarkGray
+//    } else {
+//        return Color.pWhite
+//    }
+//  }
   
     fileprivate init(
       day: Int,
       clicked: Bool = false,
       isToday: Bool = false,
       isCurrentMonthDay: Bool = true,
-      isShopping: Binding<Bool>
+      isDateInShoppingList: Bool = false
     ) {
       self.day = day
       self.clicked = clicked
       self.isToday = isToday
       self.isCurrentMonthDay = isCurrentMonthDay
-        self._isShopping = isShopping
+        self.isDateInShoppingList = isDateInShoppingList
     }
   
   fileprivate var body: some View {
     VStack {
-        if isShopping {
+        if clicked {
+
             Circle()
-                .fill(backgroundColor)
+                .fill(Color.pDarkGray)
                 .frame(width: 48, height:48)
                 .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(textColor)
-        } else if clicked {
+                .foregroundColor(.pWhite)
+            
+            
+        } else if isDateInShoppingList {
+            
             Circle()
-                .fill(backgroundColor)
+                .fill(Color.pBlue)
                 .frame(width: 48, height:48)
                 .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(textColor)
+                .foregroundColor(.pWhite)
+            
         } else if isToday {
 //            Text(String(day))
 //                .frame(width: 15, height: 15)
@@ -292,17 +282,23 @@ private struct CellView: View {
 
             Circle()
                 .fill(.pWhite)
-                .stroke(backgroundColor)
+                .stroke(Color.pDarkGray)
                 .frame(width: 48, height:48)
                 .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(textColor)
+                .foregroundColor(Color.pBlack)
             
+        } else if isCurrentMonthDay{
+            Circle()
+                .fill(Color.pWhite)
+                .frame(width: 48, height:48)
+                .overlay(Text(String(day)).font(.PBody))
+                .foregroundColor(Color.pBlack)
         } else {
             Circle()
-                .fill(backgroundColor)
+                .fill(Color.pWhite)
                 .frame(width: 48, height:48)
                 .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(textColor)
+                .foregroundColor(Color.pWhite)
         }
       
       Spacer()

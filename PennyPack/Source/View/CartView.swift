@@ -172,7 +172,7 @@ struct CartView: View {
                                 }
                             }.background()
                             NavigationLink(
-                                destination: ScanView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel),
+                                destination: ScanView(viewModel: CameraViewModel()),
                                 label: {
                                     ZStack{
                                         Circle()
