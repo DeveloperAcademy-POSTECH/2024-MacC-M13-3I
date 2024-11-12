@@ -9,10 +9,12 @@ import SwiftUI
 import Foundation
 
 struct RegexView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject var translation : TranslationSerivce
     @Binding var recognizedText: String
 //    @State private var translatedText11: String = ""
     @State private var validItemsK: [String] = []
+    @ObservedObject var shoppingViewModel: ShoppingViewModel
 
 //    var validPrices: [Double]
 //    var validItems: String
@@ -68,7 +70,8 @@ struct RegexView: View {
                 }
                 HStack {
                     Button {
-//                        let data = ShoppingItem(korName: translatedText, frcName: "프랑스어", quantity: 1, korUnitPrice: 1, frcUnitPrice: 1, korPrice: 1, frcPrice: 1, time: Date())
+                        shoppingViewModel.addNewShoppingItem(korName: "한국 이름", frcName: "프랑스 이름", quantity: 1, korUnitPrice: 1, frcUnitPrice: 1)
+                        dismiss()
                     } label: {
                         Text("저장")
                     }
@@ -128,7 +131,7 @@ func extractValidPrices(_ strings: [String]) -> [Double] {
 }
 
 #Preview {
-    RegexView(translation: TranslationSerivce(), recognizedText: .constant("Sample text"))
+    RegexView(translation: TranslationSerivce(), recognizedText: .constant("Sample text"), shoppingViewModel: ShoppingViewModel())
 }
 
 //스캔된 ocr -> 정규표현식으로 걸러내 -> ml 돌리기
