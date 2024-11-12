@@ -13,6 +13,7 @@ struct CartView: View {
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @ObservedObject var listViewModel: ListViewModel
     @State var shoppingItems: [ShoppingItem] = []
+    @State private var recognizedText = ""
     
     
     @State private var isAlert = false
@@ -165,7 +166,7 @@ struct CartView: View {
                                 }
                             }.background()
                             NavigationLink(
-                                destination: ScanView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel),
+                                destination: DocumentScannerView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel, recognizedText: $recognizedText),
                                 label: {
                                     ZStack{
                                         Circle()
@@ -236,7 +237,7 @@ struct CartView: View {
                       secondaryButton: .cancel(Text("돌아가기")))
             }
             
-            NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel), isActive: $isFinish) {
+            NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)) {
                 EmptyView()
             }
         }

@@ -13,6 +13,7 @@ struct TestView: View {
     @ObservedObject var listViewModel: ListViewModel
     @State private var recognizedText = ""
     @StateObject var translation : TranslationSerivce
+    @State private var translatedText1: String = ""
     
     init(shoppingViewModel: ShoppingViewModel, listViewModel: ListViewModel) {
            self.shoppingViewModel = shoppingViewModel
@@ -23,18 +24,20 @@ struct TestView: View {
     var body: some View {
         NavigationStack{
             VStack {
-                DocumentScannerView(recognizedText: $recognizedText)
+                DocumentScannerView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, recognizedText: $recognizedText)
                 
                 ScrollView {
                     Text(recognizedText)
                     Text(translation.translatedText)
                 }
-                RegexView(recognizedText: $recognizedText, validPrices: [0.81], validItems: "")
+                RegexView(translation: TranslationSerivce(shoppingViewModel: ShoppingViewModel()), recognizedText: $recognizedText)
             }
             .onChange(of: recognizedText) { newText in
                 // recognizedText의 값이 변경될 때마다 자동으로 번역 함수 호출
                 if !newText.isEmpty {
-                    translation.translateText(text: newText)
+                    translation.translateText(text: newText) { result in
+                        self.translatedText1 = result
+                    }
                 }
             }
         }

@@ -9,25 +9,76 @@ import SwiftUI
 import Foundation
 
 struct RegexView: View {
+    @StateObject var translation : TranslationSerivce
     @Binding var recognizedText: String
-    var validPrices: [Double]
-    var validItems: String
+//    @State private var translatedText11: String = ""
+    @State private var validItemsK: [String] = []
 
+//    var validPrices: [Double]
+//    var validItems: String
+    
     var body: some View {
         VStack {
-//            print(isValidPhoneNumber("1234567890"))
-//            isValidPhoneNumber(price: "1234567890")
-//            DocumentScannerView(recognizedText: $viewModel.recognizedText)
-            let validPrices = extractValidPrices(recognizedText.components(separatedBy: .newlines))
-            //separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
-            let validItems = extractValidItems(recognizedText.components(separatedBy: .newlines))
-            Text("상품명: \(validItems)")
-            Text("가격: \(validPrices.map { String($0)}.joined(separator: ", "))")
-            //.map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
-            //Test
-            Text("Valid Prices: \(valid.map { String($0) }.joined(separator: ", "))")
-            Text("Valid Items: \(valid2.map { String($0)}.joined(separator: ","))")
+            //            print(isValidPhoneNumber("1234567890"))
+            //            isValidPhoneNumber(price: "1234567890")
+            //            DocumentScannerView(recognizedText: $viewModel.recognizedText)
+
+            Text(recognizedText)
+                .foregroundColor(.white)
+            Text(translation.translatedText)
+                .foregroundColor(.white)
             
+            let validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
+            //separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
+            let validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
+//            Text("Valid TPrices: \(validT.map { String($0) }.joined(separator: ", "))")
+//            Text("Valid TItems: \(validT2.map { String($0)}.joined(separator: ","))")
+            VStack(spacing: 0){
+                HStack{
+                    Text("상품명 프랑스어 \(validItemsF)")
+                    Spacer()
+                    Text("원")
+                    //.map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
+                }.font(.PBody)
+                HStack{
+                    Text("상품명 한국어 \(validItemsK)")
+                    Text(translation.translatedText)
+                        .onChange(of: validItemsF) { newValues in
+                            // 이전 번역 결과를 지우기 위해 validItemsK 초기화
+                            self.validItemsK.removeAll()
+                            
+                            for item in newValues {
+                                translation.translateText(text: item) { result in
+                                    DispatchQueue.main.async {
+                                        self.validItemsK.append(result)
+                                    }
+                                }
+                            }
+                        } // 이 방식은 각 항목을 개별적으로 번역하므로, 항목 수가 많으면 API 호출이 많아질 수 있음. 번역 요청을 일괄 처리로 변경 가능
+                            // SwiftUI의 선언적 특성 때문에 뷰 내에서 직접 함수를 호출하는 것은 성능 문제를 일으킬 수 있음. 번역 결과를 저장할 상태 변수를 추가하면, 번역 로직이 뷰 업데이트 주기와 분리되어 더 효율적으로 동작하며, SwiftUI의 선언적 특성에 더 잘 부합함.
+                    Spacer()
+                    Text("\(validPricesF.map { String($0)}.joined(separator: ", "))€")
+                }.font(.PTitle2)
+                HStack{
+                    Text("수량")
+                        .font(.PTitle2)
+                    Spacer()
+                    Text("1")
+                        .font(.PTitle3)
+                }
+                HStack{
+                    Spacer()
+                    Text("수정, 저장")
+                }
+            }
+            .padding(.top, 50)
+            .background(
+                Rectangle()
+//                            .frame(width: 361, height: 158)
+                    .foregroundColor(.white)
+                    .clipShape(RoundedCorner(radius: 12))
+            )
+            .padding(.horizontal)
         }
         .padding()
     }
@@ -36,8 +87,8 @@ struct RegexView: View {
 let testPrices = ["12.34", "€123.45", ".33€", ",88€", "7.89€/Kg", "4.33€/Kg"]
 let testItems = ["soupe à l'oignon", "1.30€/Kg", "234729", "500015740722", "0.84", "43/-/A/ ----"]
 
-let valid = extractValidPrices(testPrices)
-let valid2 = extractValidItems(testItems)
+let validT = extractValidPrices(testPrices)
+let validT2 = extractValidItems(testItems)
 
 func extractValidItems(_ strings: [String]) -> [String] {
     let itemPattern = "[a-zA-ZàâäæáãåāèéêëęėēîïīįíìôōøõóòöœùûüūúÿçćčńñÀÂÄÆÁÃÅĀÈÉÊËĘĖĒÎÏĪĮÍÌÔŌØÕÓÒÖŒÙÛÜŪÚŸÇĆČŃÑ]+"
@@ -74,7 +125,7 @@ func extractValidPrices(_ strings: [String]) -> [Double] {
 }
 
 #Preview {
-    RegexView(recognizedText: .constant("Sample text"), validPrices: [0.81], validItems: "item")
+    RegexView(translation: TranslationSerivce(shoppingViewModel: ShoppingViewModel()), recognizedText: .constant("Sample text"))
 }
 
 //스캔된 ocr -> 정규표현식으로 걸러내 -> ml 돌리기
@@ -141,11 +192,11 @@ func pickout(_ text: String) -> String? {
         print("패턴과 일치하지 않습니다.")
     }
 }
-    
-    
-    
-    
-    
+
+
+
+
+
 //
 //// 데이터 정제 및 토큰화
 //func tokenizeAndLabel(_ text: String) -> [(String, String)] {

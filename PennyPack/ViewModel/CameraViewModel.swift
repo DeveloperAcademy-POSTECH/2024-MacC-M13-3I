@@ -70,7 +70,7 @@ class CameraViewModel: ObservableObject {
 //        model.isSilentModeOn = isSilentModeOn
 //    }
     
-    func capturePhoto() {
+    func capturePhoto(completion: @escaping (UIImage) -> Void) {
         
         model.capturePhoto()
         print("[CameraViewModel]: Photo captured!")
