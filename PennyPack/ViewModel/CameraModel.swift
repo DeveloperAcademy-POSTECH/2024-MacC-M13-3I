@@ -26,14 +26,19 @@ class CameraModel: NSObject, ObservableObject,AVCaptureVideoDataOutputSampleBuff
     @Published var session = AVCaptureSession()
     @Published var isSessionActive = false
     @Published var isHapticEnabled = true
+    @Published private var showCapturedImage = false
     
     // Vision : 햅틱 관련 코드
     private var impactFeedback : UIImpactFeedbackGenerator?
     private var lastHapticTime: Date = Date.distantPast
     private let hapticInterval: TimeInterval = 1.0
     
+    var completion: (UIImage) -> Void
     
     override init() {
+        completion = { image in
+            
+        }
         super.init()
         setupHapticFeedback()
     }
@@ -164,8 +169,10 @@ class CameraModel: NSObject, ObservableObject,AVCaptureVideoDataOutputSampleBuff
         }
     }
     
-    func capturePhoto() {
+    /// 3. 받은 코드 블럭을 저장(coletion 저장), 사진 캡쳐 기능 구현
+    func capturePhoto(completion: @escaping (UIImage) -> Void) {
         // 사진 옵션 세팅
+        self.completion = completion
         let photoSettings = AVCapturePhotoSettings()
         photoSettings.flashMode = self.flashMode
         
@@ -206,14 +213,16 @@ extension CameraModel: AVCapturePhotoCaptureDelegate {
         }
     }
     
+    /// 4. 정상적으로 사진이 찍힌 경우, 전달받은 코드블럭(completion)을 호출하면서 이미지 전달 `self.completion(recentImage)`
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation() else { return }
         self.recentImage = UIImage(data: imageData)
         self.isCameraBusy = false
-        
+        showCapturedImage = true
+        guard let recentImage else { return }
+        self.completion(recentImage)
         print("[CameraModel]: Capture routine's done")
-        
-        self.stopSession()
+//        self.stopSession()
     }
 }
 

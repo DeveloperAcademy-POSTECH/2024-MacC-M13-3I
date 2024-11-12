@@ -174,6 +174,7 @@ struct CartView: View {
                                 }
                             }.background()
                             NavigationLink(
+                                destination: ScanView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel),
 
                                 destination: DocumentScannerView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel, recognizedText: $recognizedText),
 
