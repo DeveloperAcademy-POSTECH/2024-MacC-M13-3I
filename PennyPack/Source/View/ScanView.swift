@@ -69,15 +69,13 @@ import SwiftUI
 struct ScanView: View {
     @StateObject private var cameraViewModel = CameraViewModel()
     @ObservedObject var shoppingViewModel: ShoppingViewModel
-    @ObservedObject var listViewModel: ListViewModel
     @State private var recognizedText = ""
     @StateObject var translation : TranslationSerivce
     @State private var translatedText1: String = ""
     
-    init(shoppingViewModel: ShoppingViewModel, listViewModel: ListViewModel) {
+    init(shoppingViewModel: ShoppingViewModel) {
         self.shoppingViewModel = shoppingViewModel
         _translation = StateObject(wrappedValue: TranslationSerivce(shoppingViewModel: shoppingViewModel))
-        self.listViewModel = listViewModel
     }
     
     var body: some View {
@@ -86,7 +84,7 @@ struct ScanView: View {
                 Color.pBlack
                 
                 VStack {
-                    DocumentScannerView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, recognizedText: $recognizedText)
+                    DocumentScannerView(shoppingViewModel: shoppingViewModel, recognizedText: $recognizedText)
                     Spacer()
                     VStack(spacing: 0){
                         Text(recognizedText)
@@ -118,5 +116,5 @@ struct ScanView: View {
 //    ScanView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel)
 //}
 #Preview {
-    ScanView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel())
+    ScanView(shoppingViewModel: ShoppingViewModel())
 }

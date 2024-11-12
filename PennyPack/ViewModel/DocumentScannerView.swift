@@ -88,7 +88,7 @@ struct DocumentScannerView: View {
     @StateObject var translation : TranslationSerivce
     @State var recentImage: UIImage?
     
-    init(shoppingViewModel: ShoppingViewModel, listViewModel: ListViewModel, recognizedText: Binding<String>) {
+    init(shoppingViewModel: ShoppingViewModel, recognizedText: Binding<String>) {
         _translation = StateObject(wrappedValue: TranslationSerivce(shoppingViewModel: shoppingViewModel))
         self._recognizedText = recognizedText
     }
