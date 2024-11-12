@@ -165,20 +165,19 @@ struct DocumentScannerView: View {
                         coordinator.recognizeText(in: newImage)
                     }
                     .padding(.top, 18)
-                    VStack {
-                        /// 11. 전달받은 recognizedText와 translation에 있는 translatedText를 화면에 보여준다. 
-                        Text("Recognized Text: \(recognizedText)")
-                        Text("Translated Text: \(translation.translatedText)")
-                    }
-                    .foregroundStyle(.white)
-                    .padding(.vertical, 30)
-                    .onChange(of: recognizedText) { oldValue, newValue in
-                        /// 9. 이미지에서 텍스트 인식이 종료되고 받은 recognizedText를 받아서 번역을 실행. translation 객체의 translateText 함수에 전달받은 텍스트 전달
-                        if oldValue == newValue { return }
-                        translation.translateText(text: newValue) { _ in
-                        }
-                        
-                    }
+//                    VStack {
+//                        /// 11. 전달받은 recognizedText와 translation에 있는 translatedText를 화면에 보여준다. 
+//                        Text("Recognized Text: \(recognizedText)")
+//                        Text("Translated Text: \(translation.translatedText)")
+//                    }
+//                    .foregroundStyle(.white)
+//                    .padding(.vertical, 30)
+//                    .onChange(of: recognizedText) { oldValue, newValue in
+//                        /// 9. 이미지에서 텍스트 인식이 종료되고 받은 recognizedText를 받아서 번역을 실행. translation 객체의 translateText 함수에 전달받은 텍스트 전달
+//                        if oldValue == newValue { return }
+//                        translation.translateText(text: newValue) { _ in
+//                        }
+//                    }
                 }
             }
         }.ignoresSafeArea()

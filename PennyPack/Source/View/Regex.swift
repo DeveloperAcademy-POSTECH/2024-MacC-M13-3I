@@ -20,16 +20,7 @@ struct RegexView: View {
 //    var validItems: String
     
     var body: some View {
-        VStack {
-            //            print(isValidPhoneNumber("1234567890"))
-            //            isValidPhoneNumber(price: "1234567890")
-            //            DocumentScannerView(recognizedText: $viewModel.recognizedText)
-
-            Text(recognizedText)
-                .foregroundColor(.white)
-            Text(translation.translatedText)
-                .foregroundColor(.white)
-            
+        VStack {            
             let validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
             //separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
             let validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
