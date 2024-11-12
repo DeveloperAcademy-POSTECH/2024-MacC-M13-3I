@@ -166,7 +166,7 @@ struct CartView: View {
                                 }
                             }.background()
                             NavigationLink(
-                                destination: DocumentScannerView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel, recognizedText: $recognizedText),
+                                destination: ScanView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel),
                                 label: {
                                     ZStack{
                                         Circle()
