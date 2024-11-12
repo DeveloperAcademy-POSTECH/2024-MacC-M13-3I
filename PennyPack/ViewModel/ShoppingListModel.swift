@@ -34,9 +34,9 @@ class ShoppingViewModel:ObservableObject {
         if shoppingItem.isEmpty {
             if let customDate = Calendar.current.date(byAdding: .day, value: -10, to: Date()) {
                 self.shoppingItem = [
-                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
-                    ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
-                    ShoppingItem(korName: "테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+                    ShoppingItem(korName: "테1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
+                    ShoppingItem(korName: "테스2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date()),
+                    ShoppingItem(korName: "테스트1테스트1테스트1", frcName: "test1", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: customDate),
                     ShoppingItem(korName: "테스트2", frcName: "test2", quantity: 2, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 2000, frcPrice: 200, time: Date())
                 ]
             }
