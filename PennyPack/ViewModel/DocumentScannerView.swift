@@ -74,22 +74,14 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
     }
 }
 
-//struct DocumentScannerView_Previews: PreviewProvider {
-//    @State static var sampleText = "Sample Recognized Text"
-//
-//    static var previews: some View {
-//        DocumentScannerView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel(), recognizedText: $recognizedText)
-//    }
-//}
-
 struct DocumentScannerView: View {
     @StateObject private var cameraViewModel = CameraViewModel()
     @Binding var recognizedText: String
     @StateObject var translation : TranslationSerivce
     @State var recentImage: UIImage?
     
-    init(shoppingViewModel: ShoppingViewModel, recognizedText: Binding<String>) {
-        _translation = StateObject(wrappedValue: TranslationSerivce(shoppingViewModel: shoppingViewModel))
+    init(recognizedText: Binding<String>) {
+        _translation = StateObject(wrappedValue: TranslationSerivce())
         self._recognizedText = recognizedText
     }
     
@@ -192,10 +184,6 @@ struct DocumentScannerView: View {
         }.ignoresSafeArea()
     }
 }
-
-//#Preview {
-//    DocumentScannerView1(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)
-//}
 
 //#Preview {
 //    DocumentScannerView_Previews() as! any View

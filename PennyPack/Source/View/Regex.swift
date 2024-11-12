@@ -66,9 +66,12 @@ struct RegexView: View {
                     Text("1")
                         .font(.PTitle3)
                 }
-                HStack{
-                    Spacer()
-                    Text("수정, 저장")
+                HStack {
+                    Button {
+//                        let data = ShoppingItem(korName: translatedText, frcName: "프랑스어", quantity: 1, korUnitPrice: 1, frcUnitPrice: 1, korPrice: 1, frcPrice: 1, time: Date())
+                    } label: {
+                        Text("저장")
+                    }
                 }
             }
             .padding(.top, 50)
@@ -125,7 +128,7 @@ func extractValidPrices(_ strings: [String]) -> [Double] {
 }
 
 #Preview {
-    RegexView(translation: TranslationSerivce(shoppingViewModel: ShoppingViewModel()), recognizedText: .constant("Sample text"))
+    RegexView(translation: TranslationSerivce(), recognizedText: .constant("Sample text"))
 }
 
 //스캔된 ocr -> 정규표현식으로 걸러내 -> ml 돌리기

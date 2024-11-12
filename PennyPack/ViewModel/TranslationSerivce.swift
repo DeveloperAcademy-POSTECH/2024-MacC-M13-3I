@@ -9,11 +9,6 @@ import Foundation
 
 class TranslationSerivce: ObservableObject {
     @Published var translatedText: String = "번역 결과가 여기에 표시됩니다."
-    var shoppingViewModel : ShoppingViewModel
-
-        init(shoppingViewModel: ShoppingViewModel) {
-            self.shoppingViewModel = shoppingViewModel
-        }
     
     /// 10. 전달 받은 text를 번역해서 translatedText에 번역 정보 저장
     /// 가능하면 apiKey 숨기고, completion 부분 제거하기
@@ -42,13 +37,9 @@ class TranslationSerivce: ObservableObject {
                        let translations = json["translations"] as? [[String: Any]],
                        let translatedText = translations.first?["text"] as? String {
                         
-                        
-                        let data = ShoppingItem(korName: translatedText, frcName: "프랑스어", quantity: 1, korUnitPrice: 1, frcUnitPrice: 1, korPrice: 1, frcPrice: 1, time: Date())
-                        
                         DispatchQueue.main.async {
                             completion(translatedText)
                             self.translatedText = translatedText // 번역 결과 저장
-                            self.shoppingViewModel.shoppingItem.append(data)
                         }
                     }
                 } catch {
