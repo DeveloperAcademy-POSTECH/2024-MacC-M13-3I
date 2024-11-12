@@ -64,7 +64,6 @@
 //    ScanView(shoppingViewModel: ShoppingViewModel(),listViewModel: ListViewModel())
 //}
 
-
 import SwiftUI
 
 struct ScanView: View {
