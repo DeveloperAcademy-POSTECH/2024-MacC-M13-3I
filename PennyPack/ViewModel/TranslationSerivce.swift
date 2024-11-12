@@ -15,7 +15,7 @@ class TranslationSerivce: ObservableObject {
             self.shoppingViewModel = shoppingViewModel
         }
     
-    func translateText(text: String) {
+    func translateText(text: String, completion: @escaping (String) -> Void) {
         let apiKey = "d6e694c4-255d-49ba-b214-06d295fcdd29:fx"
         let urlString = "https://api-free.deepl.com/v2/translate?auth_key=\(apiKey)&text=\(text)&target_lang=KO&source_lang=FR"
         
@@ -29,6 +29,7 @@ class TranslationSerivce: ObservableObject {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("에러 발생: \(error)")
+                completion("")
                 return
             }
             
@@ -39,19 +40,21 @@ class TranslationSerivce: ObservableObject {
                        let translations = json["translations"] as? [[String: Any]],
                        let translatedText = translations.first?["text"] as? String {
                         
+                        
                         let data = ShoppingItem(korName: translatedText, frcName: "프랑스어", quantity: 1, korUnitPrice: 1, frcUnitPrice: 1, korPrice: 1, frcPrice: 1, time: Date())
                         
                         DispatchQueue.main.async {
+                            completion(translatedText)
                             self.translatedText = translatedText // 번역 결과 저장
                             self.shoppingViewModel.shoppingItem.append(data)
                         }
                     }
                 } catch {
                     print("JSON 파싱 에러: \(error)")
+                    completion("")
                 }
             }
         }
-        
         task.resume()
     }
 }

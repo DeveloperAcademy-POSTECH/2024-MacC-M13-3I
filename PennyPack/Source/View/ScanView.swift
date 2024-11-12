@@ -68,74 +68,43 @@
 import SwiftUI
 
 struct ScanView: View {
-    @ObservedObject var viewModel: CameraViewModel
+    @StateObject private var cameraViewModel = CameraViewModel()
+    @ObservedObject var shoppingViewModel: ShoppingViewModel
+    @ObservedObject var listViewModel: ListViewModel
+    @State private var recognizedText = ""
+    @StateObject var translation : TranslationSerivce
+    @State private var translatedText1: String = ""
+    
+    init(shoppingViewModel: ShoppingViewModel, listViewModel: ListViewModel) {
+        self.shoppingViewModel = shoppingViewModel
+        _translation = StateObject(wrappedValue: TranslationSerivce(shoppingViewModel: shoppingViewModel))
+        self.listViewModel = listViewModel
+    }
     
     var body: some View {
         ScrollView {
             ZStack {
                 Color.pBlack
-                    
+                
                 VStack {
-                    viewModel.cameraPreview.ignoresSafeArea()
-                        .onAppear {
-                            viewModel.configure()
-                        }
-                        .gesture(MagnificationGesture()
-                            .onChanged { val in
-                                viewModel.zoom(factor: val)
-                            }
-                            .onEnded { _ in
-                                viewModel.zoomInitialize()
-                            }
-                        )
-                        .frame(width: 360, height: 350)
-                        .cornerRadius(11)
-                        .padding(.top, 184)
-                    
-                    Button(action: {
-                        viewModel.capturePhoto()
-                    }, label: {
-                        ZStack {
-                            Circle()
-                                .fill(.pBlue)
-                                .frame(width: 70)
-                            Image(systemName: "camera.fill")
-                                .resizable()
-                                .frame(width: 33, height: 26)
-                                .foregroundColor(.white)
-                        }
-                    })
-                    .padding(.top, 18)
-                    
+                    DocumentScannerView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, recognizedText: $recognizedText)
                     Spacer()
-                    
                     VStack(spacing: 0){
-                        HStack{
-                            Text("상품명 프랑스어")
-                            Spacer()
-                            Text("원")
-                        }.font(.PBody)
-                        HStack{
-                            Text("상품명 한국어")
-                            Spacer()
-                            Text("원")
-                        }.font(.PTitle2)
-                        HStack{
-                            Text("수량")
-                                .font(.PTitle2)
-                            Spacer()
-                            Text("1")
-                                .font(.PTitle3)
-                        }
-                        HStack{
-                            Spacer()
-                            Text("수정, 저장")
-                        }
+                        Text(recognizedText)
+                            .foregroundColor(.white)
+                        Text(translatedText1)
+                            .foregroundColor(.white)
+                            .onChange(of: recognizedText) { newValue in
+                                translation.translateText(text: newValue) { result in
+                                    self.translatedText1 = result
+                                } // SwiftUI의 선언적 특성 때문에 뷰 내에서 직접 함수를 호출하는 것은 성능 문제를 일으킬 수 있음. 번역 결과를 저장할 상태 변수를 추가하면, 번역 로직이 뷰 업데이트 주기와 분리되어 더 효율적으로 동작하며, SwiftUI의 선언적 특성에 더 잘 부합함.
+                            }
+                        RegexView(translation: TranslationSerivce(shoppingViewModel: ShoppingViewModel()), recognizedText: $recognizedText)
                     }
                     .padding(.top, 50)
                     .background(
                         Rectangle()
-                            .frame(width: 361, height: 158)
+                        //                            .frame(width: 361, height: 158)
                             .foregroundColor(.white)
                             .clipShape(RoundedCorner(radius: 12))
                     )
@@ -146,6 +115,9 @@ struct ScanView: View {
     }
 }
 
+//#Preview {
+//    ScanView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel)
+//}
 #Preview {
-    ScanView(viewModel: CameraViewModel())
+    ScanView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel())
 }
