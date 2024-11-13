@@ -6,7 +6,7 @@ struct DateItem: Codable, Hashable {
     var date: Date
     var items: [ShoppingItem]
     var korTotal: Int //총 금액
-    var frcTotal: Int
+    var frcTotal: Double
     var place: String
 }
 
@@ -16,9 +16,9 @@ struct ShoppingItem: Identifiable, Codable, Hashable {
     var frcName: String
     var quantity: Int
     var korUnitPrice: Int //단가
-    var frcUnitPrice: Int //단가
+    var frcUnitPrice: Double //단가
     var korPrice: Int //수량*단가
-    var frcPrice: Int //수량*단가
+    var frcPrice: Double //수량*단가
     var time: Date
 }
 
@@ -92,8 +92,8 @@ class ShoppingViewModel:ObservableObject {
         loadShoppingListFromUserDefaults()
     }
     // MARK: 리스트에 새 값 추가 함수
-    func addNewShoppingItem(korName: String, frcName: String, quantity: Int, korUnitPrice: Int, frcUnitPrice: Int) -> ShoppingItem {
-        let newShoppingItem: ShoppingItem = ShoppingItem(korName: korName, frcName: frcName, quantity: quantity, korUnitPrice: korUnitPrice, frcUnitPrice: frcUnitPrice, korPrice: quantity*korUnitPrice, frcPrice: quantity*frcUnitPrice, time: Date())
+    func addNewShoppingItem(korName: String, frcName: String, quantity: Int, korUnitPrice: Int, frcUnitPrice: Double) -> ShoppingItem {
+        let newShoppingItem: ShoppingItem = ShoppingItem(korName: korName, frcName: frcName, quantity: quantity, korUnitPrice: korUnitPrice, frcUnitPrice: frcUnitPrice, korPrice: quantity*korUnitPrice, frcPrice: Double(quantity*Int(frcUnitPrice)), time: Date())
         shoppingItem.append(newShoppingItem)
         return newShoppingItem
     }
@@ -173,12 +173,12 @@ class ShoppingViewModel:ObservableObject {
         return total
     }
     
-    func frcTotalPricing(from items: [ShoppingItem]) -> Int {
+    func frcTotalPricing(from items: [ShoppingItem]) -> Double {
         var total = 0
         for index in items.indices {
-            total += items[index].frcPrice
+            total += Int(items[index].frcPrice)
         }
-        return total
+        return Double(total)
     }
     
 }
