@@ -17,6 +17,9 @@ struct ShoppingItem: Identifiable, Codable, Hashable {
     var quantity: Int
     var korUnitPrice: Int //단가
     var frcUnitPrice: Double //단가
+//    var frcUnitString: String {
+//        return String(format: "%.2f", frcUnitPrice)
+//    }
     var korPrice: Int //수량*단가
     var frcPrice: Double //수량*단가
     var time: Date

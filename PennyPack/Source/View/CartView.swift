@@ -316,13 +316,19 @@ struct CartView: View {
                             }
                             .frame(width: 30, alignment: .trailing)
                             
+                            /// 금액을 소수점 이하 두자릿수까지 출력
+                            /// 받아온 숫자를 소수점 이하 두자릿수로 출력
+                            /// 더블  -> String
+                            /// 수정할 때 소숫점 이하 두자릿수로 출력
+                            ///  더블 -> String -> 더블
+                            ///
                             HStack(spacing: 0){
                                 TextField("0.00", text: Binding(
                                     get: { String(format: "%.2f", item.frcPrice)
                                         /*String(item.frcUnitPrice)*/},
                                     set: { newValue in
                                         if let intValue = Double(newValue) {
-                                            shoppingViewModel.shoppingItem[index].frcUnitPrice = intValue
+                                            shoppingViewModel.shoppingItem[index].frcUnitPrice = intValue.rounded(toPlaces: 2)
                                         }
                                     }
                                 ))
@@ -382,12 +388,12 @@ struct CartView: View {
                             Text("\(item.quantity)개")
                                 .font(.PBody)
                                 .frame(width: 26, alignment: .trailing)
-                            Text("\(item.frcUnitPrice) €")
+                            Text("\(String(format: "%.2f", item.frcPrice)) €")
                                 .font(.PTitle3)
                                 .frame(width: 120, alignment: .trailing)
                         }
                         HStack{ 
-                            Text(String(format: "%.2f", item.frcPrice))
+                            Text(item.frcName)
                                 .font(.PBody)
                                 .frame(width: 180, alignment: .leading)
                             Spacer()
@@ -421,3 +427,13 @@ struct CartView: View {
     CartView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel())
 }
 
+extension Double {
+    func rounded(toPlaces places: Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
+    
+    func asString(withDecimalPlaces places: Int) -> String {
+        return String(format: "%.\(places)f", self)
+    }
+}
