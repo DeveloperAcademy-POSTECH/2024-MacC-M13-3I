@@ -60,7 +60,7 @@ class ShoppingViewModel:ObservableObject {
         loadShoppingListFromUserDefaults()
     }
     // MARK: 리스트에 새 값 추가 함수
-    func addNewShoppingItem(korName: String, frcName: String, quantity: Int, korUnitPrice: Int, frcUnitPrice: Int) -> ShoppingItem {
+    func addNewShoppingItem(korName: String, frcName: String, quantity: Int, korUnitPrice: Int, frcUnitPrice: Double) -> ShoppingItem {
         let newShoppingItem: ShoppingItem = ShoppingItem(korName: korName, frcName: frcName, quantity: quantity, korUnitPrice: korUnitPrice, frcUnitPrice: frcUnitPrice, time: Date())
         shoppingItem.append(newShoppingItem)
         return newShoppingItem
@@ -144,11 +144,11 @@ class ShoppingViewModel:ObservableObject {
     }
     
     func frcTotalPricing(from items: [ShoppingItem]) -> Double {
-        var total = 0
+        var total: Double = 0.0
         for index in items.indices {
-            total += items[index].frcUnitPrice * items[index].quantity
+            total += items[index].frcUnitPrice * Double(items[index].quantity)
         }
-        return Double(total)
+        return total
     }
     
 }
