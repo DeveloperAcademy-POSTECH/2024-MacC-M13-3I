@@ -65,8 +65,8 @@ struct ReceiptView: View {
                                         .frame(width: 80, alignment: .leading)
                                     Text("수량")
                                         .frame(width: 81, alignment: .leading)
-                                    
-                                    Text("합계")                                        .frame(width: 26, alignment: .leading)
+                                    Text("합계")                                       
+                                        .frame(width: 26, alignment: .leading)
                                 }
                                 .font(.PCallout)
                                 .foregroundColor(.pBlack)
@@ -84,7 +84,7 @@ struct ReceiptView: View {
                                                 Text("\(item.quantity)")
                                                     .font(.PSubhead)
                                                     .frame(width: 80, alignment: .trailing)
-                                                Text("\(item.frcPrice)")
+                                                Text("\(item.frcUnitPrice * Double(item.quantity))")
                                                     .font(.PSubhead)
                                                     .frame(width: 81, alignment: .trailing)
                                             }
