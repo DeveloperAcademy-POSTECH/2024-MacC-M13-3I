@@ -31,7 +31,7 @@ struct CartView: View {
     enum Field: Hashable {
         case korName, quantity, frcUnitPrice, frcName, korUnitPrice // 필드 식별
     }
-    
+        
     var body: some View {
         NavigationStack{
             ZStack{
@@ -249,7 +249,7 @@ struct CartView: View {
                         listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
                     }
                     
-                    let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: totalPriceWon, frcTotal: Int(totalPriceEuro), place: "프랑스마트")
+                    let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: totalPriceWon, frcTotal: totalPriceEuro, place: "프랑스마트")
                     
                     shoppingViewModel.dateItem.append(dateItem)
                     shoppingViewModel.shoppingItem = []
@@ -279,8 +279,10 @@ struct CartView: View {
     
     func pricing() {
         totalPriceWon = shoppingViewModel.korTotalPricing(from: shoppingViewModel.shoppingItem)
-        totalPriceEuro = Double(shoppingViewModel.frcTotalPricing(from: shoppingViewModel.shoppingItem))
+        totalPriceEuro = shoppingViewModel.frcTotalPricing(from: shoppingViewModel.shoppingItem)
         
+        print(totalPriceWon,"원")
+        print(String(format: "%.2f", totalPriceEuro),"€")
     }
     
     private var CartListView: some View {
@@ -324,9 +326,10 @@ struct CartView: View {
                             
                             HStack(spacing: 0){
                                 TextField("0.00", text: Binding(
-                                    get: { String(item.frcUnitPrice) },
-                                    set: {  newValue in
-                                        if let intValue = Int(newValue){
+                                    get: { String(format: "%.2f", item.frcPrice)
+                                        /*String(item.frcUnitPrice)*/},
+                                    set: { newValue in
+                                        if let intValue = Double(newValue) {
                                             shoppingViewModel.shoppingItem[index].frcUnitPrice = intValue
                                         }
                                     }
@@ -390,8 +393,8 @@ struct CartView: View {
                                 .font(.PTitle3)
                                 .frame(width: 120, alignment: .trailing)
                         }
-                        HStack{
-                            Text("\(item.frcName)")
+                        HStack{ 
+                            Text(String(format: "%.2f", item.frcPrice))
                                 .font(.PBody)
                                 .frame(width: 180, alignment: .leading)
                             Spacer()

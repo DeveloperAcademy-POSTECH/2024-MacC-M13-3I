@@ -6,7 +6,7 @@ struct DateItem: Codable, Hashable {
     var date: Date
     var items: [ShoppingItem]
     var korTotal: Int //총 금액
-    var frcTotal: Int
+    var frcTotal: Double
     var place: String
 }
 
@@ -16,7 +16,7 @@ struct ShoppingItem: Identifiable, Codable, Hashable {
     var frcName: String
     var quantity: Int
     var korUnitPrice: Int //단가
-    var frcUnitPrice: Int //단가
+    var frcUnitPrice: Double //단가
     var time: Date
 }
 
@@ -143,12 +143,12 @@ class ShoppingViewModel:ObservableObject {
         return total
     }
     
-    func frcTotalPricing(from items: [ShoppingItem]) -> Int {
+    func frcTotalPricing(from items: [ShoppingItem]) -> Double {
         var total = 0
         for index in items.indices {
             total += items[index].frcUnitPrice * items[index].quantity
         }
-        return total
+        return Double(total)
     }
     
 }
