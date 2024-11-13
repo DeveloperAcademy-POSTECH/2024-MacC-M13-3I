@@ -20,8 +20,8 @@ struct CalendarView: View {
         NavigationStack{
             ZStack{
                 Image("CalendarBackground")
-                        .resizable()
-                        .ignoresSafeArea()
+                    .resizable()
+                    .ignoresSafeArea()
                 VStack {
                     yearMonthView
                         .padding(.top, 40)
@@ -36,7 +36,7 @@ struct CalendarView: View {
                     .background(Color.pWhite.cornerRadius(12))
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.pGray, lineWidth: 2)
+                            .stroke(Color.pGray, lineWidth: 2)
                     )
                     .padding(.bottom, 68)
                     
@@ -47,13 +47,28 @@ struct CalendarView: View {
                         
                     }
                     Spacer()
-
+                    
                 }
                 .padding(.horizontal, 16)
                 
                 
-                            }
-
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.pBlue)
+                    }
+                }
+                ToolbarItem(placement: .principal){
+                    Text("달력")
+                        .font(.PTitle2)
+                        .foregroundColor(.pWhite)
+                }
+            }
             .sheet(isPresented: $showSheet) {
                 ReceiptView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, isButton: .constant(false))
                     .presentationDetents([.height(130), .height(540)])
@@ -215,29 +230,7 @@ private struct CellView: View {
   private var clicked: Bool
   private var isToday: Bool
   private var isCurrentMonthDay: Bool
-//  private var textColor: Color {
-//      if clicked {
-//          return Color.pWhite
-//      } else if isShopping {
-//          return Color.pWhite
-//    } else if isCurrentMonthDay {
-//        return Color.pBlack
-//    } else {
-//        return Color.pWhite
-//    }
-//  }
-//  private var backgroundColor: Color {
-//    if clicked {
-//        return Color.pDarkGray
-//    } else if isShopping {
-//        return Color.pBlue
-//    } else if isToday {
-//      return Color.pDarkGray
-//    } else {
-//        return Color.pWhite
-//    }
-//  }
-  
+    
     fileprivate init(
       day: Int,
       clicked: Bool = false,
@@ -272,14 +265,6 @@ private struct CellView: View {
                 .foregroundColor(.pWhite)
             
         } else if isToday {
-//            Text(String(day))
-//                .frame(width: 15, height: 15)
-//                .foregroundColor(textColor)
-//                .padding(14)
-//                .background(Color.pWhite)
-//                .cornerRadius(24)
-//
-
             Circle()
                 .fill(.pWhite)
                 .stroke(Color.pDarkGray)
@@ -302,15 +287,6 @@ private struct CellView: View {
         }
       
       Spacer()
-      
-        //      if clicked {
-        //        RoundedRectangle(cornerRadius: 10)
-        //          .fill(.red)
-        //          .frame(width: 10, height: 10)
-        //      } else {
-        //        Spacer()
-        //          .frame(height: 10)
-        //      }
     }
     .frame(height: 48)
   }

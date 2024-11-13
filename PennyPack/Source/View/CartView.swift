@@ -21,6 +21,8 @@ struct CartView: View {
     @State private var isPlus = false
     @State private var isDropdownExpanded = false
     
+    @State private var isScan: Bool = false
+    
     @State private var totalPriceWon: Int = 0
     @State private var totalPriceEuro: Double = 0.0
     @State private var editingItemID: UUID? = nil // 현재 편집 중인 항목의 ID
@@ -162,9 +164,7 @@ struct CartView: View {
                                 let newItem = shoppingViewModel.addNewShoppingItem(korName: "", frcName: "", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 1)
                                 
                                 editingItemID = newItem.id
-                                
-                                print("editingItemID: ", editingItemID)
-                                print("shoppingitem: ", shoppingViewModel.shoppingItem.last ?? ShoppingItem(korName: "", frcName: "", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 100, korPrice: 1000, frcPrice: 100, time: Date()))
+                                isPlus.toggle()
                             } label: {
                                 ZStack{
                                     Circle()
@@ -175,8 +175,9 @@ struct CartView: View {
                                 }
                             }.background()
                             
-                            NavigationLink {
-                                ScanView(shoppingViewModel: shoppingViewModel)
+                            Button {
+                                isScan.toggle()
+                                isPlus.toggle()
                             } label: {
                                 ZStack{
                                     Circle()
@@ -187,6 +188,7 @@ struct CartView: View {
                                         .foregroundColor(.white)
                                 }
                             }
+
                         }
                         Button{
                             isPlus.toggle()
@@ -205,6 +207,8 @@ struct CartView: View {
             }
             .onChange(of: shoppingViewModel.shoppingItem) { _ in
                 pricing()
+                
+            print("체인지 토탈 원: \(totalPriceWon)")
             }
             .onAppear {
                 pricing()
@@ -266,22 +270,23 @@ struct CartView: View {
                 }
             }
             .navigationBarBackButtonHidden()
+            
+            NavigationLink(destination: ScanView(shoppingViewModel: shoppingViewModel), isActive: $isScan) {
+                EmptyView()
+            }
         }
     }
     
     func pricing() {
         totalPriceWon = shoppingViewModel.korTotalPricing(from: shoppingViewModel.shoppingItem)
-        
         totalPriceEuro = Double(shoppingViewModel.frcTotalPricing(from: shoppingViewModel.shoppingItem))
         
-        print(totalPriceWon,"원")
-        print(totalPriceEuro,"€")
     }
     
     private var CartListView: some View {
         List{
             ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
-                VStack{
+                VStack(spacing: 0){
                     if editingItemID == item.id {
                         HStack(spacing: 0){
                             TextField("상품명", text: Binding(
@@ -330,8 +335,7 @@ struct CartView: View {
                                 .multilineTextAlignment(.trailing)
                                 .focused($focusedField, equals: .frcUnitPrice)
                                 .onSubmit {
-                                    focusedField = .frcName
-                                }
+                                    focusedField = .frcName                                }
                                 Text(" €")
                                     .font(.PTitle3)
                             }
