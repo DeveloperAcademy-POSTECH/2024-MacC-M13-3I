@@ -257,12 +257,21 @@ private struct CellView: View {
             
             
         } else if isDateInShoppingList {
-            
-            Circle()
-                .fill(Color.pBlue)
-                .frame(width: 48, height:48)
-                .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(.pWhite)
+            ZStack{
+                Circle()
+                    .fill(Color.pBlue)
+                    .frame(width: 48, height:48)
+                    .overlay(Text(String(day)).font(.PBody))
+                    .foregroundColor(.pWhite)
+                if isToday{
+                        Circle()
+                            .fill(.clear)
+                            .stroke(Color.pDarkGray)
+                            .frame(width: 48, height:48)
+                            .overlay(Text(String(day)).font(.PBody))
+                            .foregroundColor(Color.pBlack)
+                }
+            }
             
         } else if isToday {
             Circle()

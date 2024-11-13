@@ -84,7 +84,7 @@ struct ReceiptView: View {
                                                 Text("\(item.quantity)")
                                                     .font(.PSubhead)
                                                     .frame(width: 80, alignment: .trailing)
-                                                Text("\(item.frcUnitPrice * item.quantity)")
+                                                Text("\(item.frcUnitPrice * Double(item.quantity))")
                                                     .font(.PSubhead)
                                                     .frame(width: 81, alignment: .trailing)
                                             }

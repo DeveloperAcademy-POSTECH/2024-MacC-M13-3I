@@ -303,6 +303,7 @@ struct CartView: View {
                             .onSubmit {
                                 focusedField = .quantity
                             }
+                            .onAppear (perform : UIApplication.shared.hideKeyboard)
                             
                             HStack(spacing: 0){
                                 TextField("1", text: Binding(
@@ -323,22 +324,23 @@ struct CartView: View {
                                     .font(.PBody)
                             }
                             .frame(width: 30, alignment: .trailing)
-                            
+                            .onAppear (perform : UIApplication.shared.hideKeyboard)
                             HStack(spacing: 0){
-                                TextField("0.00", text: Binding(
-                                    get: { String(format: "%.2f", item.frcPrice)
-                                        /*String(item.frcUnitPrice)*/},
-                                    set: { newValue in
-                                        if let intValue = Double(newValue) {
-                                            shoppingViewModel.shoppingItem[index].frcUnitPrice = intValue
-                                        }
-                                    }
-                                ))
-                                .font(.PTitle3)
-                                .multilineTextAlignment(.trailing)
-                                .focused($focusedField, equals: .frcUnitPrice)
-                                .onSubmit {
-                                    focusedField = .frcName                                }
+//                                TextField("0.00", text: Binding(
+//                                    get: { String(format: "%.2f", item.frcPrice)
+//                                        /*String(item.frcUnitPrice)*/},
+//                                    set: { newValue in
+//                                        if let intValue = Double(newValue) {
+//                                            shoppingViewModel.shoppingItem[index].frcUnitPrice = intValue
+//                                        }
+//                                    }
+//                                ))
+//                                .font(.PTitle3)
+//                                .multilineTextAlignment(.trailing)
+//                                .focused($focusedField, equals: .frcUnitPrice)
+//                                .onSubmit {
+//                                    focusedField = .frcName
+//                                .onAppear (perform : UIApplication.shared.hideKeyboard)                            }
                                 Text(" €")
                                     .font(.PTitle3)
                             }
@@ -358,23 +360,25 @@ struct CartView: View {
                             .onSubmit {
                                 focusedField = .korUnitPrice
                             }
+                            .onAppear (perform : UIApplication.shared.hideKeyboard)
                             Spacer()
                             
                             HStack(spacing: 0){
-                                TextField("0", text: Binding(
-                                    get: { String(item.korUnitPrice) },
-                                    set: { newValue in
-                                        if let intValue = Int(newValue){
-                                            shoppingViewModel.shoppingItem[index].korUnitPrice = intValue
-                                        }
-                                    }
-                                ))
-                                .font(.PBody)
-                                .multilineTextAlignment(.trailing)
-                                .focused($focusedField, equals: .korUnitPrice)
-                                .onSubmit {
-                                    focusedField = nil
-                                }
+//                                TextField("0", text: Binding(
+//                                    get: { String(item.korUnitPrice) },
+//                                    set: { newValue in
+//                                        if let intValue = Int(newValue){
+//                                            shoppingViewModel.shoppingItem[index].korUnitPrice = intValue
+//                                        }
+//                                    }
+//                                ))
+//                                .font(.PBody)
+//                                .multilineTextAlignment(.trailing)
+//                                .focused($focusedField, equals: .korUnitPrice)
+//                                .onSubmit {
+//                                    focusedField = nil
+//                                }
+//                                .onAppear (perform : UIApplication.shared.hideKeyboard)
                                 Text(" 원")
                                     .font(.PBody)
                             }
@@ -394,9 +398,9 @@ struct CartView: View {
                                 .frame(width: 120, alignment: .trailing)
                         }
                         HStack{ 
-                            Text(String(format: "%.2f", item.frcPrice))
-                                .font(.PBody)
-                                .frame(width: 180, alignment: .leading)
+//                            Text(String(format: "%.2f", item.frcPrice))
+//                                .font(.PBody)
+//                                .frame(width: 180, alignment: .leading)
                             Spacer()
                             Text("\(item.korUnitPrice) 원")
                                 .font(.PBody)
