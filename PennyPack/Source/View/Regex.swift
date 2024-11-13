@@ -12,7 +12,7 @@ struct RegexView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var translation : TranslationSerivce
     @Binding var recognizedText: String
-//    @State private var translatedText11: String = ""
+//    @State private var translatedText: String = "" 필요없음
     @State private var validItemsK: [String] = []
     @ObservedObject var shoppingViewModel: ShoppingViewModel
 
@@ -26,12 +26,12 @@ struct RegexView: View {
             let validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
 //            Text("Valid TPrices: \(validT.map { String($0) }.joined(separator: ", "))")
 //            Text("Valid TItems: \(validT2.map { String($0)}.joined(separator: ","))")
+//              .map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
             VStack(spacing: 0){
                 HStack{
                     Text("상품명 프랑스어 \(validItemsF)")
                     Spacer()
                     Text("원")
-                    //.map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
                 }.font(.PBody)
                 HStack{
                     Text("상품명 한국어 \(validItemsK)")
@@ -61,7 +61,7 @@ struct RegexView: View {
                 }
                 HStack {
                     Button {
-                        shoppingViewModel.addNewShoppingItem(korName: "한국 이름", frcName: "프랑스 이름", quantity: 1, korUnitPrice: 1, frcUnitPrice: 1)
+                        shoppingViewModel.addNewShoppingItem(korName: "\(validItemsK[0])", frcName: "\(validItemsF[0])", quantity: 1, korUnitPrice: 1, frcUnitPrice: validPricesF[0])
                         dismiss()
                     } label: {
                         Text("저장")
