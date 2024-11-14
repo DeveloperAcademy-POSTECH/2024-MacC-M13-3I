@@ -169,7 +169,7 @@ class CameraModel: NSObject, ObservableObject,AVCaptureVideoDataOutputSampleBuff
         }
     }
     
-    /// 3. 받은 코드 블럭을 저장(coletion 저장), 사진 캡쳐 기능 구현
+    /// 3. 받은 코드 블럭을 저장(completion 저장), 사진 캡쳐 기능 구현
     func capturePhoto(completion: @escaping (UIImage) -> Void) {
         // 사진 옵션 세팅
         self.completion = completion
@@ -180,7 +180,7 @@ class CameraModel: NSObject, ObservableObject,AVCaptureVideoDataOutputSampleBuff
         print("[Camera]: Photo's taken")
     }
     
-    func zoom(_ zoom: CGFloat){
+    func zoom(_ zoom: CGFloat) {
         let factor = zoom < 1 ? 1 : zoom
         let device = self.videoDeviceInput.device
         

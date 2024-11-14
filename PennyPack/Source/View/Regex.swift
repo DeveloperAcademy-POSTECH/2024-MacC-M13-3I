@@ -24,12 +24,10 @@ struct RegexView: View {
     //    var validItems: String
     
     var body: some View {
-//        let validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
-        // separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
+        // let validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
         // let validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
-        //  Text("Valid TPrices: \(validT.map { String($0) }.joined(separator: ", "))")
-        //  Text("Valid TItems: \(validT2.map { String($0)}.joined(separator: ","))")
-        //  .map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
+        // Text("Valid TPrices: \(validT.map { String($0) }.joined(separator: ", "))")
+        // Text("Valid TItems: \(validT2.map { String($0)}.joined(separator: ","))")
         VStack(spacing: 0){
             HStack{
                 if isEditing {
@@ -68,7 +66,8 @@ struct RegexView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .frame(width: 70)
                 } else {
-                    Text(recognizedText.isEmpty ? "" : "\(validPricesF.map { String($0)}.joined(separator: ", "))")
+                    Text(recognizedText.isEmpty ? "" : "\(validPricesF.map { String($0)}.joined(separator: ", "))") 
+                    // .map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
                         .padding()
                 }
 //                Text("\(validPricesF.map { String($0)}.joined(separator: ", "))€")
@@ -85,6 +84,7 @@ struct RegexView: View {
             }
             .padding(.top, 16)
             
+            //recognizedText값 없으면 수정, 저장 버튼 비활성화
             HStack(alignment: .bottom) {
                 Spacer()
                 Button {
@@ -100,6 +100,8 @@ struct RegexView: View {
                         .buttonStyle(.bordered)
                         .cornerRadius(24)
                 }
+                .disabled(validItemsF.isEmpty || validPricesF.isEmpty) // 수정은 값이 없어도 활성화되어야 함!!!
+                .opacity(validItemsF.isEmpty || validPricesF.isEmpty ? 0.5 : 1.0)
                 
                 Button {
                     shoppingViewModel.addNewShoppingItem(korName: "\(validItemsK)", frcName: "\(validItemsF)", quantity: 1, korUnitPrice: 1, frcUnitPrice: validPricesF[0])
@@ -115,6 +117,9 @@ struct RegexView: View {
                         .buttonStyle(.bordered)
                         .cornerRadius(24)
                 }
+                .disabled(validItemsF.isEmpty || validPricesF.isEmpty)
+                .opacity(validItemsF.isEmpty || validPricesF.isEmpty ? 0.5 : 1.0)
+                // 왜 recognizedText값은 안될까, validItemsF validPricesF값이 없을 때
             }
             .padding(.top, 16)
             .padding(.bottom, 16)
@@ -124,6 +129,7 @@ struct RegexView: View {
         .onAppear {
             // 뷰가 나타날 때만 초기화
             validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
+            // separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
             validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
         } .onChange(of: recognizedText) { newValue in
             // recognizedText가 변경될 때마다 항목과 가격 업데이트
