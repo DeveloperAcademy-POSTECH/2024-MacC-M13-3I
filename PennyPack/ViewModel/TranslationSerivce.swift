@@ -8,7 +8,7 @@
 import Foundation
 
 class TranslationSerivce: ObservableObject {
-    @Published var translatedText: String = "번역 결과가 여기에 표시됩니다."
+    @Published var translatedText: String = ""
     
     /// 10. 전달 받은 text를 번역해서 translatedText에 번역 정보 저장
     /// 가능하면 apiKey 숨기고, completion 부분 제거하기
