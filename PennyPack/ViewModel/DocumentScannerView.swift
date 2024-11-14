@@ -100,7 +100,10 @@ struct DocumentScannerView: View {
                     .padding(.top, 184)
             } else {
                 cameraViewModel.cameraPreview.ignoresSafeArea()
-                    .border(.white.opacity(0.5), width: 2)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 11)
+                            .stroke(Color.white.opacity(0.5), lineWidth: 3)
+                    )
                     .onAppear {
                         cameraViewModel.configure()
                     }
