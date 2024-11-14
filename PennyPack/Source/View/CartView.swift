@@ -290,63 +290,62 @@ struct CartView: View {
             ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
                 VStack(spacing: 0){
                     if editingItemID == item.id {
-                                                HStack(spacing: 0){
-                                                    TextField("상품명", text: Binding(
-                                                        get: { item.korName },
-                                                        set: { newValue in
-                                                            shoppingViewModel.shoppingItem[index].korName = newValue
-                                                        }
-                                                    ))
-                                                    .font(.PTitle3)
-                                                    .frame(width: 180, alignment: .leading)
-                                                    .focused($focusedField, equals: .korName) // 포커스 상태 관리
-                                                    .onSubmit {
-                                                        focusedField = .quantity
-                                                    }
-                                                    .onAppear (perform : UIApplication.shared.hideKeyboard)
-                        
-                                                    HStack(spacing: 0){
-                                                        TextField("1", text: Binding(
-                                                            get: { String(item.quantity) },
-                                                            set: { newValue in
-                                                                if let intValue = Int(newValue) {
-                                                                    shoppingViewModel.shoppingItem[index].quantity = intValue
-                                                                }
-                                                            }
-                                                        ))
-                                                        .font(.PBody)
-                                                        .multilineTextAlignment(.trailing)
-                                                        .focused($focusedField, equals: .quantity)
-                                                        .onSubmit {
-                                                            focusedField = .frcUnitPrice
-                                                        }
-                                                        Text("개")
-                                                            .font(.PBody)
-                                                    }
-                                                    .frame(width: 30, alignment: .trailing)
-                        
-                                                    HStack(spacing: 0){
-                                                        TextField("0.00", text: Binding(
-                                                            get: { String(format: "%.2f", item.frcUnitPrice * Double(item.quantity))
-                                                                /*String(item.frcUnitPrice)*/},
-                                                            set: { newValue in
-                                                                if let intValue = Double(newValue) {
-                                                                    shoppingViewModel.shoppingItem[index].frcUnitPrice = intValue.rounded(toPlaces: 2)
-                                                                }
-                                                            }
-                                                        ))
-                                                        .font(.PTitle3)
-                                                        .multilineTextAlignment(.trailing)
-                                                        .focused($focusedField, equals: .frcUnitPrice)
-                                                        .onSubmit {
-                                                            focusedField = .frcName
-                                                        }
-                                                        .onAppear (perform : UIApplication.shared.hideKeyboard)
-                                                        Text(" €")
-                                                            .font(.PTitle3)
-                                                        }
-                                                        .frame(width: 120, alignment: .trailing)
-                                                    }
+                        HStack(spacing: 0){
+                            TextField("상품명", text: Binding(
+                                get: { item.korName },
+                                set: { newValue in
+                                    shoppingViewModel.shoppingItem[index].korName = newValue
+                                }
+                            ))
+                            .font(.PTitle3)
+                            .frame(width: 180, alignment: .leading)
+                            .focused($focusedField, equals: .korName) // 포커스 상태 관리
+                            .onSubmit {
+                                focusedField = .quantity
+                            }
+                            .onAppear (perform : UIApplication.shared.hideKeyboard)
+                            
+                            HStack(spacing: 0){
+                                TextField("1", text: Binding(
+                                    get: { String(item.quantity) },
+                                    set: { newValue in
+                                        if let intValue = Int(newValue) {
+                                            shoppingViewModel.shoppingItem[index].quantity = intValue
+                                        }
+                                    }
+                                ))
+                                .font(.PBody)
+                                .multilineTextAlignment(.trailing)
+                                .focused($focusedField, equals: .quantity)
+                                .onSubmit {
+                                    focusedField = .frcUnitPrice
+                                }
+                                Text("개")
+                                    .font(.PBody)
+                            }
+                            .frame(width: 30, alignment: .trailing)
+                            
+                            HStack(spacing: 0){
+                                TextField("0.00", text: Binding(
+                                    get: { String(format: "%.2f", item.frcUnitPrice)},
+                                    set: { newValue in
+                                        if let intValue = Double(newValue) {
+                                            shoppingViewModel.shoppingItem[index].frcUnitPrice = intValue.rounded(toPlaces: 2)
+                                        }
+                                    }
+                                ))
+                                .font(.PTitle3)
+                                .multilineTextAlignment(.trailing)
+                                .focused($focusedField, equals: .frcUnitPrice)
+                                .onSubmit {
+                                    focusedField = .frcName
+                                }
+                                .onAppear (perform : UIApplication.shared.hideKeyboard)
+                                Text(" €")
+                                    .font(.PTitle3)
+                            }
+                            .frame(width: 120, alignment: .trailing)
+                        }
                         HStack{
                             TextField("프랑스 이름", text: Binding(
                                 get: { item.frcName },
@@ -393,7 +392,7 @@ struct CartView: View {
                             Text("\(item.quantity)개")
                                 .font(.PBody)
                                 .frame(width: 26, alignment: .trailing)
-                            Text("\(String(format: "%.2f", item.frcUnitPrice*Double(item.quantity))) €")
+                            Text("\(String(format: "%.2f", item.frcUnitPrice)) €")
                                 .font(.PTitle3)
                                 .frame(width: 120, alignment: .trailing)
                         }

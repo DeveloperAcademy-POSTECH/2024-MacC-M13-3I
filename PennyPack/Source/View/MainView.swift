@@ -27,8 +27,8 @@ struct MainView: View {
                             })
                     }
                     .padding(.horizontal)
+                    .padding(.top, 48)
                     .padding(.bottom, 20)
-                    
                     HStack{
                         Image("France")
                             .resizable()
