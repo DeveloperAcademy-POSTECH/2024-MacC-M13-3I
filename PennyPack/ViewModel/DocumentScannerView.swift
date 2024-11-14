@@ -79,6 +79,7 @@ struct DocumentScannerView: View {
     @Binding var recognizedText: String
     @StateObject var translation : TranslationSerivce
     @State var recentImage: UIImage?
+    @State var isRetake: Bool = false
     
     init(recognizedText: Binding<String>) {
         _translation = StateObject(wrappedValue: TranslationSerivce())
@@ -97,10 +98,13 @@ struct DocumentScannerView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 360, height: 350)
                     .cornerRadius(11)
-                    .padding(.top, 184)
+                    .padding(.top, 86)
             } else {
                 cameraViewModel.cameraPreview.ignoresSafeArea()
-                    .border(.white.opacity(0.5), width: 2)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 11)
+                            .stroke(Color.white.opacity(0.5), lineWidth: 3)
+                    )
                     .onAppear {
                         cameraViewModel.configure()
                     }
@@ -114,24 +118,9 @@ struct DocumentScannerView: View {
                     )
                     .frame(width: 360, height: 350)
                     .cornerRadius(11)
-                    .padding(.top, 184)
+                    .padding(.top, 86)
             }
             
-            //                    cameraViewModel.cameraPreview.ignoresSafeArea()
-            //                        .onAppear {
-            //                            cameraViewModel.configure()
-            //                        }
-            //                        .gesture(MagnificationGesture()
-            //                            .onChanged { val in
-            //                                cameraViewModel.zoom(factor: val)
-            //                            }
-            //                            .onEnded { _ in
-            //                                cameraViewModel.zoomInitialize()
-            //                            }
-            //                        )
-            //                        .frame(width: 360, height: 350)
-            //                        .cornerRadius(11)
-            //                        .padding(.top, 184)
             Button(action: {
                 // 1번 카메라 버튼 클릭
                 cameraViewModel.capturePhoto { image in
@@ -161,7 +150,7 @@ struct DocumentScannerView: View {
                 let coordinator = makeCoordinator()
                 coordinator.recognizeText(in: newImage)
             }
-            .padding(.top, 18)
+            .padding(.top, 12)
             //                    VStack {
             //                        /// 11. 전달받은 recognizedText와 translation에 있는 translatedText를 화면에 보여준다.
             //                        Text("Recognized Text: \(recognizedText)")

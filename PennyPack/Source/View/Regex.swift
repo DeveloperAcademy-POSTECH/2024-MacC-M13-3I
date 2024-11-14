@@ -17,46 +17,40 @@ struct RegexView: View {
     @State private var validItemsK: [String] = []
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @State private var validItemsF: [String] = []
+    @State private var validPricesF: [Double] = []
+    @State private var quantity = 1
     
     //    var validPrices: [Double]
     //    var validItems: String
     
     var body: some View {
-        let validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
-        //separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
-        //        let validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
-        //            Text("Valid TPrices: \(validT.map { String($0) }.joined(separator: ", "))")
-        //            Text("Valid TItems: \(validT2.map { String($0)}.joined(separator: ","))")
-        //              .map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
+//        let validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
+        // separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
+        // let validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
+        //  Text("Valid TPrices: \(validT.map { String($0) }.joined(separator: ", "))")
+        //  Text("Valid TItems: \(validT2.map { String($0)}.joined(separator: ","))")
+        //  .map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
         VStack(spacing: 0){
-            //                Spacer()
-            //                    .frame(height: 16)
             HStack{
-                //                    if isEditing {
-                //                        TextField(recognizedText.isEmpty ? "상품명 프랑스어" : validItemsF.joined(separator: ", "))
-                //                    }
                 if isEditing {
                     TextField("상품명 프랑스어", text: $validItemsF[0])
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
                 } else {
                     Text(recognizedText.isEmpty ? "상품명 프랑스어" : validItemsF.joined(separator: ", "))
-                        .padding()
+                        
                 }
-                
-                //                    Text(recognizedText.isEmpty ? "상품명 프랑스어" : validItemsF.joined(separator: ", "))
-                //                    Text("상품명 프랑스어 \(validItemsF)")
+                // Text("상품명 프랑스어 \(validItemsF)")
                 Spacer()
+                Text("\((Int((validPricesF.map { String($0)}.joined(separator: ", "))) ?? 1) * 1490) ") // 원화 계산하기
                 Text("원")
             }.font(.PBody)
+                .padding(.top, 16)
             HStack{
-                //                    Text( recognizedText == nil ? "상품명 한국어" : "\(validItemsK)" )
                 Text(translation.translatedText.isEmpty ? "상품명 한국어" : validItemsK.joined(separator: ", "))
-                //                    Text("상품명 한국어 \(validItemsK)")
+                // Text("상품명 한국어 \(validItemsK)")
                     .onChange(of: validItemsF) { newValues in
                         // 이전 번역 결과를 지우기 위해 validItemsK 초기화
                         self.validItemsK.removeAll()
-                        
                         for item in newValues {
                             translation.translateText(text: item) { result in
                                 DispatchQueue.main.async {
@@ -66,64 +60,128 @@ struct RegexView: View {
                         }
                     }
                 Spacer()
-                Text("\(validPricesF.map { String($0)}.joined(separator: ", "))€")
+                if isEditing {
+                    TextField("", text: Binding(
+                        get: { String(format: "%.2f", self.validPricesF[0]) },
+                        set: { if let value = Double($0) { self.validPricesF[0] = value } }
+                    ))
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .frame(width: 70)
+                } else {
+                    Text(recognizedText.isEmpty ? "" : "\(validPricesF.map { String($0)}.joined(separator: ", "))")
+                        .padding()
+                }
+//                Text("\(validPricesF.map { String($0)}.joined(separator: ", "))€")
+                Text("€")
             }.font(.PTitle2)
-            Spacer()
-                .frame(height: 16.5)
+                .padding(.top, 4)
+            
             HStack{
                 Text("수량")
                     .font(.PTitle2)
                 Spacer()
-                Text("1")
+                QuantitySelector(quantity: $quantity, minQuantity: 1, maxQuantity: 100)
                     .font(.PTitle3)
             }
-            Spacer()
-                .frame(height: 16)
-            HStack {
+            .padding(.top, 16)
+            
+            HStack(alignment: .bottom) {
                 Spacer()
-                    .frame(height: 18.5)
                 Button {
                     isEditing.toggle()
-                    //수정되게 고쳐야 함
                 } label: {
                     Text("수정")
+                        .font(.PCallout)
+                        .foregroundColor(.pWhite)
+                        .frame(width: 26, height: 18)
+                        .padding(.horizontal, 23)
+                        .padding(.vertical, 5)
+                        .background(Color.pDarkGray)
+                        .buttonStyle(.bordered)
+                        .cornerRadius(24)
                 }
-                .frame(width: 72, height: 28)
-                .buttonStyle(.bordered)
-                .tint(.pBlack)
-                .cornerRadius(24)
+                
                 Button {
                     shoppingViewModel.addNewShoppingItem(korName: "\(validItemsK)", frcName: "\(validItemsF)", quantity: 1, korUnitPrice: 1, frcUnitPrice: validPricesF[0])
                     dismiss()
                 } label: {
                     Text("저장")
+                        .font(.PCallout)
+                        .foregroundColor(.pWhite)
+                        .frame(width: 26, height: 18)
+                        .padding(.horizontal, 23)
+                        .padding(.vertical, 5)
+                        .background(Color.pBlack)
+                        .buttonStyle(.bordered)
+                        .cornerRadius(24)
                 }
-                .frame(width: 72, height: 28)
-                .buttonStyle(.borderedProminent)
-                .tint(.pBlack)
-                .cornerRadius(24)
             }
-        } 
+            .padding(.top, 16)
+            .padding(.bottom, 16)
+        }
+        .padding(.horizontal, 16)
         .modifier(KeyboardAvoidanceModifier())
         .onAppear {
             // 뷰가 나타날 때만 초기화
-            //                validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
             validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
+            validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
         } .onChange(of: recognizedText) { newValue in
             // recognizedText가 변경될 때마다 항목과 가격 업데이트
             validItemsF = extractValidItems(newValue.components(separatedBy: .newlines))
+            validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
         }
-//        .padding(.top, 50)
-        .background(
-            Rectangle()
-                .frame(width: 361, height: 158)
-                .foregroundColor(.white)
-                .clipShape(RoundedCorner(radius: 12))
-        )
-        .padding(.horizontal)
-        .ignoresSafeArea(.keyboard)
+        //        .padding(.top, 50)
+        .background(Color.pWhite)
+//        .padding(.horizontal)
     }
 }
+
+struct QuantitySelector: View {
+    @Binding var quantity: Int
+    let minQuantity: Int
+    let maxQuantity: Int
+    var body: some View {
+        HStack(spacing: 20) {
+            Button(action: decrementQuantity) {
+                Circle()
+                    .fill(.pGray)
+                    .frame(width: 18, height: 18)
+                    .overlay(
+                        Image(systemName: "minus")
+                            .foregroundColor(.pDarkGray)
+                    )
+            }
+            .disabled(quantity <= minQuantity)
+            
+            Text("\(quantity)")
+                .font(.PTitle3)
+                .frame(minWidth: 36)
+            
+            Button(action: incrementQuantity) {
+                Circle()
+                    .fill(.pGray)
+                    .frame(width: 18, height: 18)
+                    .overlay(
+                        Image(systemName: "plus")
+                            .foregroundColor(.pDarkGray)
+                    )
+            }
+            .disabled(quantity >= maxQuantity)
+        }
+    }
+    private func incrementQuantity() {
+        if quantity < maxQuantity {
+            quantity += 1
+        }
+    }
+    
+    private func decrementQuantity() {
+        if quantity > minQuantity {
+            quantity -= 1
+        }
+    }
+}
+
 
 let testPrices = ["12.34", "€123.45", ".33€", ",88€", "7.89€/Kg", "4.33€/Kg"]
 let testItems = ["soupe à l'oignon", "1.30€/Kg", "234729", "500015740722", "0.84", "43/-/A/ ----"]
@@ -169,7 +227,7 @@ func extractValidPrices(_ strings: [String]) -> [Double] {
     RegexView(translation: TranslationSerivce(), recognizedText: .constant("Sample text"), shoppingViewModel: ShoppingViewModel())
 }
 
-//스캔된 ocr -> 정규표현식으로 걸러내 -> ml 돌리기
+// 스캔된 ocr -> 정규표현식으로 걸러내 -> ml 돌리기
 
 
 
