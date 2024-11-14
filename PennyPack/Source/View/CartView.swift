@@ -207,8 +207,6 @@ struct CartView: View {
             }
             .onChange(of: shoppingViewModel.shoppingItem) { _ in
                 pricing()
-                
-                print("체인지 토탈 원: \(totalPriceWon)")
             }
             .onAppear {
                 pricing()
@@ -327,8 +325,7 @@ struct CartView: View {
                             
                             HStack(spacing: 0){
                                 TextField("0.00", text: Binding(
-                                    get: { String(format: "%.2f", item.frcUnitPrice * Double(item.quantity))
-                                        /*String(item.frcUnitPrice)*/},
+                                    get: { String(format: "%.2f", item.frcUnitPrice)},
                                     set: { newValue in
                                         if let intValue = Double(newValue) {
                                             shoppingViewModel.shoppingItem[index].frcUnitPrice = intValue.rounded(toPlaces: 2)
@@ -393,7 +390,7 @@ struct CartView: View {
                             Text("\(item.quantity)개")
                                 .font(.PBody)
                                 .frame(width: 26, alignment: .trailing)
-                            Text("\(String(format: "%.2f", item.frcUnitPrice*Double(item.quantity))) €")
+                            Text("\(String(format: "%.2f", item.frcUnitPrice)) €")
                                 .font(.PTitle3)
                                 .frame(width: 120, alignment: .trailing)
                         }
@@ -402,7 +399,7 @@ struct CartView: View {
                                 .font(.PBody)
                                 .frame(width: 180, alignment: .leading)
                             Spacer()
-                            Text("\(item.korUnitPrice) 원")
+                            Text("\(Int(item.frcUnitPrice)*1490) 원")
                                 .font(.PBody)
                                 .frame(width: 120, alignment: .trailing)
                         }

@@ -49,8 +49,8 @@ struct ResultModalView: View {
                                         .frame(width: 80, alignment: .leading)
                                     Text("수량")
                                         .frame(width: 81, alignment: .leading)
-                                    
-                                    Text("합계")                                        .frame(width: 26, alignment: .leading)
+                                    Text("합계")                                        
+                                        .frame(width: 26, alignment: .leading)
                                 }
                                 .font(.PCallout)
                                 .foregroundColor(.pBlack)
@@ -62,13 +62,13 @@ struct ResultModalView: View {
                                                 Text(item.korName)
                                                     .font(.PSubhead)
                                                     .frame(width: 130, alignment: .leading)
-                                                Text("\(item.frcUnitPrice)")
+                                                Text("\(String(format: "%.2f", item.frcUnitPrice))")
                                                     .font(.PSubhead)
                                                     .frame(width: 38, alignment: .trailing)
                                                 Text("\(item.quantity)")
                                                     .font(.PSubhead)
                                                     .frame(width: 80, alignment: .trailing)
-                                                Text("\(Double(Int(item.frcUnitPrice) * item.quantity))")
+                                                Text("\(String(format: "%.2f", item.frcUnitPrice*Double(item.quantity)))")
                                                     .font(.PSubhead)
                                                     .frame(width: 81, alignment: .trailing)
                                             }
@@ -86,9 +86,9 @@ struct ResultModalView: View {
                                     .font(.PTitle3)
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 0){
-                                    Text("\(shoppingViewModel.dateItem.last?.korTotal ?? 61500) 원")
+                                    Text("\(shoppingViewModel.dateItem.last?.korTotal ?? 0) 원")
                                         .font(.PTitle3)
-                                    Text("\(shoppingViewModel.dateItem.last?.frcTotal ?? 59) €")
+                                    Text("\(String(format: "%.2f", (shoppingViewModel.dateItem.last?.frcTotal ?? 0))) €")
                                         .font(.PTitle1)
                                 }
                             }.padding(.bottom,36)
