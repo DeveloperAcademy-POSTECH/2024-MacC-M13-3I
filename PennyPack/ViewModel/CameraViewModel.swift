@@ -72,7 +72,7 @@ class CameraViewModel: ObservableObject {
         model.isSilentModeOn = isSilentModeOn
     }
     
-    /// 2번 햅팁 기능 + CameraModel에 View에서 넘겨 받은 코드블럭(completion) 전달
+    /// 2. 햅틱 + CameraModel에 View에서 넘겨 받은 코드블럭(completion) 전달
     func capturePhoto(completion: @escaping (UIImage) -> Void) {
         model.capturePhoto(completion: completion)
         print("[CameraViewModel]: Photo captured!")

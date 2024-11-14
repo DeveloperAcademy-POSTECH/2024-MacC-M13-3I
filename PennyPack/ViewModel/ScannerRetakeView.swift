@@ -10,22 +10,6 @@ import SwiftUI
 import VisionKit
 import Vision
 
-//struct DocumentScannerViewRepresentable: UIViewControllerRepresentable {
-//    @Binding var recognizedText: String
-//
-//    func makeUIViewController(context: Context) -> VNDocumentCameraViewController {
-//        let viewController = VNDocumentCameraViewController()
-//        viewController.delegate = context.coordinator
-//        return viewController
-//    }
-//
-//    func updateUIViewController(_ uiViewController: VNDocumentCameraViewController, context: Context) { }
-//
-//    func makeCoordinator() -> Coordinator {
-//        Coordinator(self)
-//    }
-//}
-// 뷰가 렌더링이 먼저 되는 케이스 
 class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
     var parent: ScannerRetakeView
     
@@ -96,14 +80,12 @@ struct ScannerRetakeView: View {
                 if let image = recentImage {
                     Image(uiImage: image)
                         .resizable()
-                        .frame(width: 360)
                         .aspectRatio(contentMode: .fit)
-                        .clipped()
+                        .frame(width: 360, height: 350)
                         .cornerRadius(11)
                         .padding(.top, 86)
                 } //사진 -> 버튼 클릭하면 사진이 카메라로 전환
                 Button(action: {
-                    // 1번 카메라 버튼 클릭
                     isPicture = false
                 }, label: {
                     ZStack {
@@ -139,15 +121,14 @@ struct ScannerRetakeView: View {
                     .cornerRadius(11)
                     .padding(.top, 86)
                 Button(action: {
-                    // 1번 카메라 버튼 클릭
+                    /// 1. 카메라 버튼 클릭
                     cameraViewModel.capturePhoto { image in
                         /// 5. Camera Model에서 사진이 찍히면, completion을 호출하면서 image로 찍힌 사진을 전달해줌. recentImage 설정
                         // 이미지가 캡처되면 Coordinator의 recognizeText 호출
                         DispatchQueue.main.async {
                             self.recentImage = image
-                            //캡쳐된 이미지 띄우기
                             print("Image captured and set to recentImage")
-                            isPicture = true
+                            /*isPicture = true*/ // 뷰가 렌더링이 먼저 되는 케이스
                         }
                     }
                 }, label: {
@@ -166,10 +147,10 @@ struct ScannerRetakeView: View {
                     guard let newImage else { return }
                     let coordinator = makeCoordinator()
                     coordinator.recognizeText(in: newImage)
+                    print("start recognize")
                 }
             }
         }
-        
     }
 }
 
