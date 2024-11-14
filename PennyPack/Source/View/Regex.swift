@@ -10,74 +10,118 @@ import Foundation
 
 struct RegexView: View {
     @Environment(\.dismiss) private var dismiss
+    @State private var isEditing: Bool = false
     @StateObject var translation : TranslationSerivce
     @Binding var recognizedText: String
-//    @State private var translatedText: String = "" 필요없음
+    //    @State private var translatedText: String = "" 필요없음
     @State private var validItemsK: [String] = []
     @ObservedObject var shoppingViewModel: ShoppingViewModel
-
-//    var validPrices: [Double]
-//    var validItems: String
+    @State private var validItemsF: [String] = []
+    
+    //    var validPrices: [Double]
+    //    var validItems: String
     
     var body: some View {
-        VStack {            
-            let validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
-            //separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
-            let validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
-//            Text("Valid TPrices: \(validT.map { String($0) }.joined(separator: ", "))")
-//            Text("Valid TItems: \(validT2.map { String($0)}.joined(separator: ","))")
-//              .map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
-            VStack(spacing: 0){
-                HStack{
-                    Text("상품명 프랑스어 \(validItemsF)")
-                    Spacer()
-                    Text("원")
-                }.font(.PBody)
-                HStack{
-                    Text("상품명 한국어 \(validItemsK)")
-                    Text(translation.translatedText)
-                        .onChange(of: validItemsF) { newValues in
-                            // 이전 번역 결과를 지우기 위해 validItemsK 초기화
-                            self.validItemsK.removeAll()
-                            
-                            for item in newValues {
-                                translation.translateText(text: item) { result in
-                                    DispatchQueue.main.async {
-                                        self.validItemsK.append(result)
-                                    }
+        let validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
+        //separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
+        //        let validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
+        //            Text("Valid TPrices: \(validT.map { String($0) }.joined(separator: ", "))")
+        //            Text("Valid TItems: \(validT2.map { String($0)}.joined(separator: ","))")
+        //              .map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
+        VStack(spacing: 0){
+            //                Spacer()
+            //                    .frame(height: 16)
+            HStack{
+                //                    if isEditing {
+                //                        TextField(recognizedText.isEmpty ? "상품명 프랑스어" : validItemsF.joined(separator: ", "))
+                //                    }
+                if isEditing {
+                    TextField("상품명 프랑스어", text: $validItemsF[0])
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                } else {
+                    Text(recognizedText.isEmpty ? "상품명 프랑스어" : validItemsF.joined(separator: ", "))
+                        .padding()
+                }
+                
+                //                    Text(recognizedText.isEmpty ? "상품명 프랑스어" : validItemsF.joined(separator: ", "))
+                //                    Text("상품명 프랑스어 \(validItemsF)")
+                Spacer()
+                Text("원")
+            }.font(.PBody)
+            HStack{
+                //                    Text( recognizedText == nil ? "상품명 한국어" : "\(validItemsK)" )
+                Text(translation.translatedText.isEmpty ? "상품명 한국어" : validItemsK.joined(separator: ", "))
+                //                    Text("상품명 한국어 \(validItemsK)")
+                    .onChange(of: validItemsF) { newValues in
+                        // 이전 번역 결과를 지우기 위해 validItemsK 초기화
+                        self.validItemsK.removeAll()
+                        
+                        for item in newValues {
+                            translation.translateText(text: item) { result in
+                                DispatchQueue.main.async {
+                                    self.validItemsK.append(result)
                                 }
                             }
-                        } // 이 방식은 각 항목을 개별적으로 번역하므로, 항목 수가 많으면 API 호출이 많아질 수 있음. 번역 요청을 일괄 처리로 변경 가능
-                            // SwiftUI의 선언적 특성 때문에 뷰 내에서 직접 함수를 호출하는 것은 성능 문제를 일으킬 수 있음. 번역 결과를 저장할 상태 변수를 추가하면, 번역 로직이 뷰 업데이트 주기와 분리되어 더 효율적으로 동작하며, SwiftUI의 선언적 특성에 더 잘 부합함.
-                    Spacer()
-                    Text("\(validPricesF.map { String($0)}.joined(separator: ", "))€")
-                }.font(.PTitle2)
-                HStack{
-                    Text("수량")
-                        .font(.PTitle2)
-                    Spacer()
-                    Text("1")
-                        .font(.PTitle3)
-                }
-                HStack {
-                    Button {
-                        shoppingViewModel.addNewShoppingItem(korName: "\(validItemsK[0])", frcName: "\(validItemsF[0])", quantity: 1, korUnitPrice: 1, frcUnitPrice: validPricesF[0])
-                        dismiss()
-                    } label: {
-                        Text("저장")
+                        }
                     }
-                }
+                Spacer()
+                Text("\(validPricesF.map { String($0)}.joined(separator: ", "))€")
+            }.font(.PTitle2)
+            Spacer()
+                .frame(height: 16.5)
+            HStack{
+                Text("수량")
+                    .font(.PTitle2)
+                Spacer()
+                Text("1")
+                    .font(.PTitle3)
             }
-            .padding(.top, 50)
-            .background(
-                Rectangle()
-//                            .frame(width: 361, height: 158)
-                    .foregroundColor(.white)
-                    .clipShape(RoundedCorner(radius: 12))
-            )
-            .padding(.horizontal)
+            Spacer()
+                .frame(height: 16)
+            HStack {
+                Spacer()
+                    .frame(height: 18.5)
+                Button {
+                    isEditing.toggle()
+                    //수정되게 고쳐야 함
+                } label: {
+                    Text("수정")
+                }
+                .frame(width: 72, height: 28)
+                .buttonStyle(.bordered)
+                .tint(.pBlack)
+                .cornerRadius(24)
+                Button {
+                    shoppingViewModel.addNewShoppingItem(korName: "\(validItemsK)", frcName: "\(validItemsF)", quantity: 1, korUnitPrice: 1, frcUnitPrice: validPricesF[0])
+                    dismiss()
+                } label: {
+                    Text("저장")
+                }
+                .frame(width: 72, height: 28)
+                .buttonStyle(.borderedProminent)
+                .tint(.pBlack)
+                .cornerRadius(24)
+            }
+        } 
+        .modifier(KeyboardAvoidanceModifier())
+        .onAppear {
+            // 뷰가 나타날 때만 초기화
+            //                validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
+            validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
+        } .onChange(of: recognizedText) { newValue in
+            // recognizedText가 변경될 때마다 항목과 가격 업데이트
+            validItemsF = extractValidItems(newValue.components(separatedBy: .newlines))
         }
-        .padding()
+//        .padding(.top, 50)
+        .background(
+            Rectangle()
+                .frame(width: 361, height: 158)
+                .foregroundColor(.white)
+                .clipShape(RoundedCorner(radius: 12))
+        )
+        .padding(.horizontal)
+        .ignoresSafeArea(.keyboard)
     }
 }
 

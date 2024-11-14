@@ -62,7 +62,7 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
             }
         }
         
-        request.recognitionLanguages = ["en"]
+        request.recognitionLanguages = ["fr"]
         request.usesLanguageCorrection = true
         
         let requestHandler = VNImageRequestHandler(cgImage: cgImage, options: [:])
@@ -90,97 +90,92 @@ struct DocumentScannerView: View {
     }
     
     var body: some View {
-        ScrollView {
-            ZStack {
-                Color.pBlack
-                
-                VStack {
-                    if let image = recentImage {
-                        Image(uiImage: image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 360, height: 350)
-                            .cornerRadius(11)
-                            .padding(.top, 184)
-                    } else {
-                        cameraViewModel.cameraPreview.ignoresSafeArea()
-                            .onAppear {
-                                cameraViewModel.configure()
-                            }
-                            .gesture(MagnificationGesture()
-                                .onChanged { val in
-                                    cameraViewModel.zoom(factor: val)
-                                }
-                                .onEnded { _ in
-                                    cameraViewModel.zoomInitialize()
-                                }
-                            )
-                            .frame(width: 360, height: 350)
-                            .cornerRadius(11)
-                            .padding(.top, 184)
+        VStack {
+            if let image = recentImage {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 360, height: 350)
+                    .cornerRadius(11)
+                    .padding(.top, 184)
+            } else {
+                cameraViewModel.cameraPreview.ignoresSafeArea()
+                    .border(.white.opacity(0.5), width: 2)
+                    .onAppear {
+                        cameraViewModel.configure()
+                    }
+                    .gesture(MagnificationGesture()
+                        .onChanged { val in
+                            cameraViewModel.zoom(factor: val)
+                        }
+                        .onEnded { _ in
+                            cameraViewModel.zoomInitialize()
+                        }
+                    )
+                    .frame(width: 360, height: 350)
+                    .cornerRadius(11)
+                    .padding(.top, 184)
+            }
+            
+            //                    cameraViewModel.cameraPreview.ignoresSafeArea()
+            //                        .onAppear {
+            //                            cameraViewModel.configure()
+            //                        }
+            //                        .gesture(MagnificationGesture()
+            //                            .onChanged { val in
+            //                                cameraViewModel.zoom(factor: val)
+            //                            }
+            //                            .onEnded { _ in
+            //                                cameraViewModel.zoomInitialize()
+            //                            }
+            //                        )
+            //                        .frame(width: 360, height: 350)
+            //                        .cornerRadius(11)
+            //                        .padding(.top, 184)
+            Button(action: {
+                // 1번 카메라 버튼 클릭
+                cameraViewModel.capturePhoto { image in
+                    /// 5. Camera Model에서 사진이 찍히면, completion을 호출하면서 image로 찍힌 사진을 전달해줌. recentImage 설정
+                    // 이미지가 캡처되면 Coordinator의 recognizeText 호출
+                    DispatchQueue.main.async {
+                        self.recentImage = image
+                        //캡쳐된 이미지 띄우기
+                        print("Image captured and set to recentImage")
                     }
                     
-                    //                    cameraViewModel.cameraPreview.ignoresSafeArea()
-                    //                        .onAppear {
-                    //                            cameraViewModel.configure()
-                    //                        }
-                    //                        .gesture(MagnificationGesture()
-                    //                            .onChanged { val in
-                    //                                cameraViewModel.zoom(factor: val)
-                    //                            }
-                    //                            .onEnded { _ in
-                    //                                cameraViewModel.zoomInitialize()
-                    //                            }
-                    //                        )
-                    //                        .frame(width: 360, height: 350)
-                    //                        .cornerRadius(11)
-                    //                        .padding(.top, 184)
-                    Button(action: {
-                        // 1번 카메라 버튼 클릭
-                        cameraViewModel.capturePhoto { image in
-                            /// 5. Camera Model에서 사진이 찍히면, completion을 호출하면서 image로 찍힌 사진을 전달해줌. recentImage 설정
-                            // 이미지가 캡처되면 Coordinator의 recognizeText 호출
-                            DispatchQueue.main.async {
-                                self.recentImage = image
-                                //캡쳐된 이미지 띄우기
-                                print("Image captured and set to recentImage")
-                            }
-                            
-                        }
-                    }, label: {
-                        ZStack {
-                            Circle()
-                                .fill(.pBlue)
-                                .frame(width: 70)
-                            Image(systemName: "camera.fill")
-                                .resizable()
-                                .frame(width: 33, height: 26)
-                                .foregroundColor(.white)
-                        }
-                    })
-                    .onChange(of: recentImage) { _, newImage in
-                        /// 6. recentImage의 변화에 따라 아래 코드 실행. coordinator에 recognizeText로 이미지에 있는 텍스트 인식 기능 구현
-                        guard let newImage else { return }
-                        let coordinator = makeCoordinator()
-                        coordinator.recognizeText(in: newImage)
-                    }
-                    .padding(.top, 18)
-//                    VStack {
-//                        /// 11. 전달받은 recognizedText와 translation에 있는 translatedText를 화면에 보여준다. 
-//                        Text("Recognized Text: \(recognizedText)")
-//                        Text("Translated Text: \(translation.translatedText)")
-//                    }
-//                    .foregroundStyle(.white)
-//                    .padding(.vertical, 30)
-//                    .onChange(of: recognizedText) { oldValue, newValue in
-//                        /// 9. 이미지에서 텍스트 인식이 종료되고 받은 recognizedText를 받아서 번역을 실행. translation 객체의 translateText 함수에 전달받은 텍스트 전달
-//                        if oldValue == newValue { return }
-//                        translation.translateText(text: newValue) { _ in
-//                        }
-//                    }
                 }
+            }, label: {
+                ZStack {
+                    Circle()
+                        .foregroundColor(.pBlue)
+                        .frame(width: 50, height: 50)
+                    Image(systemName: "camera.fill")
+                        .resizable()
+                        .frame(width: 28, height: 22)
+                        .foregroundColor(.white)
+                }
+            })
+            .onChange(of: recentImage) { _, newImage in
+                /// 6. recentImage의 변화에 따라 아래 코드 실행. coordinator에 recognizeText로 이미지에 있는 텍스트 인식 기능 구현
+                guard let newImage else { return }
+                let coordinator = makeCoordinator()
+                coordinator.recognizeText(in: newImage)
             }
-        }.ignoresSafeArea()
+            .padding(.top, 18)
+            //                    VStack {
+            //                        /// 11. 전달받은 recognizedText와 translation에 있는 translatedText를 화면에 보여준다.
+            //                        Text("Recognized Text: \(recognizedText)")
+            //                        Text("Translated Text: \(translation.translatedText)")
+            //                    }
+            //                    .foregroundStyle(.white)
+            //                    .padding(.vertical, 30)
+            //                    .onChange(of: recognizedText) { oldValue, newValue in
+            //                        /// 9. 이미지에서 텍스트 인식이 종료되고 받은 recognizedText를 받아서 번역을 실행. translation 객체의 translateText 함수에 전달받은 텍스트 전달
+            //                        if oldValue == newValue { return }
+            //                        translation.translateText(text: newValue) { _ in
+            //                        }
+            //                    }
+        }
     }
 }
 

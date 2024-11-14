@@ -425,7 +425,7 @@ struct CartView: View {
     }
 }
 
-    
+
 #Preview {
     CartView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel())
 }

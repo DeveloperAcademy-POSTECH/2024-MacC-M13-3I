@@ -67,6 +67,7 @@
 import SwiftUI
 
 struct ScanView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject private var cameraViewModel = CameraViewModel()
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @State private var recognizedText = ""
@@ -79,28 +80,59 @@ struct ScanView: View {
     }
     
     var body: some View {
-        ScrollView {
+        NavigationStack {
             ZStack {
                 Color.pBlack
-                
                 VStack {
                     DocumentScannerView(recognizedText: $recognizedText)
-                    Spacer()
                     // SwiftUI의 선언적 특성 때문에 뷰 내에서 직접 함수를 호출하는 것은 성능 문제를 일으킬 수 있음. 번역 결과를 저장할 상태 변수를 추가하면, 번역 로직이 뷰 업데이트 주기와 분리되어 더 효율적으로 동작하며, SwiftUI의 선언적 특성에 더 잘 부합함.
                     RegexView(translation: TranslationSerivce(), recognizedText: $recognizedText, shoppingViewModel: shoppingViewModel)
                 }
-                .padding(.top, 50)
-                .background(
-                    Rectangle()
-//                        .frame(width: 361, height: 158)
-                        .foregroundColor(.white)
-                        .clipShape(RoundedCorner(radius: 12))
-                )
                 .padding(.horizontal)
             }
-        }.ignoresSafeArea()
+            .navigationBarBackButtonHidden()
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        shoppingViewModel.shoppingItem = []
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.pBlue)
+                    }
+                }
+                ToolbarItem(placement: .principal){
+                    Text("카메라")
+                    
+                        .font(.PTitle2)
+                        .foregroundColor(.pWhite)
+                }
+            }
+            .ignoresSafeArea() //위치 수정해야 할듯
+            .ignoresSafeArea(.keyboard) //위치 수정해야 할듯
+        }
     }
 }
+
+struct KeyboardAvoidanceModifier: ViewModifier {
+    @State private var keyboardHeight: CGFloat = 0
+
+    func body(content: Content) -> some View {
+        content
+            .padding(.bottom, keyboardHeight)
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { notification in
+                if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                    let keyboardRectangle = keyboardFrame.cgRectValue
+                    keyboardHeight = keyboardRectangle.height
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                keyboardHeight = 0
+            }
+    }
+}
+
 
 //#Preview {
 //    ScanView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel)
