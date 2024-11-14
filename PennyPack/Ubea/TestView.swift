@@ -86,7 +86,7 @@ struct TestView: View {
     var body: some View {
         NavigationStack{
             VStack {
-                DocumentScannerView(recognizedText: $recognizedText)
+                ScannerRetakeView(recognizedText: $recognizedText)
                 
                 ScrollView {
                     Text(recognizedText)
