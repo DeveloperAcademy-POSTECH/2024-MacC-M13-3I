@@ -11,6 +11,7 @@
 		3091586A2CE10B4900C62DA8 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309158692CE10B4900C62DA8 /* CameraViewModel.swift */; };
 		3091586C2CE10C2700C62DA8 /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586B2CE10C2700C62DA8 /* CameraModel.swift */; };
 		3091586E2CE10C5200C62DA8 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586D2CE10C5200C62DA8 /* CameraPreview.swift */; };
+		309158702CE5A35B00C62DA8 /* ScannerRetakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586F2CE5A35B00C62DA8 /* ScannerRetakeView.swift */; };
 		7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3912CD477470039B60C /* PennyPackApp.swift */; };
 		7126C3942CD477470039B60C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3932CD477470039B60C /* ContentView.swift */; };
 		7126C3962CD477480039B60C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3952CD477480039B60C /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		309158692CE10B4900C62DA8 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		3091586B2CE10C2700C62DA8 /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
 		3091586D2CE10C5200C62DA8 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		3091586F2CE5A35B00C62DA8 /* ScannerRetakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerRetakeView.swift; sourceTree = "<group>"; };
 		7126C38E2CD477470039B60C /* PennyPack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PennyPack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7126C3912CD477470039B60C /* PennyPackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PennyPackApp.swift; sourceTree = "<group>"; };
 		7126C3932CD477470039B60C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				7126C3B92CDA80230039B60C /* ShoppingListModel.swift */,
 				71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */,
 				7126C3BB2CDA84CF0039B60C /* DocumentScannerView.swift */,
+				3091586F2CE5A35B00C62DA8 /* ScannerRetakeView.swift */,
 				309158692CE10B4900C62DA8 /* CameraViewModel.swift */,
 				3091586B2CE10C2700C62DA8 /* CameraModel.swift */,
 				3091586D2CE10C5200C62DA8 /* CameraPreview.swift */,
@@ -306,6 +309,7 @@
 				7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */,
 				7126C3AC2CD47BD40039B60C /* ScanView.swift in Sources */,
 				714E726A2CDCD6C600982A20 /* ListView.swift in Sources */,
+				309158702CE5A35B00C62DA8 /* ScannerRetakeView.swift in Sources */,
 				7126C3BA2CDA80230039B60C /* ShoppingListModel.swift in Sources */,
 				71C23EBC2CD85C5D006F7A1E /* TranslationSerivce.swift in Sources */,
 			);

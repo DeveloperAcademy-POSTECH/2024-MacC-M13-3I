@@ -85,7 +85,7 @@ struct ScanView: View {
                 Color.pBlack
                     .ignoresSafeArea() //위치 수정해야 할듯
                 VStack {
-                    DocumentScannerView(recognizedText: $recognizedText)
+                    ScannerRetakeView(recognizedText: $recognizedText)
                     // SwiftUI의 선언적 특성 때문에 뷰 내에서 직접 함수를 호출하는 것은 성능 문제를 일으킬 수 있음. 번역 결과를 저장할 상태 변수를 추가하면, 번역 로직이 뷰 업데이트 주기와 분리되어 더 효율적으로 동작하며, SwiftUI의 선언적 특성에 더 잘 부합함.
                         .padding(.bottom, 20)
                     RegexView(translation: TranslationSerivce(), recognizedText: $recognizedText, shoppingViewModel: shoppingViewModel)
