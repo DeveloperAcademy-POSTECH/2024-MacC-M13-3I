@@ -207,8 +207,6 @@ struct CartView: View {
             }
             .onChange(of: shoppingViewModel.shoppingItem) { _ in
                 pricing()
-                
-                print("체인지 토탈 원: \(totalPriceWon)")
             }
             .onAppear {
                 pricing()
@@ -401,7 +399,7 @@ struct CartView: View {
                                 .font(.PBody)
                                 .frame(width: 180, alignment: .leading)
                             Spacer()
-                            Text("\(item.korUnitPrice) 원")
+                            Text("\(Int(item.frcUnitPrice)*1490) 원")
                                 .font(.PBody)
                                 .frame(width: 120, alignment: .trailing)
                         }

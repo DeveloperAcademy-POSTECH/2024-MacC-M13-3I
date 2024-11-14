@@ -131,11 +131,9 @@ class ShoppingViewModel:ObservableObject {
         ))
     }
 
-    
     // MARK: 총 금액 계산
     func korTotalPricing(from items: [ShoppingItem]) -> Int {
         var total = 0
-        
         for index in items.indices {
             
             total += items[index].korUnitPrice * items[index].quantity
