@@ -7,7 +7,6 @@ struct ScanView: View {
     @State private var recognizedText = ""
     @StateObject var translation = TranslationSerivce()
     @State private var translatedText1: String = ""
-    
     @State private var isEditing: Bool = false
     @State private var validItemsK: [String] = []
     @State private var validItemsF: [String] = []
@@ -23,7 +22,8 @@ struct ScanView: View {
                 Color.pBlack
                     .ignoresSafeArea()
                 VStack {
-                    ScannerRetakeView(recognizedText: $recognizedText)
+                    ScannerRetakeView(
+                        translation: translation, isEditing: $isEditing, recognizedText: $recognizedText, validItemsK: $validItemsK, validItemsF: $validItemsF, validPricesF: $validPricesF, quantity: $quantity, validItemText: $validItemText, validPriceText: $validPriceText)
                         .padding(.bottom, 20)
                     
                     RegexView(
