@@ -20,6 +20,8 @@ struct RegexView: View {
     @Binding var validItemsF: [String]
     @Binding var validPricesF: [Double]
     @Binding var quantity: Int
+    @Binding var korUnitPrice: Int
+    @Binding var frcUnitPrice: Double
     @Binding var validItemText: String
     @Binding var validPriceText: String
     
@@ -29,6 +31,10 @@ struct RegexView: View {
                 if isEditing {
                     TextField("상품명 프랑스어", text: $validItemText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .onSubmit {
+                                validItemsF = [validItemText]
+                                firstExecuteTranslation()
+                            }
                 } else {
                     Text(recognizedText.isEmpty ? "상품명 프랑스어" : validItemsF.joined(separator: ", "))
                 }
@@ -81,13 +87,15 @@ struct RegexView: View {
                 }
                 Button {
                     validItemsF = [validItemText]
+                    frcUnitPrice = Double(validPriceText) ?? 0
+                    korUnitPrice = Int(frcUnitPrice) * 1490
                     executeTranslation {
                            shoppingViewModel.addNewShoppingItem(
                                korName: "\(validItemsK.joined(separator: ", "))",
-                               frcName: "\(validItemsF.joined(separator: ", "))",
+                               frcName: "\(validItemsF.joinedf(separator: ", "))",
                                quantity: quantity,
-                               korUnitPrice: (Int(validPriceText) ?? 0) * 1490,
-                               frcUnitPrice: Double(validPriceText) ?? 0
+                               korUnitPrice: korUnitPrice,
+                               frcUnitPrice: frcUnitPrice
                            )
                            dismiss()
                        }

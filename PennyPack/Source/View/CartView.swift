@@ -278,9 +278,6 @@ struct CartView: View {
     func pricing() {
         totalPriceWon = shoppingViewModel.korTotalPricing(from: shoppingViewModel.shoppingItem)
         totalPriceEuro = shoppingViewModel.frcTotalPricing(from: shoppingViewModel.shoppingItem)
-        
-        print(totalPriceWon,"원")
-        print(String(format: "%.2f", totalPriceEuro),"€")
     }
     
     private var CartListView: some View {
