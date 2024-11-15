@@ -1,10 +1,3 @@
-//
-//  TranslatorView.swift
-//  PennyPack
-//
-//  Created by 임이지 on 11/4/24.
-//
-
 import Foundation
 
 class TranslationSerivce: ObservableObject {
@@ -16,7 +9,6 @@ class TranslationSerivce: ObservableObject {
         let apiKey = "d6e694c4-255d-49ba-b214-06d295fcdd29:fx"
         let urlString = "https://api-free.deepl.com/v2/translate?auth_key=\(apiKey)&text=\(text)&target_lang=KO&source_lang=FR"
         
-        // URL 인코딩
         guard let encodedURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: encodedURLString) else {
             print("잘못된 URL입니다.")
@@ -32,14 +24,13 @@ class TranslationSerivce: ObservableObject {
             
             if let data = data {
                 do {
-                    // JSON 데이터 파싱
                     if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                        let translations = json["translations"] as? [[String: Any]],
                        let translatedText = translations.first?["text"] as? String {
                         
                         DispatchQueue.main.async {
                             completion(translatedText)
-                            self.translatedText = translatedText // 번역 결과 저장
+                            self.translatedText = translatedText
                         }
                     }
                 } catch {

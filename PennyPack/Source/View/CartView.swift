@@ -1,10 +1,3 @@
-//
-//  CartView.swift
-//  PennyPack
-//
-//  Created by siye on 11/1/24.
-//
-
 import Foundation
 import SwiftUI
 
@@ -25,11 +18,11 @@ struct CartView: View {
     
     @State private var totalPriceWon: Int = 0
     @State private var totalPriceEuro: Double = 0.0
-    @State private var editingItemID: UUID? = nil // 현재 편집 중인 항목의 ID
-    @FocusState private var focusedField: Field? // 포커스 상태 관리
+    @State private var editingItemID: UUID? = nil
+    @FocusState private var focusedField: Field?
     
     enum Field: Hashable {
-        case korName, quantity, frcUnitPrice, frcName, korUnitPrice // 필드 식별
+        case korName, quantity, frcUnitPrice, frcName, korUnitPrice
     }
     
     var body: some View {
@@ -297,7 +290,7 @@ struct CartView: View {
                             ))
                             .font(.PTitle3)
                             .frame(width: 180, alignment: .leading)
-                            .focused($focusedField, equals: .korName) // 포커스 상태 관리
+                            .focused($focusedField, equals: .korName) 
                             .onSubmit {
                                 focusedField = .quantity
                             }

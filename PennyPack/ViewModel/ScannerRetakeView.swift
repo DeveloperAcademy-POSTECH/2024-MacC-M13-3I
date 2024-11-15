@@ -1,10 +1,3 @@
-//
-//  ScannerRetakeView.swift
-//  PennyPack
-//
-//  Created by 장유진 on 11/14/24.
-//
-
 import Foundation
 import SwiftUI
 import VisionKit
@@ -84,7 +77,7 @@ struct ScannerRetakeView: View {
                         .frame(width: 360, height: 350)
                         .cornerRadius(11)
                         .padding(.top, 86)
-                } //사진 -> 버튼 클릭하면 사진이 카메라로 전환
+                }
                 Button(action: {
                     isPicture = false
                 }, label: {
@@ -99,7 +92,7 @@ struct ScannerRetakeView: View {
                     }
                 })
             }
-        } else { //카메라 -> 버튼 클릭하면 사진 띄우기
+        } else {
             VStack {
                 cameraViewModel.cameraPreview.ignoresSafeArea()
                     .overlay(
@@ -124,11 +117,9 @@ struct ScannerRetakeView: View {
                     /// 1. 카메라 버튼 클릭
                     cameraViewModel.capturePhoto { image in
                         /// 5. Camera Model에서 사진이 찍히면, completion을 호출하면서 image로 찍힌 사진을 전달해줌. recentImage 설정
-                        // 이미지가 캡처되면 Coordinator의 recognizeText 호출
                         DispatchQueue.main.async {
                             self.recentImage = image
                             print("Image captured and set to recentImage")
-                            /*isPicture = true*/ // 뷰가 렌더링이 먼저 되는 케이스
                         }
                     }
                 }, label: {
