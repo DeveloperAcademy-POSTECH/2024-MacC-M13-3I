@@ -5,13 +5,17 @@ struct ScanView: View {
     @StateObject private var cameraViewModel = CameraViewModel()
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @State private var recognizedText = ""
-    @StateObject var translation : TranslationSerivce
+    @StateObject var translation = TranslationSerivce()
     @State private var translatedText1: String = ""
     
-    init(shoppingViewModel: ShoppingViewModel) {
-        self.shoppingViewModel = shoppingViewModel
-        _translation = StateObject(wrappedValue: TranslationSerivce())
-    }
+    @State private var isEditing: Bool = false
+    @State private var validItemsK: [String] = []
+    @State private var validItemsF: [String] = []
+    @State private var validPricesF: [Double] = []
+    @State private var quantity = 1
+    
+    @State private var validItemText = ""
+    @State private var validPriceText = ""
     
     var body: some View {
         NavigationStack {
@@ -21,12 +25,24 @@ struct ScanView: View {
                 VStack {
                     ScannerRetakeView(recognizedText: $recognizedText)
                         .padding(.bottom, 20)
-                    RegexView(translation: TranslationSerivce(), recognizedText: $recognizedText, shoppingViewModel: shoppingViewModel)
-                        .clipShape(RoundedCorner(radius: 12))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.pGray)
-                        )
+                    
+                    RegexView(
+                        translation: TranslationSerivce(),
+                        shoppingViewModel: shoppingViewModel,
+                        isEditing: $isEditing,
+                        recognizedText: $recognizedText,
+                        validItemsK: $validItemsK,
+                        validItemsF: $validItemsF,
+                        validPricesF: $validPricesF,
+                        quantity: $quantity,
+                        validItemText: $validItemText,
+                        validPriceText: $validPriceText
+                    )
+                    .clipShape(RoundedCorner(radius: 12))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.pGray)
+                    )
                     Spacer()
                 }
                 .padding(.horizontal, 16)

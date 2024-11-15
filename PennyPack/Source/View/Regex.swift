@@ -2,25 +2,31 @@ import SwiftUI
 import Foundation
 
 struct RegexView: View {
+    
     @Environment(\.dismiss) private var dismiss
-    @State private var isEditing: Bool = false
     @StateObject var translation : TranslationSerivce
     @Binding var recognizedText: String
     @State private var validItemsK: [String] = []
     @ObservedObject var shoppingViewModel: ShoppingViewModel
-    @State private var validItemsF: [String] = []
-    @State private var validPricesF: [Double] = []
-    @State private var quantity = 1
+    
+    @Binding var isEditing: Bool
+    @Binding var recognizedText: String
+    @Binding var validItemsK: [String]
+    @Binding var validItemsF: [String]
+    @Binding var validPricesF: [Double]
+    @Binding var quantity: Int
+    @Binding var validItemText: String
+    @Binding var validPriceText: String
     
     var body: some View {
         VStack(spacing: 0){
             HStack{
                 if isEditing {
-                    TextField("상품명 프랑스어", text: $validItemsF[0])
+                    // TextField("상품명 프랑스어", text: $validItemsF[0])
+                    TextField("상품명 프랑스어", text: $validItemText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 } else {
                     Text(recognizedText.isEmpty ? "상품명 프랑스어" : validItemsF.joined(separator: ", "))
-                        
                 }
                 Spacer()
                 Text("\((Int((validPricesF.map { String($0)}.joined(separator: ", "))) ?? 1) * 1490) ")
@@ -41,12 +47,15 @@ struct RegexView: View {
                     }
                 Spacer()
                 if isEditing {
-                    TextField("", text: Binding(
-                        get: { String(format: "%.2f", self.validPricesF[0]) },
-                        set: { if let value = Double($0) { self.validPricesF[0] = value } }
-                    ))
+                    TextField("", text: $validPriceText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .frame(width: 70)
+                    
+//                    TextField("", text: Binding(
+//                        get: { String(format: "%.2f", self.validPricesF[0]) },
+//                        set: { if let value = Double($0) { self.validPricesF[0] = value } }
+//                    ))
+                        
                 } else {
                     Text(recognizedText.isEmpty ? "" : "\(validPricesF.map { String($0)}.joined(separator: ", "))")
                         .padding()
@@ -201,7 +210,6 @@ func extractValidPrices(_ strings: [String]) -> [Double] {
         return Double(numberString)
     }
 }
-
 
 #Preview {
     RegexView(translation: TranslationSerivce(), recognizedText: .constant("Sample text"), shoppingViewModel: ShoppingViewModel())
