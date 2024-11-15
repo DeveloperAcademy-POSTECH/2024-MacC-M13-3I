@@ -5,8 +5,6 @@ struct RegexView: View {
     
     @Environment(\.dismiss) private var dismiss
     @StateObject var translation : TranslationSerivce
-    @Binding var recognizedText: String
-    @State private var validItemsK: [String] = []
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     
     @Binding var isEditing: Bool
@@ -209,8 +207,4 @@ func extractValidPrices(_ strings: [String]) -> [Double] {
             .replacingOccurrences(of: ",", with: ".")
         return Double(numberString)
     }
-}
-
-#Preview {
-    RegexView(translation: TranslationSerivce(), recognizedText: .constant("Sample text"), shoppingViewModel: ShoppingViewModel())
 }
