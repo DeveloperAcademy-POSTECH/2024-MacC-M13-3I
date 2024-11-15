@@ -135,7 +135,6 @@ class ShoppingViewModel:ObservableObject {
     func korTotalPricing(from items: [ShoppingItem]) -> Int {
         var total = 0
         for index in items.indices {
-            
             total += items[index].korUnitPrice * items[index].quantity
         }
         return total

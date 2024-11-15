@@ -79,7 +79,8 @@ struct ScanView: View {
     @State private var validItemsF: [String] = []
     @State private var validPricesF: [Double] = []
     @State private var quantity = 1
-    
+    @State private var korUnitPrice = 0
+    @State private var frcUnitPrice = 0.0
     @State private var validItemText = ""
     @State private var validPriceText = ""
     
@@ -112,6 +113,8 @@ struct ScanView: View {
                         validItemsF: $validItemsF,
                         validPricesF: $validPricesF,
                         quantity: $quantity,
+                        korUnitPrice: $korUnitPrice,
+                        frcUnitPrice: $frcUnitPrice,
                         validItemText: $validItemText,
                         validPriceText: $validPriceText
                     )
