@@ -23,24 +23,15 @@ struct RegexView: View {
     @Binding var validItemText: String
     @Binding var validPriceText: String
     
-    //    var validPrices: [Double]
-    //    var validItems: String
-    
     var body: some View {
-        // let validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
-        // let validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
-        // Text("Valid TPrices: \(validT.map { String($0) }.joined(separator: ", "))")
-        // Text("Valid TItems: \(validT2.map { String($0)}.joined(separator: ","))")
         VStack(spacing: 0){
             HStack{
                 if isEditing {
-                    // TextField("상품명 프랑스어", text: $validItemsF[0])
                     TextField("상품명 프랑스어", text: $validItemText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 } else {
                     Text(recognizedText.isEmpty ? "상품명 프랑스어" : validItemsF.joined(separator: ", "))
                 }
-                // Text("상품명 프랑스어 \(validItemsF)")
                 Spacer()
                 Text("\((Int((validPricesF.map { String($0)}.joined(separator: ", "))) ?? 1) * 1490) ") // 원화 계산하기
                 Text("원")
@@ -48,35 +39,19 @@ struct RegexView: View {
                 .padding(.top, 16)
             HStack{
                 Text(translation.translatedText.isEmpty ? "상품명 한국어" : validItemsK.joined(separator: ", "))
-                // Text("상품명 한국어 \(validItemsK)")
                     .onChange(of: validItemsF) { newValues in
-                        // 이전 번역 결과를 지우기 위해 validItemsK 초기화
-                        self.validItemsK.removeAll()
-                        for item in newValues {
-                            translation.translateText(text: item) { result in
-                                DispatchQueue.main.async {
-                                    self.validItemsK.append(result)
-                                }
-                            }
-                        }
+                        firstExecuteTranslation()
                     }
                 Spacer()
                 if isEditing {
                     TextField("", text: $validPriceText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .frame(width: 70)
-                    
-//                    TextField("", text: Binding(
-//                        get: { String(format: "%.2f", self.validPricesF[0]) },
-//                        set: { if let value = Double($0) { self.validPricesF[0] = value } }
-//                    ))
                         
                 } else {
-                    Text(recognizedText.isEmpty ? "" : "\(validPricesF.map { String($0)}.joined(separator: ", "))") 
-                    // .map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
+                    Text(recognizedText.isEmpty ? "" : "\(validPricesF.map { String($0)}.joined(separator: ", "))")
                         .padding()
                 }
-//                Text("\(validPricesF.map { String($0)}.joined(separator: ", "))€")
                 Text("€")
             }.font(.PTitle2)
                 .padding(.top, 4)
@@ -89,8 +64,6 @@ struct RegexView: View {
                     .font(.PTitle3)
             }
             .padding(.top, 16)
-            
-            //recognizedText값 없으면 수정, 저장 버튼 비활성화
             HStack(alignment: .bottom) {
                 Spacer()
                 Button {
@@ -106,11 +79,18 @@ struct RegexView: View {
                         .buttonStyle(.bordered)
                         .cornerRadius(24)
                 }
-//                .disabled(validItemsF.isEmpty || validPricesF.isEmpty) // 수정은 값이 없어도 활성화되어야 함!!!
-//                .opacity(validItemsF.isEmpty || validPricesF.isEmpty ? 0.5 : 1.0)
                 Button {
-                    shoppingViewModel.addNewShoppingItem(korName: "\(validItemsK.joined(separator: ", "))", frcName: "\(validItemsF.joined(separator: ", "))", quantity: 1, korUnitPrice: 1, frcUnitPrice: Double(validPriceText) ?? 0)
-                    dismiss()
+                    validItemsF = [validItemText]
+                    executeTranslation {
+                           shoppingViewModel.addNewShoppingItem(
+                               korName: "\(validItemsK.joined(separator: ", "))",
+                               frcName: "\(validItemsF.joined(separator: ", "))",
+                               quantity: quantity,
+                               korUnitPrice: (Int(validPriceText) ?? 0) * 1490,
+                               frcUnitPrice: Double(validPriceText) ?? 0
+                           )
+                           dismiss()
+                       }
                 } label: {
                     Text("저장")
                         .font(.PCallout)
@@ -137,8 +117,6 @@ struct RegexView: View {
             // separator 기준으로 배열로 반환해준 것들을 정규표현식으로 골라냄
             validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
         } .onChange(of: recognizedText) { newValue in
-            // recognizedText가 변경될 때마다 항목과 가격 업데이트
-            
             let items = extractValidItems(newValue.components(separatedBy: .newlines))
             let itemString = items.joined(separator: ", ")
             validItemText = itemString
@@ -152,9 +130,42 @@ struct RegexView: View {
             
             validPricesF = prices
         }
-        //        .padding(.top, 50)
         .background(Color.pWhite)
-//        .padding(.horizontal)
+    }
+    
+    private func executeTranslation(completion: @escaping () -> Void) {
+        validItemsK.removeAll()
+        let dispatchGroup = DispatchGroup()
+        
+        for item in validItemsF {
+            dispatchGroup.enter()
+            translation.translateText(text: item) { result in
+                DispatchQueue.main.async {
+                    if !self.validItemsK.contains(result) {
+                        self.validItemsK.append(result)
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            print("번역 완료: \(self.validItemsK.joined(separator: ", "))")
+            completion() // 번역 완료 후 클로저 실행
+        }
+    }
+
+    private func firstExecuteTranslation() {
+        validItemsK.removeAll()
+        for item in validItemsF {
+            translation.translateText(text: item) { result in
+                DispatchQueue.main.async {
+                    if !self.validItemsK.contains(result) {
+                        self.validItemsK.append(result)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -210,6 +221,7 @@ let testItems = ["soupe à l'oignon", "1.30€/Kg", "234729", "500015740722", "0
 
 let validT = extractValidPrices(testPrices)
 let validT2 = extractValidItems(testItems)
+
 
 func extractValidItems(_ strings: [String]) -> [String] {
     let itemPattern = "[a-zA-ZàâäæáãåāèéêëęėēîïīįíìôōøõóòöœùûüūúÿçćčńñÀÂÄÆÁÃÅĀÈÉÊËĘĖĒÎÏĪĮÍÌÔŌØÕÓÒÖŒÙÛÜŪÚŸÇĆČŃÑ]+"
