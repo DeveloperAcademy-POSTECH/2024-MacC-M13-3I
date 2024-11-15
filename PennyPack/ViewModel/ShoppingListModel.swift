@@ -5,7 +5,7 @@ import Foundation
 struct DateItem: Codable, Hashable {
     var date: Date
     var items: [ShoppingItem]
-    var korTotal: Int //총 금액
+    var korTotal: Int
     var frcTotal: Double
     var place: String
 }
@@ -15,8 +15,8 @@ struct ShoppingItem: Identifiable, Codable, Hashable {
     var korName: String
     var frcName: String
     var quantity: Int
-    var korUnitPrice: Int //단가
-    var frcUnitPrice: Double //단가
+    var korUnitPrice: Int
+    var frcUnitPrice: Double
     var time: Date
 }
 
@@ -25,7 +25,7 @@ class ShoppingViewModel:ObservableObject {
     @Published var shoppingItem: [ShoppingItem] = []
     @Published var selectedDateItem: DateItem?
     
-    @Published var nowBudget: Int? // 예산
+    @Published var nowBudget: Int?
     @Published var nowPlace: String = ""
     
     init(){
@@ -39,23 +39,6 @@ class ShoppingViewModel:ObservableObject {
                 ]
             }
         }
-
-        
-//        if dateItem.isEmpty {
-//            self.dateItem = [
-//                DateItem(date: Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
-//                DateItem(date: Calendar.current.date(byAdding: .day, value: -4, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
-//                DateItem(date: Calendar.current.date(byAdding: .day, value: -10, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
-//                DateItem(date: Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
-//                DateItem(date: Calendar.current.date(byAdding: .day, value: -4, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
-//                DateItem(date: Calendar.current.date(byAdding: .day, value: -10, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
-//                DateItem(date: Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
-//                DateItem(date: Calendar.current.date(byAdding: .day, value: -4, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소"),
-//                DateItem(date: Calendar.current.date(byAdding: .day, value: -10, to: Date()) ?? Date(), items: shoppingItem, korTotal: 1, frcTotal: 1, place: "장소")
-//
-//            ]
-//        }
-
         
         loadShoppingListFromUserDefaults()
     }
