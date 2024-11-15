@@ -82,9 +82,15 @@ struct CartView: View {
                                 .background(
                                     Group {
                                         if isDropdownExpanded {
-                                            Rectangle()
-                                                .fill(Color.pWhite)
-                                                .clipShape(RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
+                                            ZStack{
+                                                Rectangle()
+                                                    .fill(Color.pWhite)
+                                                    .clipShape(RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
+                                                    .overlay(
+                                                        RoundedCorner(radius: 8, corners: [.topLeft, .topRight])
+                                                            .stroke(Color.pGray, lineWidth: 2)
+                                                    )
+                                            }
                                         }
                                         else {
                                             RoundedRectangle(cornerRadius: 12)
@@ -103,6 +109,10 @@ struct CartView: View {
                                         .padding(.horizontal)
                                     DropdownListView(listViewModel: listViewModel)
                                         .padding()
+                                    RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight])
+                                        .stroke(Color.pGray, lineWidth: 2)
+                                        .padding(.horizontal)
+                                    
                                 }
                                 .frame(height: 156)
                             }
