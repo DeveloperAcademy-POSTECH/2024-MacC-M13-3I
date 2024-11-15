@@ -9,16 +9,19 @@ import SwiftUI
 import Foundation
 
 struct RegexView: View {
+    
     @Environment(\.dismiss) private var dismiss
-    @State private var isEditing: Bool = false
     @StateObject var translation : TranslationSerivce
-    @Binding var recognizedText: String
-    //    @State private var translatedText: String = "" 필요없음
-    @State private var validItemsK: [String] = []
     @ObservedObject var shoppingViewModel: ShoppingViewModel
-    @State private var validItemsF: [String] = []
-    @State private var validPricesF: [Double] = []
-    @State private var quantity = 1
+    
+    @Binding var isEditing: Bool
+    @Binding var recognizedText: String
+    @Binding var validItemsK: [String]
+    @Binding var validItemsF: [String]
+    @Binding var validPricesF: [Double]
+    @Binding var quantity: Int
+    @Binding var validItemText: String
+    @Binding var validPriceText: String
     
     //    var validPrices: [Double]
     //    var validItems: String
@@ -31,11 +34,11 @@ struct RegexView: View {
         VStack(spacing: 0){
             HStack{
                 if isEditing {
-                    TextField("상품명 프랑스어", text: $validItemsF[0])
+                    // TextField("상품명 프랑스어", text: $validItemsF[0])
+                    TextField("상품명 프랑스어", text: $validItemText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 } else {
                     Text(recognizedText.isEmpty ? "상품명 프랑스어" : validItemsF.joined(separator: ", "))
-                        
                 }
                 // Text("상품명 프랑스어 \(validItemsF)")
                 Spacer()
@@ -59,12 +62,15 @@ struct RegexView: View {
                     }
                 Spacer()
                 if isEditing {
-                    TextField("", text: Binding(
-                        get: { String(format: "%.2f", self.validPricesF[0]) },
-                        set: { if let value = Double($0) { self.validPricesF[0] = value } }
-                    ))
+                    TextField("", text: $validPriceText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .frame(width: 70)
+                    
+//                    TextField("", text: Binding(
+//                        get: { String(format: "%.2f", self.validPricesF[0]) },
+//                        set: { if let value = Double($0) { self.validPricesF[0] = value } }
+//                    ))
+                        
                 } else {
                     Text(recognizedText.isEmpty ? "" : "\(validPricesF.map { String($0)}.joined(separator: ", "))") 
                     // .map -> 배열의 각 인자들을 string값으로 만들고["a", "b", "c"], .joined -> ,로 구분하며 하나의 배열로 묶기["a, b, c"]
@@ -100,11 +106,10 @@ struct RegexView: View {
                         .buttonStyle(.bordered)
                         .cornerRadius(24)
                 }
-                .disabled(validItemsF.isEmpty || validPricesF.isEmpty) // 수정은 값이 없어도 활성화되어야 함!!!
-                .opacity(validItemsF.isEmpty || validPricesF.isEmpty ? 0.5 : 1.0)
-                
+//                .disabled(validItemsF.isEmpty || validPricesF.isEmpty) // 수정은 값이 없어도 활성화되어야 함!!!
+//                .opacity(validItemsF.isEmpty || validPricesF.isEmpty ? 0.5 : 1.0)
                 Button {
-                    shoppingViewModel.addNewShoppingItem(korName: "\(validItemsK)", frcName: "\(validItemsF)", quantity: 1, korUnitPrice: 1, frcUnitPrice: validPricesF[0])
+                    shoppingViewModel.addNewShoppingItem(korName: "\(validItemsK.joined(separator: ", "))", frcName: "\(validItemsF.joined(separator: ", "))", quantity: 1, korUnitPrice: 1, frcUnitPrice: Double(validPriceText) ?? 0)
                     dismiss()
                 } label: {
                     Text("저장")
@@ -117,8 +122,8 @@ struct RegexView: View {
                         .buttonStyle(.bordered)
                         .cornerRadius(24)
                 }
-                .disabled(validItemsF.isEmpty || validPricesF.isEmpty)
-                .opacity(validItemsF.isEmpty || validPricesF.isEmpty ? 0.5 : 1.0)
+                .disabled(validItemText.isEmpty || validPriceText.isEmpty )
+                .opacity(validItemText.isEmpty || validPriceText.isEmpty ? 0.5 : 1.0)
                 // 왜 recognizedText값은 안될까, validItemsF validPricesF값이 없을 때
             }
             .padding(.top, 16)
@@ -133,8 +138,19 @@ struct RegexView: View {
             validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
         } .onChange(of: recognizedText) { newValue in
             // recognizedText가 변경될 때마다 항목과 가격 업데이트
-            validItemsF = extractValidItems(newValue.components(separatedBy: .newlines))
-            validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
+            
+            let items = extractValidItems(newValue.components(separatedBy: .newlines))
+            let itemString = items.joined(separator: ", ")
+            validItemText = itemString
+            validItemsF = items
+            
+            
+            let prices = extractValidPrices(recognizedText.components(separatedBy: .newlines))
+            if !prices.isEmpty {
+                validPriceText = String(prices[0])
+            }
+            
+            validPricesF = prices
         }
         //        .padding(.top, 50)
         .background(Color.pWhite)
@@ -229,9 +245,9 @@ func extractValidPrices(_ strings: [String]) -> [Double] {
     }
 }
 
-#Preview {
-    RegexView(translation: TranslationSerivce(), recognizedText: .constant("Sample text"), shoppingViewModel: ShoppingViewModel())
-}
+//#Preview {
+//    RegexView(translation: TranslationSerivce(), recognizedText: .constant("Sample text"), shoppingViewModel: ShoppingViewModel())
+//}
 
 // 스캔된 ocr -> 정규표현식으로 걸러내 -> ml 돌리기
 

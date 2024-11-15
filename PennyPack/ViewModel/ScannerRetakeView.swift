@@ -59,19 +59,35 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
 }
 
 struct ScannerRetakeView: View {
+    
     @StateObject private var cameraViewModel = CameraViewModel()
-    @Binding var recognizedText: String
-    @StateObject var translation : TranslationSerivce
+    @ObservedObject var translation: TranslationSerivce
+    
     @State var recentImage: UIImage?
     @State var isPicture: Bool = false
     
-    init(recognizedText: Binding<String>) {
-        _translation = StateObject(wrappedValue: TranslationSerivce())
-        self._recognizedText = recognizedText
-    }
+    @Binding var isEditing: Bool
+    @Binding var recognizedText: String
+    @Binding var validItemsK: [String]
+    @Binding var validItemsF: [String]
+    @Binding var validPricesF: [Double]
+    @Binding var quantity: Int
+    @Binding var validItemText: String
+    @Binding var validPriceText: String
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
+    }
+    
+    func reset() {
+        isEditing = false
+        recognizedText = ""
+        validItemsK.removeAll()
+        validItemsF.removeAll()
+        validPricesF.removeAll()
+        quantity = 1
+        validItemText = ""
+        validPriceText = ""
     }
     
     var body: some View {
@@ -80,13 +96,14 @@ struct ScannerRetakeView: View {
                 if let image = recentImage {
                     Image(uiImage: image)
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        .aspectRatio(contentMode: .fill)
                         .frame(width: 360, height: 350)
                         .cornerRadius(11)
                         .padding(.top, 86)
                 } //사진 -> 버튼 클릭하면 사진이 카메라로 전환
                 Button(action: {
                     isPicture = false
+                    reset()
                 }, label: {
                     ZStack {
                         Circle()
@@ -128,7 +145,12 @@ struct ScannerRetakeView: View {
                         DispatchQueue.main.async {
                             self.recentImage = image
                             print("Image captured and set to recentImage")
-                            /*isPicture = true*/ // 뷰가 렌더링이 먼저 되는 케이스
+                            isPicture = true // 뷰가 렌더링이 먼저 되는 케이스
+
+                            let coordinator = makeCoordinator()
+                            coordinator.recognizeText(in: image)
+                            
+                            //isPicture = true면 onChange가 실행되지 않음, isPicture = true를 없애면 recentImage가 뜨지 않음
                         }
                     }
                 }, label: {
@@ -143,11 +165,13 @@ struct ScannerRetakeView: View {
                     }
                 })
                 .onChange(of: recentImage) { _, newImage in
-                    /// 6. recentImage의 변화에 따라 아래 코드 실행. coordinator에 recognizeText로 이미지에 있는 텍스트 인식 기능 구현
-                    guard let newImage else { return }
-                    let coordinator = makeCoordinator()
-                    coordinator.recognizeText(in: newImage)
-                    print("start recognize")
+//                    /// 6. recentImage의 변화에 따라 아래 코드 실행. coordinator에 recognizeText로 이미지에 있는 텍스트 인식 기능 구현
+//                    guard let newImage else {
+//                        return
+//                    }
+//                    let coordinator = makeCoordinator()
+//                    coordinator.recognizeText(in: newImage)
+//                    print("start recognize")
                 }
             }
         }
