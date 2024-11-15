@@ -1,10 +1,3 @@
-//
-//  CameraModel.swift
-//  PennyPack
-//
-//  Created by 장유진 on 11/11/24.
-//
-
 import SwiftUI
 import AVFoundation
 import UIKit
@@ -28,7 +21,6 @@ class CameraModel: NSObject, ObservableObject,AVCaptureVideoDataOutputSampleBuff
     @Published var isHapticEnabled = true
     @Published private var showCapturedImage = false
     
-    // Vision : 햅틱 관련 코드
     private var impactFeedback : UIImpactFeedbackGenerator?
     private var lastHapticTime: Date = Date.distantPast
     private let hapticInterval: TimeInterval = 1.0
@@ -124,14 +116,11 @@ class CameraModel: NSObject, ObservableObject,AVCaptureVideoDataOutputSampleBuff
             isHapticEnabled = true
             setupHapticFeedback()
         }
-
-        // 햅틱 비활성화 함수
         func disableHaptic() {
             isHapticEnabled = false
             impactFeedback = nil
         }
     
-    // Vision : 햅틱 관련 코드
     private func checkAlignment(in image: CVPixelBuffer) {
         guard isSessionActive else { return }
         
@@ -145,7 +134,7 @@ class CameraModel: NSObject, ObservableObject,AVCaptureVideoDataOutputSampleBuff
                 
                 let distance = sqrt(pow(boxCenter.x - viewCenter.x, 2) + pow(boxCenter.y - viewCenter.y, 2))
                 
-                if distance < 0.1 { // 중심으로부터 10% 이내에 있으면 정렬된 것으로 간주
+                if distance < 0.1 {
                     DispatchQueue.main.async {
                         self.alignmentOccurred(at: boxCenter)
                     }
@@ -157,7 +146,6 @@ class CameraModel: NSObject, ObservableObject,AVCaptureVideoDataOutputSampleBuff
         try? handler.perform([request])
     }
     
-    // Vision : 햅틱 관련 코드
     func alignmentOccurred(at point: CGPoint) {
         if isHapticEnabled {
             let currentTime = Date()
@@ -171,7 +159,7 @@ class CameraModel: NSObject, ObservableObject,AVCaptureVideoDataOutputSampleBuff
     
     /// 3. 받은 코드 블럭을 저장(completion 저장), 사진 캡쳐 기능 구현
     func capturePhoto(completion: @escaping (UIImage) -> Void) {
-        // 사진 옵션 세팅
+        
         self.completion = completion
         let photoSettings = AVCapturePhotoSettings()
         photoSettings.flashMode = self.flashMode
@@ -222,7 +210,6 @@ extension CameraModel: AVCapturePhotoCaptureDelegate {
         guard let recentImage else { return }
         self.completion(recentImage)
         print("[CameraModel]: Capture routine's done")
-//        self.stopSession()
     }
 }
 

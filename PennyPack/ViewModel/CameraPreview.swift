@@ -1,10 +1,3 @@
-//
-//  CameraPreview.swift
-//  PennyPack
-//
-//  Created by 장유진 on 11/11/24.
-//
-
 import SwiftUI
 import AVFoundation
 

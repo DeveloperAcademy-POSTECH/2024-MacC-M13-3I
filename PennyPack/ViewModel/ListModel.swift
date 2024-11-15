@@ -1,10 +1,3 @@
-//
-//  ListModel.swift
-//  PennyPack
-//
-//  Created by siye on 11/6/24.
-//
-
 import Foundation
 
 struct ShoppingList: Identifiable, Codable, Hashable {
@@ -18,16 +11,6 @@ class ListViewModel: ObservableObject {
     @Published var shoppingList: [ShoppingList] = []
     
     init() {
-//        if shoppingList.isEmpty {
-//            self.shoppingList = [
-//                        ShoppingList(title: "January", isChoise: false, isPurchase: false),
-//                        ShoppingList(title: "February", isChoise: false, isPurchase: false),
-//                        ShoppingList(title: "March", isChoise: false, isPurchase: false),
-//                        ShoppingList(title: "April", isChoise: false, isPurchase: false),
-//                        ShoppingList(title: "May", isChoise: false, isPurchase: false)
-//            ]
-//        }
-//        saveShoppingListToUserDefaults() // 테스트할때만 있는거고 나중에 앱 출시할땐 save 지워야함.
         loadShoppingListFromUserDefaults()
     }
     
@@ -54,7 +37,7 @@ class ListViewModel: ObservableObject {
     func loadShoppingListFromUserDefaults() {
         if let savedData = UserDefaults.standard.data(forKey: "shoppingList") {
             if let saveLists = try? JSONDecoder().decode([ShoppingList].self, from: savedData) {
-                self.shoppingList = saveLists // 불러온 데이터를 shoppingList에 할당
+                self.shoppingList = saveLists
             }
         }
     }

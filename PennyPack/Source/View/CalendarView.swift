@@ -1,9 +1,3 @@
-//
-//  ContentView.swift
-//  test
-//
-//  Created by GREEN on 2023/06/27.
-//
 import SwiftUI
 
 struct CalendarView: View {
@@ -73,7 +67,7 @@ struct CalendarView: View {
                     .presentationDetents([.height(130), .height(540)])
             }
             .onAppear {
-                let dateToCheck = clickedCurrentMonthDates ?? Date() // 기본값 설정
+                let dateToCheck = clickedCurrentMonthDates ?? Date()
                 let formattedDate = shoppingViewModel.formatDateToDate(from: dateToCheck)
                 
                 for item in shoppingViewModel.dateItem {
@@ -322,14 +316,13 @@ private extension CalendarView {
     
     static let weekdaySymbols: [String] = {
             var calendar = Calendar.current
-            calendar.locale = Locale(identifier: "ko_KR") // 한국어 로케일로 설정
-            return calendar.shortWeekdaySymbols // 요일 이름을 한글로 반환
+            calendar.locale = Locale(identifier: "ko_KR")
+            return calendar.shortWeekdaySymbols
         }()
 }
 
 // MARK: - 내부 로직 메서드
 private extension CalendarView {
-  /// 특정 해당 날짜
   func getDate(for index: Int) -> Date {
     let calendar = Calendar.current
     guard let firstDayOfMonth = calendar.date(
@@ -353,12 +346,12 @@ private extension CalendarView {
     return date
   }
   
-  /// 해당 월에 존재하는 일자 수
+  // MARK: 해당 월에 존재하는 일자 수
   func numberOfDays(in date: Date) -> Int {
     return Calendar.current.range(of: .day, in: .month, for: date)?.count ?? 0
   }
   
-  /// 해당 월의 첫 날짜가 갖는 해당 주의 몇번째 요일
+  // MARK: 해당 월의 첫 날짜가 갖는 해당 주의 몇번째 요일
   func firstWeekdayOfMonth(in date: Date) -> Int {
     let components = Calendar.current.dateComponents([.year, .month], from: date)
     let firstDayOfMonth = Calendar.current.date(from: components)!
@@ -366,7 +359,7 @@ private extension CalendarView {
     return Calendar.current.component(.weekday, from: firstDayOfMonth)
   }
   
-  /// 이전 월 마지막 일자
+  // MARK: 이전 월 마지막 일자
   func previousMonth() -> Date {
     let components = Calendar.current.dateComponents([.year, .month], from: month)
     let firstDayOfMonth = Calendar.current.date(from: components)!
@@ -375,12 +368,12 @@ private extension CalendarView {
     return previousMonth
   }
   
-  /// 월 변경
+  // MARK: 월 변경
   func changeMonth(by value: Int) {
     self.month = adjustedMonth(by: value)
   }
   
-  /// 이전 월로 이동 가능한지 확인
+  // MARK: 이전 월로 이동 가능한지 확인
   func canMoveToPreviousMonth() -> Bool {
     let currentDate = Date()
     let calendar = Calendar.current
@@ -392,7 +385,7 @@ private extension CalendarView {
     return true
   }
   
-  /// 다음 월로 이동 가능한지 확인
+  // MARK: 다음 월로 이동 가능한지 확인
   func canMoveToNextMonth() -> Bool {
     let currentDate = Date()
     let calendar = Calendar.current
@@ -404,7 +397,7 @@ private extension CalendarView {
     return true
   }
   
-  /// 변경하려는 월 반환
+  // MARK: 변경하려는 월 반환
   func adjustedMonth(by value: Int) -> Date {
     if let newMonth = Calendar.current.date(byAdding: .month, value: value, to: month) {
       return newMonth

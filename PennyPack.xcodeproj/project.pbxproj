@@ -25,8 +25,6 @@
 		7126C3B22CDA6DA70039B60C /* GmarketSansBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3B12CDA6DA70039B60C /* GmarketSansBold.otf */; };
 		7126C3B82CDA6E980039B60C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3B72CDA6E980039B60C /* FontExtension.swift */; };
 		7126C3BA2CDA80230039B60C /* ShoppingListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3B92CDA80230039B60C /* ShoppingListModel.swift */; };
-		7126C3BC2CDA84CF0039B60C /* DocumentScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3BB2CDA84CF0039B60C /* DocumentScannerView.swift */; };
-		7126C3BE2CDB12F10039B60C /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3BD2CDB12F10039B60C /* TestView.swift */; };
 		714E72622CDB8EB400982A20 /* OtherFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714E72612CDB8EB400982A20 /* OtherFuncs.swift */; };
 		714E72642CDB901800982A20 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714E72632CDB901800982A20 /* ListModel.swift */; };
 		714E72662CDBAC2600982A20 /* LanguageSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714E72652CDBAC2600982A20 /* LanguageSelectedView.swift */; };
@@ -61,8 +59,6 @@
 		7126C3B12CDA6DA70039B60C /* GmarketSansBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansBold.otf; sourceTree = "<group>"; };
 		7126C3B72CDA6E980039B60C /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		7126C3B92CDA80230039B60C /* ShoppingListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListModel.swift; sourceTree = "<group>"; };
-		7126C3BB2CDA84CF0039B60C /* DocumentScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentScannerView.swift; sourceTree = "<group>"; };
-		7126C3BD2CDB12F10039B60C /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		714E72612CDB8EB400982A20 /* OtherFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFuncs.swift; sourceTree = "<group>"; };
 		714E72632CDB901800982A20 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
 		714E72652CDBAC2600982A20 /* LanguageSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSelectedView.swift; sourceTree = "<group>"; };
@@ -169,12 +165,10 @@
 		7126C3A32CD47B590039B60C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				71C23EB72CD8514E006F7A1E /* CurrencyService.swift */,
 				714E72632CDB901800982A20 /* ListModel.swift */,
 				714E72612CDB8EB400982A20 /* OtherFuncs.swift */,
 				7126C3B92CDA80230039B60C /* ShoppingListModel.swift */,
 				71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */,
-				7126C3BB2CDA84CF0039B60C /* DocumentScannerView.swift */,
 				3091586F2CE5A35B00C62DA8 /* ScannerRetakeView.swift */,
 				309158692CE10B4900C62DA8 /* CameraViewModel.swift */,
 				3091586B2CE10C2700C62DA8 /* CameraModel.swift */,
@@ -196,7 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				714E726B2CDD085200982A20 /* DropdownListView.swift */,
-				714E72652CDBAC2600982A20 /* LanguageSelectedView.swift */,
 				714E726E2CDD0DC400982A20 /* ResultModalView.swift */,
 				714E72692CDCD6C600982A20 /* ListView.swift */,
 			);
@@ -206,7 +199,8 @@
 		71A7295F2CDE444B000FBE3B /* Ubea */ = {
 			isa = PBXGroup;
 			children = (
-				7126C3BD2CDB12F10039B60C /* TestView.swift */,
+				71C23EB72CD8514E006F7A1E /* CurrencyService.swift */,
+				714E72652CDBAC2600982A20 /* LanguageSelectedView.swift */,
 				71A7295D2CDE405A000FBE3B /* TestDocumentScannerView.swift */,
 			);
 			path = Ubea;
@@ -286,7 +280,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7126C3BC2CDA84CF0039B60C /* DocumentScannerView.swift in Sources */,
 				3091586E2CE10C5200C62DA8 /* CameraPreview.swift in Sources */,
 				71C23EB82CD8514E006F7A1E /* CurrencyService.swift in Sources */,
 				3091586C2CE10C2700C62DA8 /* CameraModel.swift in Sources */,
@@ -298,7 +291,6 @@
 				714E72662CDBAC2600982A20 /* LanguageSelectedView.swift in Sources */,
 				714E726F2CDD0DC400982A20 /* ResultModalView.swift in Sources */,
 				7126C3AA2CD47BCB0039B60C /* ReceiptView.swift in Sources */,
-				7126C3BE2CDB12F10039B60C /* TestView.swift in Sources */,
 				7126C3A82CD47BBE0039B60C /* CalendarView.swift in Sources */,
 				714E72622CDB8EB400982A20 /* OtherFuncs.swift in Sources */,
 				7126C3B82CDA6E980039B60C /* FontExtension.swift in Sources */,
@@ -449,7 +441,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PennyPack/Preview Content\"";
-				DEVELOPMENT_TEAM = 7P4U6S44RJ;
+				DEVELOPMENT_TEAM = R83JF9K5WA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PennyPack/Info.plist;
@@ -484,7 +476,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PennyPack/Preview Content\"";
-				DEVELOPMENT_TEAM = 7P4U6S44RJ;
+				DEVELOPMENT_TEAM = R83JF9K5WA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PennyPack/Info.plist;
