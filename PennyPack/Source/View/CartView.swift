@@ -1,10 +1,3 @@
-//
-//  CartView.swift
-//  PennyPack
-//
-//  Created by siye on 11/1/24.
-//
-
 import Foundation
 import SwiftUI
 
@@ -25,11 +18,11 @@ struct CartView: View {
     
     @State private var totalPriceWon: Int = 0
     @State private var totalPriceEuro: Double = 0.0
-    @State private var editingItemID: UUID? = nil // 현재 편집 중인 항목의 ID
-    @FocusState private var focusedField: Field? // 포커스 상태 관리
+    @State private var editingItemID: UUID? = nil
+    @FocusState private var focusedField: Field?
     
     enum Field: Hashable {
-        case korName, quantity, frcUnitPrice, frcName, korUnitPrice // 필드 식별
+        case korName, quantity, frcUnitPrice, frcName
     }
     
     var body: some View {
@@ -294,7 +287,7 @@ struct CartView: View {
                             ))
                             .font(.PTitle3)
                             .frame(width: 180, alignment: .leading)
-                            .focused($focusedField, equals: .korName) // 포커스 상태 관리
+                            .focused($focusedField, equals: .korName) 
                             .onSubmit {
                                 focusedField = .quantity
                             }
@@ -318,7 +311,7 @@ struct CartView: View {
                                 Text("개")
                                     .font(.PBody)
                             }
-                            .frame(width: 30, alignment: .trailing)
+                            .frame(width: 40, alignment: .trailing)
                             
                             HStack(spacing: 0){
                                 TextField("0.00", text: Binding(
@@ -339,7 +332,7 @@ struct CartView: View {
                                 Text(" €")
                                     .font(.PTitle3)
                             }
-                            .frame(width: 120, alignment: .trailing)
+                            .frame(width: 110, alignment: .trailing)
                         }
                         HStack{
                             TextField("프랑스 이름", text: Binding(
@@ -352,31 +345,15 @@ struct CartView: View {
                             .frame(width: 180, alignment: .leading)
                             .focused($focusedField, equals: .frcName)
                             .onSubmit {
-                                focusedField = .korUnitPrice
+                                focusedField = nil
+                                editingItemID = nil
                             }
                             .onAppear (perform : UIApplication.shared.hideKeyboard)
                             Spacer()
                             
-                            HStack(spacing: 0){
-                                TextField("0", text: Binding(
-                                    get: { String(item.korUnitPrice) },
-                                    set: { newValue in
-                                        if let intValue = Int(newValue){
-                                            shoppingViewModel.shoppingItem[index].korUnitPrice = intValue
-                                        }
-                                    }
-                                ))
+                            Text("\(Int(item.frcUnitPrice)*1490) 원")
                                 .font(.PBody)
-                                .multilineTextAlignment(.trailing)
-                                .focused($focusedField, equals: .korUnitPrice)
-                                .onSubmit {
-                                    focusedField = nil
-                                }
-                                .onAppear (perform : UIApplication.shared.hideKeyboard)
-                                Text(" 원")
-                                    .font(.PBody)
-                            }
-                            .frame(width: 120, alignment: .trailing)
+                                .frame(width: 120, alignment: .trailing)
                         }
                     }
                     else {
@@ -386,10 +363,10 @@ struct CartView: View {
                                 .frame(width: 180, alignment: .leading)
                             Text("\(item.quantity)개")
                                 .font(.PBody)
-                                .frame(width: 26, alignment: .trailing)
+                                .frame(width: 40, alignment: .trailing)
                             Text("\(String(format: "%.2f", item.frcUnitPrice)) €")
                                 .font(.PTitle3)
-                                .frame(width: 120, alignment: .trailing)
+                                .frame(width: 110, alignment: .trailing)
                         }
                         HStack{
                             Text(item.frcName)
