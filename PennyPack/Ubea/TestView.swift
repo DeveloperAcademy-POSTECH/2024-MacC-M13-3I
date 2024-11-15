@@ -86,13 +86,13 @@ struct TestView: View {
     var body: some View {
         NavigationStack{
             VStack {
-                ScannerRetakeView(recognizedText: $recognizedText)
+                // ScannerRetakeView(recognizedText: $recognizedText)
                 
                 ScrollView {
                     Text(recognizedText)
                     Text(translation.translatedText)
                 }
-                RegexView(translation: TranslationSerivce(), recognizedText: $recognizedText, shoppingViewModel: shoppingViewModel)
+                // RegexView(translation: TranslationSerivce(), recognizedText: $recognizedText, shoppingViewModel: shoppingViewModel)
             }
             .onChange(of: recognizedText) { newText in
                 // recognizedText의 값이 변경될 때마다 자동으로 번역 함수 호출
