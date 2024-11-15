@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		309158682CDBC59200C62DA8 /* RegexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309158672CDBC59200C62DA8 /* RegexView.swift */; };
+		309158682CDBC59200C62DA8 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309158672CDBC59200C62DA8 /* Regex.swift */; };
 		3091586A2CE10B4900C62DA8 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309158692CE10B4900C62DA8 /* CameraViewModel.swift */; };
 		3091586C2CE10C2700C62DA8 /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586B2CE10C2700C62DA8 /* CameraModel.swift */; };
 		3091586E2CE10C5200C62DA8 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586D2CE10C5200C62DA8 /* CameraPreview.swift */; };
@@ -40,7 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		309158672CDBC59200C62DA8 /* RegexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexView.swift; sourceTree = "<group>"; };
+		309158672CDBC59200C62DA8 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		309158692CE10B4900C62DA8 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		3091586B2CE10C2700C62DA8 /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
 		3091586D2CE10C5200C62DA8 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 				7126C3932CD477470039B60C /* ContentView.swift */,
 				7126C3A52CD47BA30039B60C /* MainView.swift */,
 				7126C3A92CD47BCB0039B60C /* ReceiptView.swift */,
-				309158672CDBC59200C62DA8 /* RegexView.swift */,
+				309158672CDBC59200C62DA8 /* Regex.swift */,
 				7126C3AF2CD47BE50039B60C /* ResultView.swift */,
 				7126C3AB2CD47BD40039B60C /* ScanView.swift */,
 			);
@@ -296,7 +296,7 @@
 				7126C3B82CDA6E980039B60C /* FontExtension.swift in Sources */,
 				714E72642CDB901800982A20 /* ListModel.swift in Sources */,
 				7126C3B02CD47BE50039B60C /* ResultView.swift in Sources */,
-				309158682CDBC59200C62DA8 /* RegexView.swift in Sources */,
+				309158682CDBC59200C62DA8 /* Regex.swift in Sources */,
 				71A7295E2CDE405A000FBE3B /* TestDocumentScannerView.swift in Sources */,
 				7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */,
 				7126C3AC2CD47BD40039B60C /* ScanView.swift in Sources */,
