@@ -1,10 +1,3 @@
-//
-//  Scan2Service.swift
-//  PennyPack
-//
-//  Created by 장유진 on 11/11/24.
-//
-
 import SwiftUI
 import AVFoundation
 import Combine
@@ -19,7 +12,7 @@ class CameraViewModel: ObservableObject {
     var currentZoomFactor: CGFloat = 1.0
     var lastScale: CGFloat = 1.0
     
-    @Published var recentImage: UIImage? // 캡쳐된 이미지
+    @Published var recentImage: UIImage?
     @Published var isFlashOn = false
     @Published var isSilentModeOn = true
     @Published var shutterEffect = false
@@ -92,28 +85,7 @@ class CameraViewModel: ObservableObject {
             }
         }
     }
-//    func capturePhoto() {
-//            model.capturePhoto { image in
-//                DispatchQueue.main.async {
-//                    self.recentImage = image
-//                    print("[CameraViewModel]: Photo captured!")
-//                    self.showPreview = true
-//
-//                    self.model.disableHaptic()
-//                    self.isCameraActive = false
-//                    
-//                    withAnimation(.easeInOut(duration: 0.1)) {
-//                        self.shutterEffect = true
-//                    }
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-//                        withAnimation(.easeInOut(duration: 0.1)) {
-//                            self.shutterEffect = false
-//                        }
-//                    }
-//                }
-//            }
-//        }
-    
+
     func zoom(factor: CGFloat) {
         let delta = factor / lastScale
         lastScale = factor
