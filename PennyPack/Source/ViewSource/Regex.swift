@@ -85,7 +85,7 @@ struct RegexView: View {
                 Button {
                     validItemsF = [validItemText]
                     frcUnitPrice = Double(validPriceText) ?? 0
-                    korUnitPrice = Int(frcUnitPrice) * 1490
+                    korUnitPricekorUnitPrice = Int(frcUnitPrice) * 1490
                     executeTranslation {
                            shoppingViewModel.addNewShoppingItem(
                                korName: "\(validItemsK.joined(separator: ", "))",

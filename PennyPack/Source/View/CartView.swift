@@ -11,15 +11,15 @@ struct CartView: View {
     @State private var recognizedText = ""
     
     
-    @State private var isAlert = false
-    @State private var isFinish = false
+    @State private var isAlert: Bool = false
+    @State private var isFinish: Bool = false
     @State private var isPlus = false
     @State private var isDropdownExpanded = false
     
     @State private var isScan: Bool = false
     
-    @State private var totalPriceWon: Int = 0
-    @State private var totalPriceEuro: Double = 0.0
+    @State var totalPriceWon: Int = 0
+    @State var totalPriceEuro: Double = 0.0
     @State private var editingItemID: UUID? = nil
     @FocusState private var focusedField: Field?
     
@@ -194,52 +194,58 @@ struct CartView: View {
                         }
                         
                     }
-                    Button{
-                        isPlus.toggle()
-                    } label: {
-                        ZStack{
-                            Circle()
-                                .frame(width: 50)
-                                .foregroundColor(.pBlue)
-                            Image(systemName: "plus")
-                                .font(.system(size: 28))
-                                .foregroundColor(.white)
-                        }
+
+                }.padding(.horizontal,30)
+                
+                if isAlert {
+                    CustomAlertView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, isAlertPresented: $isAlert, isFinishPresented: $isFinish, totalPriceWon: $totalPriceWon, totalPriceEuro: $totalPriceEuro)
+                }
+            }
+            .onChange(of: shoppingViewModel.shoppingItem) { _ in
+                pricing()
+            }
+            .onAppear {
+                pricing()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        shoppingViewModel.shoppingItem = []
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.pBlue)
                     }
                 }
-            }.padding(.horizontal,30)
-        }
-        .onChange(of: shoppingViewModel.shoppingItem) { _ in
-            pricing()
-        }
-        .onAppear {
-            pricing()
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    shoppingViewModel.shoppingItem = []
-                    dismiss()
-                }) {
-                    Image(systemName: "chevron.left")
-                        .foregroundColor(.pBlue)
+                ToolbarItem(placement: .principal){
+                    Text("장보기")
+                        .font(.PTitle2)
+                        .foregroundColor(.pWhite)
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        isAlert = true
+                        
+                        for index in listViewModel.shoppingList.indices {
+                            listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
+                        }
+                        
+                        listViewModel.saveShoppingListToUserDefaults()
+                    }) {
+                        Text("종료")
+                            .foregroundColor(.pBlue)
+                        
+                    }
                 }
             }
-            ToolbarItem(placement: .principal){
-                Text("장보기")
-                    .font(.PTitle2)
-                    .foregroundColor(.pWhite)
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    isAlert = true
-                }) {
-                    Text("종료")
-                        .foregroundColor(.pBlue)
+            // winter 주석처리 -> ToolBar에 NavigationLink가 있어서, 문제 없으면 주석 풀어도 됩니다.
+//             NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)) {
+                
+//                 NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel), isActive: $isFinish) {
                     
-                }
-            }
+//                 }
+//             }
         }
         .alert(isPresented: $isAlert){
             Alert(title: Text("장보기를 종료하시겠습니까?"),
@@ -423,3 +429,4 @@ extension Double {
         return String(format: "%.\(places)f", self)
     }
 }
+

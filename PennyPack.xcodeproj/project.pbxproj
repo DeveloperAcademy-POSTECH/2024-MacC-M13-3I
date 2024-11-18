@@ -34,20 +34,10 @@
 		71604EF42CDE534E0090C415 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71604EF32CDE534E0090C415 /* Pretendard-Bold.otf */; };
 		71604EF62CDE53580090C415 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71604EF52CDE53580090C415 /* Pretendard-SemiBold.otf */; };
 		71604EF82CDE53620090C415 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71604EF72CDE53620090C415 /* Pretendard-Medium.otf */; };
-		717EFE732CE7AEDB00FA59C9 /* TranslationSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */; };
+		717EFE782CEAC4EF00FA59C9 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717EFE772CEAC4EF00FA59C9 /* CustomAlertView.swift */; };
 		71C23EB82CD8514E006F7A1E /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EB72CD8514E006F7A1E /* CurrencyService.swift */; };
 		71C23EBC2CD85C5D006F7A1E /* TranslationSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		717EFE6E2CE7ADD100FA59C9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7126C3862CD477470039B60C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7126C38D2CD477470039B60C;
-			remoteInfo = PennyPack;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		309158672CDBC59200C62DA8 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
@@ -78,7 +68,7 @@
 		71604EF32CDE534E0090C415 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		71604EF52CDE53580090C415 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		71604EF72CDE53620090C415 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
-		717EFE6A2CE7ADD100FA59C9 /* PennyPackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PennyPackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		717EFE772CEAC4EF00FA59C9 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		71C23EB72CD8514E006F7A1E /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationSerivce.swift; sourceTree = "<group>"; };
 		71C23EBE2CD867AC006F7A1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -87,13 +77,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		7126C38B2CD477470039B60C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		717EFE672CE7ADD100FA59C9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -116,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				7126C38E2CD477470039B60C /* PennyPack.app */,
-				717EFE6A2CE7ADD100FA59C9 /* PennyPackTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				309158672CDBC59200C62DA8 /* Regex.swift */,
+				717EFE772CEAC4EF00FA59C9 /* CustomAlertView.swift */,
 				714E726B2CDD085200982A20 /* DropdownListView.swift */,
 				714E726E2CDD0DC400982A20 /* ResultModalView.swift */,
 				714E72692CDCD6C600982A20 /* ListView.swift */,
@@ -243,24 +226,6 @@
 			productReference = 7126C38E2CD477470039B60C /* PennyPack.app */;
 			productType = "com.apple.product-type.application";
 		};
-		717EFE692CE7ADD100FA59C9 /* PennyPackTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 717EFE702CE7ADD100FA59C9 /* Build configuration list for PBXNativeTarget "PennyPackTests" */;
-			buildPhases = (
-				717EFE662CE7ADD100FA59C9 /* Sources */,
-				717EFE672CE7ADD100FA59C9 /* Frameworks */,
-				717EFE682CE7ADD100FA59C9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				717EFE6F2CE7ADD100FA59C9 /* PBXTargetDependency */,
-			);
-			name = PennyPackTests;
-			productName = PennyPackTests;
-			productReference = 717EFE6A2CE7ADD100FA59C9 /* PennyPackTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -273,10 +238,6 @@
 				TargetAttributes = {
 					7126C38D2CD477470039B60C = {
 						CreatedOnToolsVersion = 15.3;
-					};
-					717EFE692CE7ADD100FA59C9 = {
-						CreatedOnToolsVersion = 15.3;
-						TestTargetID = 7126C38D2CD477470039B60C;
 					};
 				};
 			};
@@ -294,7 +255,6 @@
 			projectRoot = "";
 			targets = (
 				7126C38D2CD477470039B60C /* PennyPack */,
-				717EFE692CE7ADD100FA59C9 /* PennyPackTests */,
 			);
 		};
 /* End PBXProject section */
@@ -313,13 +273,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		717EFE682CE7ADD100FA59C9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -333,6 +286,7 @@
 				7126C3942CD477470039B60C /* ContentView.swift in Sources */,
 				7126C3AE2CD47BDC0039B60C /* CartView.swift in Sources */,
 				7126C3A62CD47BA30039B60C /* MainView.swift in Sources */,
+				717EFE782CEAC4EF00FA59C9 /* CustomAlertView.swift in Sources */,
 				3091586A2CE10B4900C62DA8 /* CameraViewModel.swift in Sources */,
 				714E726C2CDD085200982A20 /* DropdownListView.swift in Sources */,
 				714E72662CDBAC2600982A20 /* LanguageSelectedView.swift in Sources */,
@@ -353,23 +307,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		717EFE662CE7ADD100FA59C9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				717EFE732CE7AEDB00FA59C9 /* TranslationSerivce.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		717EFE6F2CE7ADD100FA59C9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7126C38D2CD477470039B60C /* PennyPack */;
-			targetProxy = 717EFE6E2CE7ADD100FA59C9 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		7126C39A2CD477480039B60C /* Debug */ = {
@@ -563,42 +501,6 @@
 			};
 			name = Release;
 		};
-		717EFE712CE7ADD100FA59C9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R83JF9K5WA;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.easy.PennyPack.PennyPackTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PennyPack.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PennyPack";
-			};
-			name = Debug;
-		};
-		717EFE722CE7ADD100FA59C9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R83JF9K5WA;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.easy.PennyPack.PennyPackTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PennyPack.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PennyPack";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -616,15 +518,6 @@
 			buildConfigurations = (
 				7126C39D2CD477480039B60C /* Debug */,
 				7126C39E2CD477480039B60C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		717EFE702CE7ADD100FA59C9 /* Build configuration list for PBXNativeTarget "PennyPackTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				717EFE712CE7ADD100FA59C9 /* Debug */,
-				717EFE722CE7ADD100FA59C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
