@@ -19,72 +19,70 @@ struct ScanView: View {
     @State private var validPriceText = ""
     
     var body: some View {
-        NavigationStack {
-            ZStack(alignment: .top){
-                Color.pBlack
-                    .ignoresSafeArea()
-                VStack {
-                    ScannerRetakeView(
-                        translation: translation,
-                        isEditing: $isEditing,
-                        recognizedText: $recognizedText,
-                        validItemsK: $validItemsK,
-                        validItemsF: $validItemsF,
-                        validPricesF: $validPricesF,
-                        quantity: $quantity,
-                        validItemText: $validItemText,
-                        validPriceText: $validPriceText
-                    ).padding(.bottom, 20)
-                    
-                    RegexView(
-                        translation: TranslationSerivce(),
-                        shoppingViewModel: shoppingViewModel,
-                        isEditing: $isEditing,
-                        recognizedText: $recognizedText,
-                        validItemsK: $validItemsK,
-                        validItemsF: $validItemsF,
-                        validPricesF: $validPricesF,
-                        quantity: $quantity,
-                        korUnitPrice: $korUnitPrice,
-                        frcUnitPrice: $frcUnitPrice,
-                        validItemText: $validItemText,
-                        validPriceText: $validPriceText
-                    )
-                    .clipShape(RoundedCorner(radius: 12))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.pGray)
-                    )
-                    Spacer()
-                }
-                .padding(.horizontal, 16)
+        ZStack(alignment: .top){
+            Color.pBlack
+                .ignoresSafeArea()
+            VStack {
+                ScannerRetakeView(
+                    translation: translation,
+                    isEditing: $isEditing,
+                    recognizedText: $recognizedText,
+                    validItemsK: $validItemsK,
+                    validItemsF: $validItemsF,
+                    validPricesF: $validPricesF,
+                    quantity: $quantity,
+                    validItemText: $validItemText,
+                    validPriceText: $validPriceText
+                ).padding(.bottom, 20)
+                
+                RegexView(
+                    translation: TranslationSerivce(),
+                    shoppingViewModel: shoppingViewModel,
+                    isEditing: $isEditing,
+                    recognizedText: $recognizedText,
+                    validItemsK: $validItemsK,
+                    validItemsF: $validItemsF,
+                    validPricesF: $validPricesF,
+                    quantity: $quantity,
+                    korUnitPrice: $korUnitPrice,
+                    frcUnitPrice: $frcUnitPrice,
+                    validItemText: $validItemText,
+                    validPriceText: $validPriceText
+                )
+                .clipShape(RoundedCorner(radius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.pGray)
+                )
+                Spacer()
             }
-            .navigationBarBackButtonHidden()
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        shoppingViewModel.shoppingItem = []
-                        dismiss()
-                    }) {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.pBlue)
-                    }
+            .padding(.horizontal, 16)
+        }
+        .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    shoppingViewModel.shoppingItem = []
+                    dismiss()
+                }) {
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.pBlue)
                 }
-                ToolbarItem(placement: .principal){
-                    Text("카메라")
-                    
-                        .font(.PTitle2)
-                        .foregroundColor(.pWhite)
-                }
+            }
+            ToolbarItem(placement: .principal){
+                Text("카메라")
+                
+                    .font(.PTitle2)
+                    .foregroundColor(.pWhite)
             }
         }
-    } 
+    }
 }
 
 struct KeyboardAvoidanceModifier: ViewModifier {
     @State private var keyboardHeight: CGFloat = 0
-
+    
     func body(content: Content) -> some View {
         content
             .padding(.bottom, keyboardHeight)
