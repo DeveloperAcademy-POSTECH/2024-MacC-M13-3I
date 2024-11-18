@@ -9,15 +9,15 @@ struct CartView: View {
     @State private var recognizedText = ""
     
     
-    @State private var isAlert = false
-    @State private var isFinish = false
+    @State private var isAlert: Bool = false
+    @State private var isFinish: Bool = false
     @State private var isPlus = false
     @State private var isDropdownExpanded = false
     
     @State private var isScan: Bool = false
     
-    @State private var totalPriceWon: Int = 0
-    @State private var totalPriceEuro: Double = 0.0
+    @State var totalPriceWon: Int = 0
+    @State var totalPriceEuro: Double = 0.0
     @State private var editingItemID: UUID? = nil
     @FocusState private var focusedField: Field?
     
@@ -207,6 +207,10 @@ struct CartView: View {
                         }
                     }
                 }.padding(.horizontal,30)
+                
+                if isAlert {
+                    CustomAlertView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, isAlertPresented: $isAlert, isFinishPresented: $isFinish, totalPriceWon: $totalPriceWon, totalPriceEuro: $totalPriceEuro)
+                }
             }
             .onChange(of: shoppingViewModel.shoppingItem) { _ in
                 pricing()
@@ -233,6 +237,12 @@ struct CartView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         isAlert = true
+                        
+                        for index in listViewModel.shoppingList.indices {
+                            listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
+                        }
+                        
+                        listViewModel.saveShoppingListToUserDefaults()
                     }) {
                         Text("종료")
                             .foregroundColor(.pBlue)
@@ -240,28 +250,6 @@ struct CartView: View {
                     }
                 }
             }
-            .alert(isPresented: $isAlert){
-                Alert(title: Text("장보기를 종료하시겠습니까?"),
-                      message: Text("다시는 이 화면으로 돌아오지 못합니다."),
-                      primaryButton: .destructive(Text("종료하기"), action: {
-                    isFinish=true
-                    
-                    for index in listViewModel.shoppingList.indices {
-                        listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
-                    }
-                    
-                    let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: totalPriceWon, frcTotal: totalPriceEuro, place: "프랑스마트")
-                    
-                    shoppingViewModel.dateItem.append(dateItem)
-                    shoppingViewModel.shoppingItem = []
-                    
-                    shoppingViewModel.saveShoppingListToUserDefaults()
-                    listViewModel.saveShoppingListToUserDefaults()
-                    
-                }),
-                      secondaryButton: .cancel(Text("돌아가기")))
-            }
-            
             
             NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)) {
                 
@@ -424,3 +412,4 @@ extension Double {
         return String(format: "%.\(places)f", self)
     }
 }
+
