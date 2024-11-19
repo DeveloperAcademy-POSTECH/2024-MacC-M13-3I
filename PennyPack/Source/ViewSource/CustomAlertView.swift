@@ -71,7 +71,6 @@ struct CustomAlertView: View {
                         isFinishPresented.toggle()
                         print("isFinish: ",isFinishPresented)
                         pathRouter.push(.result)
-//                        finishShopping()
                         let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: totalPriceWon, frcTotal: totalPriceEuro, place: "프랑스마트")
                         
                         shoppingViewModel.dateItem.append(dateItem)
@@ -94,23 +93,6 @@ struct CustomAlertView: View {
             .cornerRadius(12)
         }
     }
-    //윈터 pathRouter.push(.result)를 위한 추가
-//    private func finishShopping() {
-//        for index in listViewModel.shoppingList.indices {
-//            listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
-//        }
-//        
-//        let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: totalPriceWon, frcTotal: totalPriceEuro, place: "프랑스마트")
-//        
-//        shoppingViewModel.dateItem.append(dateItem)
-//        shoppingViewModel.shoppingItem = []
-//        
-//        shoppingViewModel.saveShoppingListToUserDefaults()
-//        listViewModel.saveShoppingListToUserDefaults()
-//        
-////        isFinish = true
-//        pathRouter.push(.result)
-//    }
 }
 
 #Preview {

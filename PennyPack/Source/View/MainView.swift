@@ -23,7 +23,6 @@ public final class PathViewModel: ObservableObject {
 
 struct MainView: View {
     @StateObject var pathRouter = PathRouter()
-//    @StateObject var pathViewModel = PathViewModel()
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @ObservedObject var listViewModel: ListViewModel
     

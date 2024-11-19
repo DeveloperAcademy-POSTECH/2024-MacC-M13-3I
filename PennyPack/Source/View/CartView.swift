@@ -4,7 +4,6 @@ import SwiftUI
 struct CartView: View {
     @EnvironmentObject var pathRouter: PathRouter
     @Environment(\.dismiss) var dismiss
-//    @EnvironmentObject var pathViewModel: PathViewModel
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @ObservedObject var listViewModel: ListViewModel
     @State var shoppingItems: [ShoppingItem] = []
@@ -32,7 +31,6 @@ struct CartView: View {
             Color.pBlack
                 .ignoresSafeArea()
             VStack(spacing: 0){
-                //장바구니 합계
                 HStack(alignment: .bottom){
                     Text("장바구니 합계")
                         .font(.PTitle2)
@@ -67,7 +65,6 @@ struct CartView: View {
                         }.padding(.horizontal)
                             .padding(.top)
                             .padding(.bottom, 12)
-                        // 오늘의 장보기 리스트
                         Button(action: {
                             isDropdownExpanded.toggle()
                         }) {
@@ -119,7 +116,6 @@ struct CartView: View {
                             }
                             .frame(height: 156)
                         }
-                        //장바구니에는 무엇이 있을까?
                         HStack{
                             Text("장바구니에는 무엇이 있을까?")
                                 .font(.PTitle2)
@@ -256,21 +252,7 @@ struct CartView: View {
                     }
                 }
             }
-            // 윈터 주석처리 -> ToolBar에 NavigationLink가 있어서, 문제 없으면 주석 풀어도 됩니다.
-//             NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)) {
-                
-//                 NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel,listViewModel: listViewModel), isActive: $isFinish) {
-//                    EmptyView()
-//                 }
-//             }
         }
-//        .alert(isPresented: $isAlert){
-//            Alert(title: Text("장보기를 종료하시겠습니까?"),
-//                  message: Text("다시는 이 화면으로 돌아오지 못합니다."),
-//                  primaryButton: .destructive(Text("종료하기"), action: finishShopping),
-//                  secondaryButton: .cancel(Text("돌아가기"))
-//            )
-//        }
         .background(
             NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel), isActive: $isFinish) {
                 EmptyView()
@@ -282,23 +264,6 @@ struct CartView: View {
             }
         ).navigationBarBackButtonHidden()
     }
-    
-//    private func finishShopping() {
-//        for index in listViewModel.shoppingList.indices {
-//            listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
-//        }
-//        
-//        let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: totalPriceWon, frcTotal: totalPriceEuro, place: "프랑스마트")
-//        
-//        shoppingViewModel.dateItem.append(dateItem)
-//        shoppingViewModel.shoppingItem = []
-//        
-//        shoppingViewModel.saveShoppingListToUserDefaults()
-//        listViewModel.saveShoppingListToUserDefaults()
-//        
-//        isFinish = true
-//        pathRouter.push(.result)
-//    }
     
     func pricing() {
         totalPriceWon = shoppingViewModel.korTotalPricing(from: shoppingViewModel.shoppingItem)
