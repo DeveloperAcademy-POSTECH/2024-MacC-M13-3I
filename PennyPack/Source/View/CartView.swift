@@ -168,7 +168,7 @@ struct CartView: View {
                         Spacer()
                         if isPlus {
                             Button{
-                                let newItem = shoppingViewModel.addNewShoppingItem(korName: "", frcName: "", quantity: 1, korUnitPrice: 1000, frcUnitPrice: 1)
+                                let newItem = shoppingViewModel.addNewShoppingItem(korName: "", frcName: "", quantity: 1, korUnitPrice: 1490, frcUnitPrice: 1)
                                 
                                 editingItemID = newItem.id
                                 isPlus.toggle()

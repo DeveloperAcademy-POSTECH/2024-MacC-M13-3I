@@ -15,9 +15,9 @@ class ListViewModel: ObservableObject {
     }
     
     // MARK: 리스트에 새 값 추가 함수
-    func addLinkList(title: String) {
-        let linkList: ShoppingList = ShoppingList(title: title, isChoise: false, isPurchase: false)
-        shoppingList.append(linkList)
+    func addList(title: String) {
+        let list: ShoppingList = ShoppingList(title: title, isChoise: false, isPurchase: false)
+        shoppingList.append(list)
     }
     
     func removeList(at offsets: IndexSet) {
