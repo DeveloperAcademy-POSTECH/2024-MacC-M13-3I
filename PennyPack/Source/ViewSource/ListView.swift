@@ -23,7 +23,7 @@ struct ListView: View {
                         .cornerRadius(12)
                 )
                 Button {
-                    listViewModel.addLinkList(title: "")
+                    listViewModel.addList(title: "")
                 } label: {
                     HStack{
                         Spacer()
