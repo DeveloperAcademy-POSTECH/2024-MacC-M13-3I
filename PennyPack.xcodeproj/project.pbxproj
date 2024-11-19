@@ -128,10 +128,10 @@
 			isa = PBXGroup;
 			children = (
 				7126C3B72CDA6E980039B60C /* FontExtension.swift */,
+				71604EF52CDE53580090C415 /* Pretendard-SemiBold.otf */,
 				7126C3B12CDA6DA70039B60C /* GmarketSansBold.otf */,
 				71604EF32CDE534E0090C415 /* Pretendard-Bold.otf */,
 				71604EF72CDE53620090C415 /* Pretendard-Medium.otf */,
-				71604EF52CDE53580090C415 /* Pretendard-SemiBold.otf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
