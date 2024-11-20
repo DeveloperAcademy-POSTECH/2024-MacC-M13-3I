@@ -7,18 +7,72 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		309158682CDBC59200C62DA8 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309158672CDBC59200C62DA8 /* Regex.swift */; };
+		3091586A2CE10B4900C62DA8 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309158692CE10B4900C62DA8 /* CameraViewModel.swift */; };
+		3091586C2CE10C2700C62DA8 /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586B2CE10C2700C62DA8 /* CameraModel.swift */; };
+		3091586E2CE10C5200C62DA8 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586D2CE10C5200C62DA8 /* CameraPreview.swift */; };
+		309158702CE5A35B00C62DA8 /* ScannerRetakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586F2CE5A35B00C62DA8 /* ScannerRetakeView.swift */; };
 		7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3912CD477470039B60C /* PennyPackApp.swift */; };
 		7126C3942CD477470039B60C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3932CD477470039B60C /* ContentView.swift */; };
 		7126C3962CD477480039B60C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3952CD477480039B60C /* Assets.xcassets */; };
 		7126C3992CD477480039B60C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3982CD477480039B60C /* Preview Assets.xcassets */; };
+		7126C3A62CD47BA30039B60C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3A52CD47BA30039B60C /* MainView.swift */; };
+		7126C3A82CD47BBE0039B60C /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3A72CD47BBE0039B60C /* CalendarView.swift */; };
+		7126C3AA2CD47BCB0039B60C /* ReceiptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3A92CD47BCB0039B60C /* ReceiptView.swift */; };
+		7126C3AC2CD47BD40039B60C /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3AB2CD47BD40039B60C /* ScanView.swift */; };
+		7126C3AE2CD47BDC0039B60C /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3AD2CD47BDC0039B60C /* CartView.swift */; };
+		7126C3B02CD47BE50039B60C /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3AF2CD47BE50039B60C /* ResultView.swift */; };
+		7126C3B22CDA6DA70039B60C /* GmarketSansBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3B12CDA6DA70039B60C /* GmarketSansBold.otf */; };
+		7126C3B82CDA6E980039B60C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3B72CDA6E980039B60C /* FontExtension.swift */; };
+		7126C3BA2CDA80230039B60C /* ShoppingListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3B92CDA80230039B60C /* ShoppingListModel.swift */; };
+		714E72622CDB8EB400982A20 /* OtherFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714E72612CDB8EB400982A20 /* OtherFuncs.swift */; };
+		714E72642CDB901800982A20 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714E72632CDB901800982A20 /* ListModel.swift */; };
+		714E72662CDBAC2600982A20 /* LanguageSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714E72652CDBAC2600982A20 /* LanguageSelectedView.swift */; };
+		714E726A2CDCD6C600982A20 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714E72692CDCD6C600982A20 /* ListView.swift */; };
+		714E726C2CDD085200982A20 /* DropdownListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714E726B2CDD085200982A20 /* DropdownListView.swift */; };
+		714E726F2CDD0DC400982A20 /* ResultModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714E726E2CDD0DC400982A20 /* ResultModalView.swift */; };
+		71604EF42CDE534E0090C415 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71604EF32CDE534E0090C415 /* Pretendard-Bold.otf */; };
+		71604EF62CDE53580090C415 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71604EF52CDE53580090C415 /* Pretendard-SemiBold.otf */; };
+		71604EF82CDE53620090C415 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71604EF72CDE53620090C415 /* Pretendard-Medium.otf */; };
+		717EFE782CEAC4EF00FA59C9 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717EFE772CEAC4EF00FA59C9 /* CustomAlertView.swift */; };
+		71C23EB82CD8514E006F7A1E /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EB72CD8514E006F7A1E /* CurrencyService.swift */; };
+		71C23EBC2CD85C5D006F7A1E /* TranslationSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		309158672CDBC59200C62DA8 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
+		309158692CE10B4900C62DA8 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		3091586B2CE10C2700C62DA8 /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
+		3091586D2CE10C5200C62DA8 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		3091586F2CE5A35B00C62DA8 /* ScannerRetakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerRetakeView.swift; sourceTree = "<group>"; };
 		7126C38E2CD477470039B60C /* PennyPack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PennyPack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7126C3912CD477470039B60C /* PennyPackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PennyPackApp.swift; sourceTree = "<group>"; };
 		7126C3932CD477470039B60C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7126C3952CD477480039B60C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7126C3982CD477480039B60C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7126C3A52CD47BA30039B60C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		7126C3A72CD47BBE0039B60C /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		7126C3A92CD47BCB0039B60C /* ReceiptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptView.swift; sourceTree = "<group>"; };
+		7126C3AB2CD47BD40039B60C /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
+		7126C3AD2CD47BDC0039B60C /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		7126C3AF2CD47BE50039B60C /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		7126C3B12CDA6DA70039B60C /* GmarketSansBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansBold.otf; sourceTree = "<group>"; };
+		7126C3B72CDA6E980039B60C /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
+		7126C3B92CDA80230039B60C /* ShoppingListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListModel.swift; sourceTree = "<group>"; };
+		714E72612CDB8EB400982A20 /* OtherFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFuncs.swift; sourceTree = "<group>"; };
+		714E72632CDB901800982A20 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
+		714E72652CDBAC2600982A20 /* LanguageSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSelectedView.swift; sourceTree = "<group>"; };
+		714E72692CDCD6C600982A20 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		714E726B2CDD085200982A20 /* DropdownListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownListView.swift; sourceTree = "<group>"; };
+		714E726E2CDD0DC400982A20 /* ResultModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModalView.swift; sourceTree = "<group>"; };
+		71604EF32CDE534E0090C415 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		71604EF52CDE53580090C415 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		71604EF72CDE53620090C415 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		717EFE772CEAC4EF00FA59C9 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		71C23EB72CD8514E006F7A1E /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
+		71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationSerivce.swift; sourceTree = "<group>"; };
+		71C23EBE2CD867AC006F7A1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = APIKey.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +89,7 @@
 		7126C3852CD477470039B60C = {
 			isa = PBXGroup;
 			children = (
+				71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */,
 				7126C3902CD477470039B60C /* PennyPack */,
 				7126C38F2CD477470039B60C /* Products */,
 			);
@@ -51,8 +106,10 @@
 		7126C3902CD477470039B60C /* PennyPack */ = {
 			isa = PBXGroup;
 			children = (
-				7126C3912CD477470039B60C /* PennyPackApp.swift */,
-				7126C3932CD477470039B60C /* ContentView.swift */,
+				71C23EBE2CD867AC006F7A1E /* Info.plist */,
+				7126C39F2CD47B150039B60C /* Font */,
+				7126C3A02CD47B240039B60C /* Source */,
+				71A7295F2CDE444B000FBE3B /* Ubea */,
 				7126C3952CD477480039B60C /* Assets.xcassets */,
 				7126C3972CD477480039B60C /* Preview Content */,
 			);
@@ -65,6 +122,88 @@
 				7126C3982CD477480039B60C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		7126C39F2CD47B150039B60C /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				7126C3B72CDA6E980039B60C /* FontExtension.swift */,
+				71604EF52CDE53580090C415 /* Pretendard-SemiBold.otf */,
+				7126C3B12CDA6DA70039B60C /* GmarketSansBold.otf */,
+				71604EF32CDE534E0090C415 /* Pretendard-Bold.otf */,
+				71604EF72CDE53620090C415 /* Pretendard-Medium.otf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		7126C3A02CD47B240039B60C /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				7126C3A42CD47B840039B60C /* App */,
+				7126C3A22CD47B510039B60C /* View */,
+				7126C3A32CD47B590039B60C /* ViewModel */,
+				714E726D2CDD092300982A20 /* ViewSource */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		7126C3A22CD47B510039B60C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7126C3A72CD47BBE0039B60C /* CalendarView.swift */,
+				7126C3AD2CD47BDC0039B60C /* CartView.swift */,
+				7126C3932CD477470039B60C /* ContentView.swift */,
+				7126C3A52CD47BA30039B60C /* MainView.swift */,
+				7126C3A92CD47BCB0039B60C /* ReceiptView.swift */,
+				7126C3AF2CD47BE50039B60C /* ResultView.swift */,
+				7126C3AB2CD47BD40039B60C /* ScanView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7126C3A32CD47B590039B60C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				714E72632CDB901800982A20 /* ListModel.swift */,
+				714E72612CDB8EB400982A20 /* OtherFuncs.swift */,
+				7126C3B92CDA80230039B60C /* ShoppingListModel.swift */,
+				71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */,
+				3091586F2CE5A35B00C62DA8 /* ScannerRetakeView.swift */,
+				309158692CE10B4900C62DA8 /* CameraViewModel.swift */,
+				3091586B2CE10C2700C62DA8 /* CameraModel.swift */,
+				3091586D2CE10C5200C62DA8 /* CameraPreview.swift */,
+			);
+			name = ViewModel;
+			path = ../ViewModel;
+			sourceTree = "<group>";
+		};
+		7126C3A42CD47B840039B60C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				7126C3912CD477470039B60C /* PennyPackApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		714E726D2CDD092300982A20 /* ViewSource */ = {
+			isa = PBXGroup;
+			children = (
+				309158672CDBC59200C62DA8 /* Regex.swift */,
+				717EFE772CEAC4EF00FA59C9 /* CustomAlertView.swift */,
+				714E726B2CDD085200982A20 /* DropdownListView.swift */,
+				714E726E2CDD0DC400982A20 /* ResultModalView.swift */,
+				714E72692CDCD6C600982A20 /* ListView.swift */,
+			);
+			path = ViewSource;
+			sourceTree = "<group>";
+		};
+		71A7295F2CDE444B000FBE3B /* Ubea */ = {
+			isa = PBXGroup;
+			children = (
+				71C23EB72CD8514E006F7A1E /* CurrencyService.swift */,
+				714E72652CDBAC2600982A20 /* LanguageSelectedView.swift */,
+			);
+			path = Ubea;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,7 +264,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71604EF82CDE53620090C415 /* Pretendard-Medium.otf in Resources */,
 				7126C3992CD477480039B60C /* Preview Assets.xcassets in Resources */,
+				71604EF42CDE534E0090C415 /* Pretendard-Bold.otf in Resources */,
+				71604EF62CDE53580090C415 /* Pretendard-SemiBold.otf in Resources */,
+				7126C3B22CDA6DA70039B60C /* GmarketSansBold.otf in Resources */,
 				7126C3962CD477480039B60C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,8 +280,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3091586E2CE10C5200C62DA8 /* CameraPreview.swift in Sources */,
+				71C23EB82CD8514E006F7A1E /* CurrencyService.swift in Sources */,
+				3091586C2CE10C2700C62DA8 /* CameraModel.swift in Sources */,
 				7126C3942CD477470039B60C /* ContentView.swift in Sources */,
+				7126C3AE2CD47BDC0039B60C /* CartView.swift in Sources */,
+				7126C3A62CD47BA30039B60C /* MainView.swift in Sources */,
+				717EFE782CEAC4EF00FA59C9 /* CustomAlertView.swift in Sources */,
+				3091586A2CE10B4900C62DA8 /* CameraViewModel.swift in Sources */,
+				714E726C2CDD085200982A20 /* DropdownListView.swift in Sources */,
+				714E72662CDBAC2600982A20 /* LanguageSelectedView.swift in Sources */,
+				714E726F2CDD0DC400982A20 /* ResultModalView.swift in Sources */,
+				7126C3AA2CD47BCB0039B60C /* ReceiptView.swift in Sources */,
+				7126C3A82CD47BBE0039B60C /* CalendarView.swift in Sources */,
+				714E72622CDB8EB400982A20 /* OtherFuncs.swift in Sources */,
+				7126C3B82CDA6E980039B60C /* FontExtension.swift in Sources */,
+				714E72642CDB901800982A20 /* ListModel.swift in Sources */,
+				7126C3B02CD47BE50039B60C /* ResultView.swift in Sources */,
+				309158682CDBC59200C62DA8 /* Regex.swift in Sources */,
 				7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */,
+				7126C3AC2CD47BD40039B60C /* ScanView.swift in Sources */,
+				714E726A2CDCD6C600982A20 /* ListView.swift in Sources */,
+				309158702CE5A35B00C62DA8 /* ScannerRetakeView.swift in Sources */,
+				7126C3BA2CDA80230039B60C /* ShoppingListModel.swift in Sources */,
+				71C23EBC2CD85C5D006F7A1E /* TranslationSerivce.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +312,7 @@
 /* Begin XCBuildConfiguration section */
 		7126C39A2CD477480039B60C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -210,6 +376,7 @@
 		};
 		7126C39B2CD477480039B60C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -266,59 +433,83 @@
 		};
 		7126C39D2CD477480039B60C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PennyPack/Preview Content\"";
 				DEVELOPMENT_TEAM = R83JF9K5WA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PennyPack/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PENNYPACK;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSCameraUsageDescription = "가격표를 스캔하기 위해 카메라 권한을 허용해주세요.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Apple-Developer-Academy---POSTECH.PennyPack";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.3Id.PennyPack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		7126C39E2CD477480039B60C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PennyPack/Preview Content\"";
 				DEVELOPMENT_TEAM = R83JF9K5WA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PennyPack/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PENNYPACK;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSCameraUsageDescription = "가격표를 스캔하기 위해 카메라 권한을 허용해주세요.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Apple-Developer-Academy---POSTECH.PennyPack";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.3Id.PennyPack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
