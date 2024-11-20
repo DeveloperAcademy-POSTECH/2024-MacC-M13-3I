@@ -125,4 +125,4 @@
   - 홈페이지: [http://cyberbureau.police.go.kr](http://cyberbureau.police.go.kr/)
 
 ## 제13조(개인정보 처리방침 시행 및 변경)
-이 개인정보 처리방침은 20XX. X. X부터 적용됩니다.
+이 개인정보 처리방침은 2024.11.20부터 적용됩니다.
