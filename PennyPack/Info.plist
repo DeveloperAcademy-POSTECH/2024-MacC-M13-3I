@@ -21,10 +21,5 @@ currency_APIKey</key>
 		<string>Pretendard-Medium.otf</string>
 		<string>Pretendard-SemiBold.otf</string>
 	</array>
-	<key>UILaunchScreen</key>
-	<dict>
-		<key>UIImageName</key>
-		<string>LaunchScreen</string>
-	</dict>
 </dict>
 </plist>

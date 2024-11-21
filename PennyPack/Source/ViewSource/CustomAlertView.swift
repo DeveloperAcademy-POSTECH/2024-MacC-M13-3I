@@ -8,7 +8,6 @@ struct CustomAlertView: View {
     @Binding var isFinishPresented: Bool
     @Binding var totalPriceWon: Int
     @Binding var totalPriceEuro: Double
-    
     var body: some View {
         ZStack{
             Color.pCameraBlack
@@ -18,43 +17,36 @@ struct CustomAlertView: View {
                     .font(.PTitle3)
                     .foregroundColor(.pBlack)
                     .padding(.top, 28)
-                if listViewModel.shoppingList.filter { !$0.isPurchase }.isEmpty {
-                    Text("장보기를 종료하시겠습니까?")
-                        .font(.PBody)
-                        .foregroundColor(.gray)
-                        .padding(.bottom, 28)
-                }
-                else {
-                    VStack(spacing: 0){
-                        Text("아직 구매하지 않은")
-                        Text("장보기 리스트가 남아있어요.")
-                        Text("이대로 장보기를 종료하시겠습니까?")
-                    }
-                    .font(.footnote)
-                    .foregroundColor(.pBlack)
-                    .padding(.vertical, 16)
+                VStack(spacing: 0){
                     
-                    VStack(alignment: .leading, spacing: 4){
-                        ForEach($listViewModel.shoppingList) { $list in
-                            if !list.isPurchase {
-                                HStack{
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(.white)
-                                        .stroke(
-                                            Color.pBlue,
-                                            style: StrokeStyle(
-                                                lineWidth: 1.5)
-                                        )
-                                        .frame(width: 15, height: 15)
-                                    Text(list.title)
-                                        .font(.PBody)
-                                        .foregroundColor(.pBlack)
-                                }
+                    Text("아직 구매하지 않은")
+                    Text("장보기 리스트가 남아있어요.")
+                    Text("이대로 장보기를 종료하시겠습니까?")
+                }
+                .font(.footnote)
+                .foregroundColor(.pBlack)
+                .padding(.vertical, 16)
+                
+                VStack(alignment: .leading, spacing: 4){
+                    ForEach($listViewModel.shoppingList) { $list in
+                        if !list.isPurchase {
+                            HStack{
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(.white)
+                                    .stroke(
+                                        Color.pBlue,
+                                        style: StrokeStyle(
+                                            lineWidth: 1.5)
+                                    )
+                                    .frame(width: 15, height: 15)
+                                Text(list.title)
+                                    .font(.PBody)
+                                    .foregroundColor(.pBlack)
                             }
                         }
                     }
-                    .padding(.bottom, 28)
                 }
+                .padding(.bottom, 28)
                 
                 Divider()
                     .frame(width: 240,height: 1)

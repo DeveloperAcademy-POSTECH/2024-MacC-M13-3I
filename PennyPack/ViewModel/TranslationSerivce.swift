@@ -7,10 +7,8 @@ class TranslationSerivce: ObservableObject {
     /// 가능하면 apiKey 숨기고, completion 부분 제거하기
     func translateText(text: String, completion: @escaping (String) -> Void) {
         let apiKey = "APIKey"
-        let apiKey1 = "cda9b69d-58d6-494d-a013-8a3312659e8b:fx"
         let urlString = "https://api-free.deepl.com/v2/translate?auth_key=\(apiKey)&text=\(text)&target_lang=KO&source_lang=FR"
-        print ("apikey: ", apiKey)
-        print("변수로 불러온 apikey: ", apiKey1)
+        
         guard let encodedURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: encodedURLString) else {
             print("잘못된 URL입니다.")
