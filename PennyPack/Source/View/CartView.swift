@@ -322,6 +322,9 @@ struct CartView: View {
                                 .font(.PTitle3)
                                 .multilineTextAlignment(.trailing)
                                 .focused($focusedField, equals: .frcUnitPrice)
+                                .onChange(of: item.frcUnitPrice) { newValue in
+                                    shoppingViewModel.shoppingItem[index].korUnitPrice = Int(newValue * 1490)
+                                }
                                 .onSubmit {
                                     focusedField = .frcName
                                 }
