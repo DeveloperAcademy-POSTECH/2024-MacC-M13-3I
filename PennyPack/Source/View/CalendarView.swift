@@ -70,19 +70,30 @@ struct CalendarView: View {
                 let dateToCheck = clickedCurrentMonthDates ?? Date()
                 let formattedDate = shoppingViewModel.formatDateToDate(from: dateToCheck)
                 
-                for item in shoppingViewModel.dateItem {
-                    let itemDate = shoppingViewModel.formatDateToDate(from: item.date)
-                    
-                    if itemDate == formattedDate {
-                        isShopping = true
-                        shoppingViewModel.selectedDateItem = item
-                        showSheet.toggle()
-                        break
-                    }
-                    else { 
-                        isShopping = false
-                    }
-                }
+//                for item in shoppingViewModel.dateItem {
+//                    let itemDate = shoppingViewModel.formatDateToDate(from: item.date)
+//                    
+//                    if itemDate == formattedDate {
+//                        isShopping = true
+//                        shoppingViewModel.selectedDateItem = item
+//                        showSheet.toggle()
+//                        break
+//                    }
+//                    else { 
+//                        isShopping = false
+//                    }
+//                }
+                
+                if let latestItem = shoppingViewModel.dateItem
+                                .filter({ shoppingViewModel.formatDateToDate(from: $0.date) == formattedDate })
+                                .max(by: { $0.date < $1.date }) {
+                                
+                                isShopping = true
+                                shoppingViewModel.selectedDateItem = latestItem
+                                showSheet.toggle()
+                            } else {
+                                isShopping = false
+                            }
             }
         }.navigationBarBackButtonHidden()
     }

@@ -37,19 +37,9 @@ struct CustomAlertView: View {
                     VStack(alignment: .leading, spacing: 4){
                         ForEach($listViewModel.shoppingList) { $list in
                             if !list.isPurchase {
-                                HStack{
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(.white)
-                                        .stroke(
-                                            Color.pBlue,
-                                            style: StrokeStyle(
-                                                lineWidth: 1.5)
-                                        )
-                                        .frame(width: 15, height: 15)
                                     Text(list.title)
                                         .font(.PBody)
                                         .foregroundColor(.pBlack)
-                                }
                             }
                         }
                     }
