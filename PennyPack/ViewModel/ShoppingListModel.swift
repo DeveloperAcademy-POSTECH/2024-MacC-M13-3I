@@ -34,7 +34,7 @@ class ShoppingViewModel:ObservableObject {
     // MARK: 리스트에 새 값 추가 함수
     func addNewShoppingItem(korName: String, frcName: String, quantity: Int, korUnitPrice: Int, frcUnitPrice: Double) -> ShoppingItem {
         let newShoppingItem: ShoppingItem = ShoppingItem(korName: korName, frcName: frcName, quantity: quantity, korUnitPrice: korUnitPrice, frcUnitPrice: frcUnitPrice, time: Date())
-        shoppingItem.append(newShoppingItem)
+        shoppingItem.insert(newShoppingItem, at: 0)
         return newShoppingItem
     }
     

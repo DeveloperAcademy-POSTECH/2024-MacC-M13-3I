@@ -32,7 +32,13 @@ struct RegexView: View {
                     Text(recognizedText.isEmpty ? "상품명 프랑스어" : validItemsF.joined(separator: ", "))
                 }
                 Spacer()
-                Text("\((Int((validPricesF.map { String($0)}.joined(separator: ", "))) ?? 1) * 1490) ")
+                if isEditing {
+                    Text("\(korUnitPrice)")
+                }
+                else {
+                    Text("\((validPricesF.first.map { Int($0 * 1490) } ?? 0))")
+                }
+                
                 Text("원")
             }.font(.PBody)
                 .padding(.top, 16)
@@ -50,7 +56,10 @@ struct RegexView: View {
                             frcUnitPrice = Double(validPriceText) ?? 0
                             korUnitPrice = Int(frcUnitPrice) * 1490
                         }
-                        
+                        .onChange(of: validPriceText) { newValue in
+                                frcUnitPrice = Double(newValue) ?? 0
+                                korUnitPrice = Int(frcUnitPrice) * 1490
+                        }
                 } else {
                     Text(recognizedText.isEmpty ? "" : "\(validPricesF.map { String($0)}.joined(separator: ", "))")
                         .padding()
@@ -71,6 +80,8 @@ struct RegexView: View {
                 Spacer()
                 Button {
                     isEditing.toggle()
+                    
+                        print("validPriceText 얼마냐 :",validPriceText)
                 } label: {
                     Text("수정")
                         .font(.PCallout)
@@ -86,8 +97,6 @@ struct RegexView: View {
                     validItemsF = [validItemText]
                     frcUnitPrice = Double(validPriceText) ?? 0
                     korUnitPrice = Int(frcUnitPrice) * 1490
-                    print("frcUnitPrice: ",frcUnitPrice,"€")
-                    print("korUnitPrice: ",korUnitPrice,"원")
                     executeTranslation {
                            shoppingViewModel.addNewShoppingItem(
                                korName: "\(validItemsK.joined(separator: ", "))",
@@ -120,7 +129,7 @@ struct RegexView: View {
         .onAppear {
             validItemsF = extractValidItems(recognizedText.components(separatedBy: .newlines))
             validPricesF = extractValidPrices(recognizedText.components(separatedBy: .newlines))
-        } 
+                   }
         .onChange(of: recognizedText) { newValue in
             let items = extractValidItems(newValue.components(separatedBy: .newlines))
             let itemString = items.joined(separator: ", ")
