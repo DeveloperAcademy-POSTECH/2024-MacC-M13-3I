@@ -80,9 +80,13 @@ struct MainView: View {
                     VStack(spacing: 0){
                         VStack(spacing: 0){
                             HStack{
-                                Text("오늘의 장보기 리스트")
-                                    .font(.PTitle2)
-                                    .foregroundColor(.pBlack)
+                                Button{
+                                    listViewModel.addListShowcase(title: "")
+                                } label: {
+                                    Text("오늘의 장보기 리스트")
+                                        .font(.PTitle2)
+                                        .foregroundColor(.pBlack)
+                                }
                                 Spacer()
                             }
                             .padding(.vertical, 12)

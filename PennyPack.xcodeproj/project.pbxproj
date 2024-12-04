@@ -109,6 +109,7 @@
 				71C23EBE2CD867AC006F7A1E /* Info.plist */,
 				7126C39F2CD47B150039B60C /* Font */,
 				7126C3A02CD47B240039B60C /* Source */,
+				714E726D2CDD092300982A20 /* ViewSource */,
 				71A7295F2CDE444B000FBE3B /* Ubea */,
 				7126C3952CD477480039B60C /* Assets.xcassets */,
 				7126C3972CD477480039B60C /* Preview Content */,
@@ -142,7 +143,6 @@
 				7126C3A42CD47B840039B60C /* App */,
 				7126C3A22CD47B510039B60C /* View */,
 				7126C3A32CD47B590039B60C /* ViewModel */,
-				714E726D2CDD092300982A20 /* ViewSource */,
 			);
 			path = Source;
 			sourceTree = "<group>";

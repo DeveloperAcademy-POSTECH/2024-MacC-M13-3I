@@ -20,6 +20,15 @@ class ListViewModel: ObservableObject {
         shoppingList.append(list)
     }
     
+    func addListShowcase(title: String) {
+        let dummyData = [
+            ShoppingList(title: "샴푸", isChoise: false, isPurchase: false),
+            ShoppingList(title: "숙면 영양제", isChoise: false, isPurchase: false),
+            ShoppingList(title: "레몬", isChoise: false, isPurchase: false)
+        ]
+        shoppingList.append(contentsOf: dummyData)
+    }
+    
     func removeList(at offsets: IndexSet) {
         shoppingList.remove(atOffsets: offsets)
         saveShoppingListToUserDefaults()
