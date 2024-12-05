@@ -6,7 +6,7 @@ class TranslationSerivce: ObservableObject {
     /// 10. 전달 받은 text를 번역해서 translatedText에 번역 정보 저장
     /// 가능하면 apiKey 숨기고, completion 부분 제거하기
     func translateText(text: String, completion: @escaping (String) -> Void) {
-        let apiKey = "APIKey"
+        let apiKey = ""
         let urlString = "https://api-free.deepl.com/v2/translate?auth_key=\(apiKey)&text=\(text)&target_lang=KO&source_lang=FR"
 
         guard let encodedURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),

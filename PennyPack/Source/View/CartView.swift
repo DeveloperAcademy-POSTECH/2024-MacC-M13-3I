@@ -323,7 +323,7 @@ struct CartView: View {
                                 .multilineTextAlignment(.trailing)
                                 .focused($focusedField, equals: .frcUnitPrice)
                                 .onChange(of: item.frcUnitPrice) { newValue in
-                                    shoppingViewModel.shoppingItem[index].korUnitPrice = Int(newValue * 1490)
+                                    shoppingViewModel.shoppingItem[index].korUnitPrice = Int(newValue * 1490.0)
                                 }
                                 .onSubmit {
                                     focusedField = .frcName
@@ -351,7 +351,7 @@ struct CartView: View {
                             .onAppear (perform : UIApplication.shared.hideKeyboard)
                             Spacer()
                             
-                            Text("\(Int(item.frcUnitPrice)*1490) 원")
+                            Text("\(Int(item.frcUnitPrice*1490.0)) 원")
                                 .font(.PBody)
                                 .frame(width: 120, alignment: .trailing)
                         }
@@ -373,7 +373,7 @@ struct CartView: View {
                                 .font(.PBody)
                                 .frame(width: 180, alignment: .leading)
                             Spacer()
-                            Text("\(Int(item.frcUnitPrice)*1490) 원")
+                            Text("\(Int(item.frcUnitPrice*1490.0)) 원")
                                 .font(.PBody)
                                 .frame(width: 120, alignment: .trailing)
                         }

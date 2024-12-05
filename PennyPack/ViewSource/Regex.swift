@@ -54,11 +54,11 @@ struct RegexView: View {
                         .frame(width: 70)
                         .onSubmit {
                             frcUnitPrice = Double(validPriceText) ?? 0
-                            korUnitPrice = Int(frcUnitPrice) * 1490
+                            korUnitPrice = Int(frcUnitPrice * 1490.0)
                         }
                         .onChange(of: validPriceText) { newValue in
                                 frcUnitPrice = Double(newValue) ?? 0
-                                korUnitPrice = Int(frcUnitPrice) * 1490
+                                korUnitPrice = Int(frcUnitPrice * 1490.0)
                         }
                 } else {
                     Text(recognizedText.isEmpty ? "" : "\(validPricesF.map { String($0)}.joined(separator: ", "))")
@@ -96,7 +96,7 @@ struct RegexView: View {
                 Button {
                     validItemsF = [validItemText]
                     frcUnitPrice = Double(validPriceText) ?? 0
-                    korUnitPrice = Int(frcUnitPrice) * 1490
+                    korUnitPrice = Int(frcUnitPrice * 1490.0)
                     executeTranslation {
                            shoppingViewModel.addNewShoppingItem(
                                korName: "\(validItemsK.joined(separator: ", "))",
