@@ -3,9 +3,6 @@ import SwiftUI
 
 struct ResultView: View {
     @EnvironmentObject var pathRouter: PathRouter
-    @ObservedObject var shoppingViewModel: ShoppingViewModel
-    @ObservedObject var listViewModel: ListViewModel
-        
     @State var showSheet: Bool = true
     var body: some View {
             ZStack{
@@ -28,7 +25,11 @@ struct ResultView: View {
                 }
             }
             .sheet(isPresented: $showSheet) {
-                ResultModalView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, isButton: .constant(false))
+                ResultModalView(
+                    viewModel:ResultModalViewModel(shoppingViewModel: ShoppingViewModel()),
+                    shoppingViewModel: ShoppingViewModel(),
+                    listViewModel: ListViewModel(),
+                    isButton: .constant(false))
                     .presentationDetents([.height(125.0), .height(700)])
             }
             .toolbar {
@@ -37,10 +38,10 @@ struct ResultView: View {
                         print("Closing button tapped")
                         print("path count!!!! \(pathRouter.path.count)")
                         pathRouter.removeAll()
-                        for index in listViewModel.shoppingList.indices {
-                            listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
-                        }
-                        listViewModel.saveShoppingListToUserDefaults()
+//                        for index in listViewModel.shoppingList.indices {
+//                            listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
+//                        }
+//                        listViewModel.saveShoppingListToUserDefaults()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             pathRouter.removeAll()
                         }
@@ -55,6 +56,6 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel())
+    ResultView()
         .environmentObject(PathViewModel())
 }

@@ -1,25 +1,5 @@
 import Foundation
 
-// MARK: UserDefaults 데이터모델
-
-struct DateItem: Codable, Hashable {
-    var date: Date
-    var items: [ShoppingItem]
-    var korTotal: Int
-    var frcTotal: Double
-    var place: String
-}
-
-struct ShoppingItem: Identifiable, Codable, Hashable {
-    var id = UUID()
-    var korName: String
-    var frcName: String
-    var quantity: Int
-    var korUnitPrice: Int
-    var frcUnitPrice: Double
-    var time: Date
-}
-
 class ShoppingViewModel:ObservableObject {
     @Published var dateItem: [DateItem] = []
     @Published var shoppingItem: [ShoppingItem] = []

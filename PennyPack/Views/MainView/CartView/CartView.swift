@@ -254,7 +254,7 @@ struct CartView: View {
             }
         }
         .background(
-            NavigationLink(destination: ResultView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel), isActive: $isFinish) {
+            NavigationLink(destination: ResultView(), isActive: $isFinish) {
                 EmptyView()
             }
         )
