@@ -5,7 +5,7 @@ struct RegexView: View {
     
     @Environment(\.dismiss) private var dismiss
     @StateObject var translation : TranslationSerivce
-    @ObservedObject var shoppingViewModel: ShoppingViewModel
+    @ObservedObject var shoppingViewModel: ShoppingManager
     
     @Binding var isEditing: Bool
     @Binding var recognizedText: String

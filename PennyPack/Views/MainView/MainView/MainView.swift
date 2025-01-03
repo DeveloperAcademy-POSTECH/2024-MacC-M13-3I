@@ -23,7 +23,7 @@ public final class PathViewModel: ObservableObject {
 
 struct MainView: View {
     @StateObject var pathRouter = PathRouter()
-    @ObservedObject var shoppingViewModel: ShoppingViewModel
+    @ObservedObject var shoppingViewModel: ShoppingManager
     @ObservedObject var listViewModel: ListViewModel
     
     @State private var listText = ""
@@ -158,7 +158,16 @@ struct MainView: View {
                         }
                     }
                 case .cart:
-                    CartView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)
+//                    CartView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)
+                    let shoppingManager = ShoppingManager() // ShoppingManager 생성
+                           let listViewModel = ListViewModel() // ListViewModel 생성
+                           let cartViewModel = CartViewModel(shoppingManager: shoppingManager) // CartViewModel 초기화
+
+                           CartView(
+                               cartViewModel: cartViewModel,
+                               shoppingViewModel: shoppingManager,
+                               listViewModel: listViewModel
+                           )
                 }
             }
         }.navigationBarBackButtonHidden()
@@ -170,6 +179,6 @@ struct MainView: View {
 
 
 #Preview {
-    MainView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel())
+    MainView(shoppingViewModel: ShoppingManager(), listViewModel: ListViewModel())
 }
 

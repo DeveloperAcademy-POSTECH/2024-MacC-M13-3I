@@ -1,6 +1,6 @@
 import Foundation
 
-class ShoppingViewModel:ObservableObject {
+class ShoppingManager:ObservableObject {
     @Published var receiptDate: [ReceiptDate] = []
     @Published var cartItem: [CartItem] = []
     @Published var selectedReceiptDate: ReceiptDate?

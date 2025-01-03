@@ -2,6 +2,8 @@ import Foundation
 import SwiftUI
 
 class CartViewModel: ObservableObject{
+    let shoppingManager: ShoppingManager
+    
     @Published var recognizedText = ""
     @Published var isAlert: Bool = false
     @Published var isFinish: Bool = false
@@ -17,8 +19,10 @@ class CartViewModel: ObservableObject{
         case korName, quantity, frcUnitPrice, frcName
     }
     
-    // .focused($cartViewModel.focusedField, equals: .korName)
-    
+    init(shoppingManager: ShoppingManager) {
+        self.shoppingManager = shoppingManager
+    }
+
     func korTotalPricing(from items: [CartItem]) -> Int {
         var total = 0
         for index in items.indices {

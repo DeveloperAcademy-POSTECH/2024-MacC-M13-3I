@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CalendarView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var shoppingViewModel: ShoppingViewModel
+    @ObservedObject var shoppingViewModel: ShoppingManager
     @ObservedObject var listViewModel: ListViewModel
     @State private var month: Date = Date()
     @State private var clickedCurrentMonthDates: Date?
@@ -431,6 +431,6 @@ extension Date {
 // MARK: - 프리뷰
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    CalendarView(shoppingViewModel: ShoppingViewModel(),listViewModel: ListViewModel())
+    CalendarView(shoppingViewModel: ShoppingManager(),listViewModel: ListViewModel())
   }
 }

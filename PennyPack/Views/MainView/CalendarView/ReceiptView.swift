@@ -2,7 +2,7 @@ import SwiftUI
 
 
 struct ReceiptView: View {
-    @ObservedObject var shoppingViewModel: ShoppingViewModel
+    @ObservedObject var shoppingViewModel: ShoppingManager
     @ObservedObject var listViewModel: ListViewModel
     @State private var isMainViewActive = false
     @Binding var isButton: Bool
@@ -119,5 +119,5 @@ struct ReceiptView: View {
 }
 
 #Preview {
-    ReceiptView(shoppingViewModel: ShoppingViewModel(),listViewModel: ListViewModel(), isButton: .constant(false))
+    ReceiptView(shoppingViewModel: ShoppingManager(),listViewModel: ListViewModel(), isButton: .constant(false))
 }

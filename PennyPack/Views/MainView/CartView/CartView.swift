@@ -4,8 +4,8 @@ import SwiftUI
 struct CartView: View {
     @EnvironmentObject var pathRouter: PathRouter
     @Environment(\.dismiss) var dismiss
-    @StateObject private var cartViewModel = CartViewModel()
-    @ObservedObject var shoppingViewModel: ShoppingViewModel
+    @StateObject var cartViewModel: CartViewModel
+    @ObservedObject var shoppingViewModel: ShoppingManager
     @ObservedObject var listViewModel: ListViewModel
     
     
@@ -123,8 +123,7 @@ struct CartView: View {
                             .padding(.top, 24)
                             .padding(.bottom,4)
                         VStack(spacing: 0){
-                            
-                            if shoppingViewModel.cartItem.isEmpty {
+                            if cartViewModel.shoppingManager.cartItem.isEmpty {
                                 ZStack(alignment: .top){
                                     Color.pWhite
                                         .cornerRadius(12)
@@ -161,7 +160,7 @@ struct CartView: View {
                         Spacer()
                         if cartViewModel.isPlus {
                             Button{
-                                let newItem = shoppingViewModel.addNewCartItem(korName: "", frcName: "", quantity: 1, korUnitPrice: 1490, frcUnitPrice: 1)
+                                let newItem = cartViewModel.shoppingManager.addNewCartItem(korName: "", frcName: "", quantity: 1, korUnitPrice: 1490, frcUnitPrice: 1)
                                 
                                 cartViewModel.editingItemID = newItem.id
                                 cartViewModel.isPlus.toggle()
@@ -211,7 +210,7 @@ struct CartView: View {
                 }
             }
             
-            .onChange(of: shoppingViewModel.cartItem) { _ in
+            .onChange(of: cartViewModel.shoppingManager.cartItem) { _ in
                 pricing()
             }
             .onAppear {
@@ -221,7 +220,7 @@ struct CartView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        shoppingViewModel.cartItem = []
+                        cartViewModel.shoppingManager.cartItem = []
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -263,10 +262,22 @@ struct CartView: View {
     }
     
     func pricing() {
-        cartViewModel.totalPriceWon = cartViewModel.korTotalPricing(from: shoppingViewModel.cartItem)
-        cartViewModel.totalPriceEuro = cartViewModel.frcTotalPricing(from: shoppingViewModel.cartItem)
+        cartViewModel.totalPriceWon = cartViewModel.korTotalPricing(from: cartViewModel.shoppingManager.cartItem)
+        cartViewModel.totalPriceEuro = cartViewModel.frcTotalPricing(from: cartViewModel.shoppingManager.cartItem)
     }
     
+    
+    
+    
+    
+    // 1. 밑에 주석 오류남. 아마 shoppingViewModel을 shoppingManager로 바꿔서 나는 에러일 가능성이 큼.
+    // 2. 네비게이션들에 있는 shoppingViewModel 없애야할거야 아마도.
+    // 3. 1,2번 후에 listModel도 없애보자.
+    
+    
+    
+    
+
 //    private var CartListView: some View {
 //        List{
 //            ForEach(Array(shoppingViewModel.cartItem.enumerated()), id: \.element.id) { index, item in
@@ -396,10 +407,22 @@ struct CartView: View {
 //    }
 }
 
-
 #Preview {
-    CartView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel())
+    // 필요한 의존성 생성
+    let shoppingManager = ShoppingManager()
+    let listViewModel = ListViewModel()
+    let cartViewModel = CartViewModel(shoppingManager: shoppingManager)
+    let pathRouter = PathRouter()
+
+    // CartView 초기화
+    return CartView(
+        cartViewModel: cartViewModel,
+        shoppingViewModel: shoppingManager,
+        listViewModel: listViewModel
+    )
+    .environmentObject(pathRouter) // PathRouter를 EnvironmentObject로 전달
 }
+
 
 extension Double {
     func rounded(toPlaces places: Int) -> Double {
