@@ -50,23 +50,6 @@ class ShoppingViewModel:ObservableObject {
         }
 
     }
-
-    // MARK: 총 금액 계산
-    func korTotalPricing(from items: [CartItem]) -> Int {
-        var total = 0
-        for index in items.indices {
-            total += items[index].korUnitPrice * items[index].quantity
-        }
-        return total
-    }
-    
-    func frcTotalPricing(from items: [CartItem]) -> Double {
-        var total: Double = 0.0
-        for index in items.indices {
-            total += items[index].frcUnitPrice * Double(items[index].quantity)
-        }
-        return total
-    }
     
 }
 
