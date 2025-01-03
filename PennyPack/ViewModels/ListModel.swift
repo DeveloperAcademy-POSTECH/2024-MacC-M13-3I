@@ -1,6 +1,5 @@
 import Foundation
 
-
 class ListViewModel: ObservableObject {
     @Published var shoppingList: [ShoppingList] = []
     

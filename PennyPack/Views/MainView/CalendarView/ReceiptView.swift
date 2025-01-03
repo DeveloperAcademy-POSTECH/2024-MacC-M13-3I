@@ -16,7 +16,7 @@ struct ReceiptView: View {
                     VStack (alignment: .leading, spacing: 0) {
                         VStack(alignment: .leading, spacing: 0){
                             HStack {
-                                Text(shoppingViewModel.formatDate(from: shoppingViewModel.selectedReceiptDate?.date ?? Date()))
+                                Text(DateFormatter.formatDate(from: shoppingViewModel.selectedReceiptDate?.date ?? Date()))
                                     .font(.PTitle2)
                                     .foregroundColor(.pWhite)
                                 Spacer()

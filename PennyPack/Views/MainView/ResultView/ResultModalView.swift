@@ -17,7 +17,7 @@ struct ResultModalView: View {
                 ScrollView{
                     VStack (alignment: .leading, spacing: 0) {
                         HStack {
-                            Text(shoppingViewModel.formatDateToYYYYMDHHMM(from: shoppingViewModel.receiptDate.last?.date ?? Date()))
+                            Text(DateFormatter.formatDateToYYYYMDHHMM(from: shoppingViewModel.receiptDate.last?.date ?? Date()))
                                 .font(.PTitle3)
                             Spacer()
                         }
