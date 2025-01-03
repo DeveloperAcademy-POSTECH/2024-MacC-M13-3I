@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-struct ResultModalView: View {
+struct ReceiptView: View {
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @ObservedObject var listViewModel: ListViewModel
     @State private var isMainViewActive = false
@@ -9,38 +9,54 @@ struct ResultModalView: View {
     
     var body: some View {
         NavigationStack{
-            ZStack{
+            ZStack(alignment: .top){
                 Color.pWhite
                     .ignoresSafeArea()
                 ScrollView{
                     VStack (alignment: .leading, spacing: 0) {
-                        HStack {
-                            Text(shoppingViewModel.formatDateToYYYYMDHHMM(from: shoppingViewModel.dateItem.last?.date ?? Date()))
-                                .font(.PTitle3)
-                            Spacer()
+                        VStack(alignment: .leading, spacing: 0){
+                            HStack {
+                                Text(shoppingViewModel.formatDate(from: shoppingViewModel.selectedReceiptDate?.date ?? Date()))
+                                    .font(.PTitle2)
+                                    .foregroundColor(.pWhite)
+                                Spacer()
+                            }.padding(.top, 24)
+                            .padding(.bottom, 4)
+                            HStack {
+                                Text("영수증")
+                                    .font(.PTitle1)
+                                    .foregroundColor(.pWhite)
+                                Spacer()
+                            }
+                            .padding(.bottom,20)
                         }
-                        .padding(.bottom, 12)
-                        HStack {
-                            Text("오늘의 영수증")
+                        .padding(.horizontal, 24)
+                        .background(.pBlack)
+                        HStack{
+                            Text("\(String(format: "%.2f", (shoppingViewModel.selectedReceiptDate?.frcTotal ?? 0))) €")
                                 .font(.PTitle1)
+                                .foregroundColor(.pBlack)
                             Spacer()
+                            Text("\(shoppingViewModel.selectedReceiptDate?.korTotal ?? 0) 원")
+                                .font(.PTitle1)
+                                .foregroundColor(.pDarkGray)
                         }
-                        .padding(.bottom,20)
-                        Divider()
-                            .frame(height: 1.5)
-                            .background(.pDarkGray)
-                            .padding(.bottom,8)
-                        
+                        .padding(.vertical, 20)
+                        .padding(.horizontal, 24)
                         HStack {
                             Spacer()
                             Text("€ 1 = ₩ 1499.62")
                                 .font(.PSubhead)
+                                .foregroundColor(.pDarkGray)
                             Text("(EUR/KRW)")
                                 .font(.PFootnote)
-                        }.foregroundColor(.pDarkGray)
-                            .padding(.bottom, 20)
-                        
-                        VStack(alignment:.center, spacing: 0) {
+                                .foregroundColor(.pDarkGray)
+                        }
+                        .padding(.horizontal, 24)
+                        .padding(.vertical,3)
+                        .background(.pLightGray)
+                        .padding(.bottom, 24)
+                        VStack(alignment:.center) {
                             VStack(alignment: .center) {
                                 HStack(spacing: 0) {
                                     Text("품목")
@@ -49,13 +65,13 @@ struct ResultModalView: View {
                                         .frame(width: 80, alignment: .leading)
                                     Text("수량")
                                         .frame(width: 81, alignment: .leading)
-                                    Text("합계")                                        
+                                    Text("합계")                                       
                                         .frame(width: 26, alignment: .leading)
                                 }
                                 .font(.PCallout)
                                 .foregroundColor(.pBlack)
                                 .padding(.bottom, 12)
-                                if let items = shoppingViewModel.dateItem.last?.items {
+                                if let items = shoppingViewModel.selectedReceiptDate?.items  {
                                     VStack(spacing: 8){
                                         ForEach(items) { item in
                                             HStack(spacing: 0){
@@ -75,32 +91,13 @@ struct ResultModalView: View {
                                         }
                                     }
                                 }
-                            }
-                            .padding(.bottom, 20)
-                            Divider()
-                                .frame(height: 1.5)
-                                .background(.pDarkGray)
-                                .padding(.bottom,12)
-                            HStack(alignment: .bottom){
-                                Text("합산 가격")
-                                    .font(.PTitle3)
-                                Spacer()
-                                VStack(alignment: .trailing, spacing: 0){
-                                    Text("\(shoppingViewModel.dateItem.last?.korTotal ?? 0) 원")
-                                        .font(.PTitle3)
-                                    Text("\(String(format: "%.2f", (shoppingViewModel.dateItem.last?.frcTotal ?? 0))) €")
-                                        .font(.PTitle1)
-                                }
-                            }.padding(.bottom,36)
+                            }.padding(.bottom,60)
                             
                             HStack(spacing: 0){
-                                Text("사지 않은")
-                                    .font(.PTitle3)
-                                    .foregroundColor(.pBlue)
-                                Text(" 리스트 속 상품이 있어요")
+                                Text("장보기 리스트")
                                     .font(.PTitle3)
                                 Spacer()
-                            }.padding(.bottom, 4)
+                            }
                             
                             ZStack{
                                 Rectangle()
@@ -110,20 +107,17 @@ struct ResultModalView: View {
                                 DropdownListView(listViewModel: listViewModel)
                                     .frame(width: 330,height: 120)
                             }
-                            
                         }
-                        .padding(.bottom, 32)
-                        
+                        .padding(.horizontal, 24)
                     }
-                    .padding(.horizontal, 32)
-                    .padding(.top, 36)
                 }
             }
-        }.navigationBarBackButtonHidden()
-        
+        }
+        .navigationBarBackButtonHidden()
+       
     }
 }
 
 #Preview {
-    ResultModalView(shoppingViewModel: ShoppingViewModel(),listViewModel: ListViewModel(), isButton: .constant(false))
+    ReceiptView(shoppingViewModel: ShoppingViewModel(),listViewModel: ListViewModel(), isButton: .constant(false))
 }

@@ -1,11 +1,5 @@
 import Foundation
 
-struct ShoppingList: Identifiable, Codable, Hashable {
-    var id: UUID = UUID()
-    var title: String
-    var isChoise: Bool
-    var isPurchase: Bool
-}
 
 class ListViewModel: ObservableObject {
     @Published var shoppingList: [ShoppingList] = []

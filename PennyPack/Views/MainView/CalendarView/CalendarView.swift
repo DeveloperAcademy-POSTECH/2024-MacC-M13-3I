@@ -70,12 +70,12 @@ struct CalendarView: View {
                 let dateToCheck = clickedCurrentMonthDates ?? Date()
                 let formattedDate = shoppingViewModel.formatDateToDate(from: dateToCheck)
                 
-//                for item in shoppingViewModel.dateItem {
+//                for item in shoppingViewModel.receiptDate {
 //                    let itemDate = shoppingViewModel.formatDateToDate(from: item.date)
 //                    
 //                    if itemDate == formattedDate {
 //                        isShopping = true
-//                        shoppingViewModel.selectedDateItem = item
+//                        shoppingViewModel.selectedReceiptDate = item
 //                        showSheet.toggle()
 //                        break
 //                    }
@@ -84,12 +84,12 @@ struct CalendarView: View {
 //                    }
 //                }
                 
-                if let latestItem = shoppingViewModel.dateItem
+                if let latestItem = shoppingViewModel.receiptDate
                                 .filter({ shoppingViewModel.formatDateToDate(from: $0.date) == formattedDate })
                                 .max(by: { $0.date < $1.date }) {
                                 
                                 isShopping = true
-                                shoppingViewModel.selectedDateItem = latestItem
+                                shoppingViewModel.selectedReceiptDate = latestItem
                                 showSheet.toggle()
                             } else {
                                 isShopping = false
@@ -179,8 +179,8 @@ struct CalendarView: View {
                         let day = Calendar.current.component(.day, from: date)
                         let clicked = clickedCurrentMonthDates == date
                         let isToday = date.formattedCalendarDayDate == today.formattedCalendarDayDate
-                        let isDateInShoppingList = shoppingViewModel.dateItem.contains { dateItem in
-                                                Calendar.current.isDate(dateItem.date, inSameDayAs: date)
+                        let isDateInShoppingList = shoppingViewModel.receiptDate.contains { receiptDate in
+                                                Calendar.current.isDate(receiptDate.date, inSameDayAs: date)
                                             }
                         
                         
@@ -204,12 +204,12 @@ struct CalendarView: View {
                         clickedCurrentMonthDates.map { date in
                             let formattedDate = shoppingViewModel.formatDateToDate(from: date)
                             
-                            for item in shoppingViewModel.dateItem {
+                            for item in shoppingViewModel.receiptDate {
                                 let date = shoppingViewModel.formatDateToDate(from: item.date)
                                 
                                 if date == formattedDate {
                                     isShopping = true
-                                    shoppingViewModel.selectedDateItem = item
+                                    shoppingViewModel.selectedReceiptDate = item
                                     showSheet.toggle()
                                     break
                                 }

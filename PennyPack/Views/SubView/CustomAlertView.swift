@@ -69,10 +69,10 @@ struct CustomAlertView: View {
                         isFinishPresented.toggle()
                         print("isFinish: ",isFinishPresented)
                         pathRouter.push(.result)
-                        let dateItem = DateItem(date: Date(), items: shoppingViewModel.shoppingItem, korTotal: totalPriceWon, frcTotal: totalPriceEuro, place: "프랑스마트")
+                        let receiptDate = ReceiptDate(date: Date(), items: shoppingViewModel.cartItem, korTotal: totalPriceWon, frcTotal: totalPriceEuro, place: "프랑스마트")
                         
-                        shoppingViewModel.dateItem.append(dateItem)
-                        shoppingViewModel.shoppingItem = []
+                        shoppingViewModel.receiptDate.append(receiptDate)
+                        shoppingViewModel.cartItem = []
                         shoppingViewModel.saveShoppingListToUserDefaults()
                         
                     } label: {
