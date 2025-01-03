@@ -51,38 +51,6 @@ class ShoppingViewModel:ObservableObject {
 
     }
 
-    // MARK: 현재 날짜 출력
-    func formatDateToYYYYMDHHMM(from date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 M월 d일 HH:mm"
-        return formatter.string(from: date)
-    }
-    // MARK: 현재 날짜 출력
-    func formatDate(from date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 M월 d일"
-        return formatter.string(from: date)
-    }
-    
-    // MARK: 현재 시간 출력
-    func formatDateToHHMM(from date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        let formattedTime = formatter.string(from: date)
-        return formattedTime
-    }
-    
-    func formatDateToDate(from date: Date) -> Date? {
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month, .day], from: date)
-        
-        return calendar.date(from: DateComponents(
-            year: components.year,
-            month: components.month,
-            day: components.day
-        ))
-    }
-
     // MARK: 총 금액 계산
     func korTotalPricing(from items: [CartItem]) -> Int {
         var total = 0

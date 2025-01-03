@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: UserDefaults 데이터모델
 
-/// 영수증 날짜 [DateItem -> ReceiptDate 로 이름변경]
+/// 영수증 날짜 [DateItem -> ReceiptDate 로 이름변경 완료]
 struct ReceiptDate: Codable, Hashable {
     var date: Date
     var items: [CartItem]
@@ -18,7 +18,7 @@ struct ReceiptDate: Codable, Hashable {
     var place: String
 }
 
-/// 카트아이템 [ShoppingItem -> CartItem 으로 이름변경]
+/// 카트아이템 [ShoppingItem -> CartItem 으로 이름변경 완료]
 struct CartItem: Identifiable, Codable, Hashable {
     var id = UUID()
     var korName: String

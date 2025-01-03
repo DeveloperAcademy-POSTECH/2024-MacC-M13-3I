@@ -11,5 +11,4 @@ extension Font {
     static let PSubhead: Font = .custom("Pretendard-SemiBold", size: 12)
     static let PFootnote: Font = .custom("Pretendard-Medium", size: 12)
     
-
 }

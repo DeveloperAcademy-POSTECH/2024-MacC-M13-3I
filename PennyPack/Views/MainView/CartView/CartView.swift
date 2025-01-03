@@ -4,6 +4,7 @@ import SwiftUI
 struct CartView: View {
     @EnvironmentObject var pathRouter: PathRouter
     @Environment(\.dismiss) var dismiss
+    
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @ObservedObject var listViewModel: ListViewModel
     @State private var recognizedText = ""

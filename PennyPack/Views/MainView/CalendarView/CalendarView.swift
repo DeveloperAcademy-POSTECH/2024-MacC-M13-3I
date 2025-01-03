@@ -68,10 +68,10 @@ struct CalendarView: View {
             }
             .onAppear {
                 let dateToCheck = clickedCurrentMonthDates ?? Date()
-                let formattedDate = shoppingViewModel.formatDateToDate(from: dateToCheck)
+                let formattedDate = DateFormatter.formatDateToDate(from: dateToCheck)
                 
 //                for item in shoppingViewModel.receiptDate {
-//                    let itemDate = shoppingViewModel.formatDateToDate(from: item.date)
+//                    let itemDate = DateFormatter.formatDateToDate(from: item.date)
 //                    
 //                    if itemDate == formattedDate {
 //                        isShopping = true
@@ -85,7 +85,7 @@ struct CalendarView: View {
 //                }
                 
                 if let latestItem = shoppingViewModel.receiptDate
-                                .filter({ shoppingViewModel.formatDateToDate(from: $0.date) == formattedDate })
+                                .filter({ DateFormatter.formatDateToDate(from: $0.date) == formattedDate })
                                 .max(by: { $0.date < $1.date }) {
                                 
                                 isShopping = true
@@ -202,10 +202,9 @@ struct CalendarView: View {
                         clickedCurrentMonthDates = date
                         
                         clickedCurrentMonthDates.map { date in
-                            let formattedDate = shoppingViewModel.formatDateToDate(from: date)
-                            
+                            let formattedDate = DateFormatter.formatDateToDate(from: date)
                             for item in shoppingViewModel.receiptDate {
-                                let date = shoppingViewModel.formatDateToDate(from: item.date)
+                                let date = DateFormatter.formatDateToDate(from: item.date)
                                 
                                 if date == formattedDate {
                                     isShopping = true
