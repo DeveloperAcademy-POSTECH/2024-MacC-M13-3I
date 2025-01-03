@@ -17,7 +17,7 @@ struct ResultModalView: View {
                 ScrollView{
                     VStack (alignment: .leading, spacing: 0) {
                         HStack {
-                            Text(shoppingViewModel.formatDateToYYYYMDHHMM(from: shoppingViewModel.dateItem.last?.date ?? Date()))
+                            Text(shoppingViewModel.formatDateToYYYYMDHHMM(from: shoppingViewModel.receiptDate.last?.date ?? Date()))
                                 .font(.PTitle3)
                             Spacer()
                         }
@@ -57,7 +57,7 @@ struct ResultModalView: View {
                                 .font(.PCallout)
                                 .foregroundColor(.pBlack)
                                 .padding(.bottom, 12)
-                                if let items = shoppingViewModel.dateItem.last?.items {
+                                if let items = shoppingViewModel.receiptDate.last?.items {
                                     VStack(spacing: 8){
                                         ForEach(items) { item in
                                             HStack(spacing: 0){
@@ -88,9 +88,9 @@ struct ResultModalView: View {
                                     .font(.PTitle3)
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 0){
-                                    Text("\(shoppingViewModel.dateItem.last?.korTotal ?? 0) 원")
+                                    Text("\(shoppingViewModel.receiptDate.last?.korTotal ?? 0) 원")
                                         .font(.PTitle3)
-                                    Text("\(String(format: "%.2f", (shoppingViewModel.dateItem.last?.frcTotal ?? 0))) €")
+                                    Text("\(String(format: "%.2f", (shoppingViewModel.receiptDate.last?.frcTotal ?? 0))) €")
                                         .font(.PTitle1)
                                 }
                             }.padding(.bottom,36)

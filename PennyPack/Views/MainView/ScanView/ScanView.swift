@@ -63,7 +63,7 @@ struct ScanView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    shoppingViewModel.shoppingItem = []
+                    shoppingViewModel.cartItem = []
                     dismiss()
                 }) {
                     Image(systemName: "chevron.left")

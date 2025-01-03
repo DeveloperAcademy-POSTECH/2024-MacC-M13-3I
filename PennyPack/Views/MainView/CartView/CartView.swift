@@ -6,7 +6,6 @@ struct CartView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var shoppingViewModel: ShoppingViewModel
     @ObservedObject var listViewModel: ListViewModel
-    @State var shoppingItems: [ShoppingItem] = []
     @State private var recognizedText = ""
     
     
@@ -126,7 +125,7 @@ struct CartView: View {
                             .padding(.bottom,4)
                         VStack(spacing: 0){
                             
-                            if shoppingViewModel.shoppingItem.isEmpty {
+                            if shoppingViewModel.cartItem.isEmpty {
                                 ZStack(alignment: .top){
                                     Color.pWhite
                                         .cornerRadius(12)
@@ -164,7 +163,7 @@ struct CartView: View {
                         Spacer()
                         if isPlus {
                             Button{
-                                let newItem = shoppingViewModel.addNewShoppingItem(korName: "", frcName: "", quantity: 1, korUnitPrice: 1490, frcUnitPrice: 1)
+                                let newItem = shoppingViewModel.addNewCartItem(korName: "", frcName: "", quantity: 1, korUnitPrice: 1490, frcUnitPrice: 1)
                                 
                                 editingItemID = newItem.id
                                 isPlus.toggle()
@@ -214,7 +213,7 @@ struct CartView: View {
                 }
             }
             
-            .onChange(of: shoppingViewModel.shoppingItem) { _ in
+            .onChange(of: shoppingViewModel.cartItem) { _ in
                 pricing()
             }
             .onAppear {
@@ -224,7 +223,7 @@ struct CartView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        shoppingViewModel.shoppingItem = []
+                        shoppingViewModel.cartItem = []
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -266,20 +265,20 @@ struct CartView: View {
     }
     
     func pricing() {
-        totalPriceWon = shoppingViewModel.korTotalPricing(from: shoppingViewModel.shoppingItem)
-        totalPriceEuro = shoppingViewModel.frcTotalPricing(from: shoppingViewModel.shoppingItem)
+        totalPriceWon = shoppingViewModel.korTotalPricing(from: shoppingViewModel.cartItem)
+        totalPriceEuro = shoppingViewModel.frcTotalPricing(from: shoppingViewModel.cartItem)
     }
     
     private var CartListView: some View {
         List{
-            ForEach(Array(shoppingViewModel.shoppingItem.enumerated()), id: \.element.id) { index, item in
+            ForEach(Array(shoppingViewModel.cartItem.enumerated()), id: \.element.id) { index, item in
                 VStack(spacing: 0){
                     if editingItemID == item.id {
                         HStack(spacing: 0){
                             TextField("상품명", text: Binding(
                                 get: { item.korName },
                                 set: { newValue in
-                                    shoppingViewModel.shoppingItem[index].korName = newValue
+                                    shoppingViewModel.cartItem[index].korName = newValue
                                 }
                             ))
                             .font(.PTitle3)
@@ -295,7 +294,7 @@ struct CartView: View {
                                     get: { String(item.quantity) },
                                     set: { newValue in
                                         if let intValue = Int(newValue) {
-                                            shoppingViewModel.shoppingItem[index].quantity = intValue
+                                            shoppingViewModel.cartItem[index].quantity = intValue
                                         }
                                     }
                                 ))
@@ -315,7 +314,7 @@ struct CartView: View {
                                     get: { String(format: "%.2f", item.frcUnitPrice)},
                                     set: { newValue in
                                         if let intValue = Double(newValue) {
-                                            shoppingViewModel.shoppingItem[index].frcUnitPrice = intValue.rounded(toPlaces: 2)
+                                            shoppingViewModel.cartItem[index].frcUnitPrice = intValue.rounded(toPlaces: 2)
                                         }
                                     }
                                 ))
@@ -323,7 +322,7 @@ struct CartView: View {
                                 .multilineTextAlignment(.trailing)
                                 .focused($focusedField, equals: .frcUnitPrice)
                                 .onChange(of: item.frcUnitPrice) { newValue in
-                                    shoppingViewModel.shoppingItem[index].korUnitPrice = Int(newValue * 1490)
+                                    shoppingViewModel.cartItem[index].korUnitPrice = Int(newValue * 1490)
                                 }
                                 .onSubmit {
                                     focusedField = .frcName
@@ -338,7 +337,7 @@ struct CartView: View {
                             TextField("프랑스 이름", text: Binding(
                                 get: { item.frcName },
                                 set: { newValue in
-                                    shoppingViewModel.shoppingItem[index].frcName = newValue
+                                    shoppingViewModel.cartItem[index].frcName = newValue
                                 }
                             ))
                             .font(.PBody)

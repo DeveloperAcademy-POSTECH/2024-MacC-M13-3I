@@ -16,7 +16,7 @@ struct ReceiptView: View {
                     VStack (alignment: .leading, spacing: 0) {
                         VStack(alignment: .leading, spacing: 0){
                             HStack {
-                                Text(shoppingViewModel.formatDate(from: shoppingViewModel.selectedDateItem?.date ?? Date()))
+                                Text(shoppingViewModel.formatDate(from: shoppingViewModel.selectedReceiptDate?.date ?? Date()))
                                     .font(.PTitle2)
                                     .foregroundColor(.pWhite)
                                 Spacer()
@@ -33,11 +33,11 @@ struct ReceiptView: View {
                         .padding(.horizontal, 24)
                         .background(.pBlack)
                         HStack{
-                            Text("\(String(format: "%.2f", (shoppingViewModel.selectedDateItem?.frcTotal ?? 0))) €")
+                            Text("\(String(format: "%.2f", (shoppingViewModel.selectedReceiptDate?.frcTotal ?? 0))) €")
                                 .font(.PTitle1)
                                 .foregroundColor(.pBlack)
                             Spacer()
-                            Text("\(shoppingViewModel.selectedDateItem?.korTotal ?? 0) 원")
+                            Text("\(shoppingViewModel.selectedReceiptDate?.korTotal ?? 0) 원")
                                 .font(.PTitle1)
                                 .foregroundColor(.pDarkGray)
                         }
@@ -71,7 +71,7 @@ struct ReceiptView: View {
                                 .font(.PCallout)
                                 .foregroundColor(.pBlack)
                                 .padding(.bottom, 12)
-                                if let items = shoppingViewModel.selectedDateItem?.items  {
+                                if let items = shoppingViewModel.selectedReceiptDate?.items  {
                                     VStack(spacing: 8){
                                         ForEach(items) { item in
                                             HStack(spacing: 0){
