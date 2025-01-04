@@ -13,11 +13,7 @@ class CartViewModel: ObservableObject{
     @Published var totalPriceWon: Int = 0
     @Published var totalPriceEuro: Double = 0.0
     @Published var editingItemID: UUID? = nil
-    @FocusState var focusedField: Field?
-    
-    enum Field: Hashable {
-        case korName, quantity, frcUnitPrice, frcName
-    }
+  
     
     init(shoppingManager: ShoppingManager) {
         self.shoppingManager = shoppingManager
@@ -39,4 +35,9 @@ class CartViewModel: ObservableObject{
         return total
     }
     
+    
+    func pricing() {
+        totalPriceWon = korTotalPricing(from: shoppingManager.cartItem)
+        totalPriceEuro = frcTotalPricing(from: shoppingManager.cartItem)
+    }
 }
