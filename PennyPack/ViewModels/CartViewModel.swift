@@ -15,7 +15,6 @@ class CartViewModel: ObservableObject{
     @Published var totalPriceEuro: Double = 0.0
     @Published var editingItemID: UUID? = nil
   
-    
     init(shoppingManager: ShoppingManager, listManager: ListManager) {
         self.shoppingManager = shoppingManager
         self.listManager = listManager

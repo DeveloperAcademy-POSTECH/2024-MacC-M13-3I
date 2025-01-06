@@ -49,6 +49,7 @@
 		71FD59202D2BCF9D0078F5D6 /* Calender+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD591F2D2BCF9D0078F5D6 /* Calender+Ext.swift */; };
 		71FD59222D2BD39C0078F5D6 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD59212D2BD39C0078F5D6 /* Date+Ext.swift */; };
 		71FD59242D2C14940078F5D6 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD59232D2C14940078F5D6 /* CellView.swift */; };
+		71FD59262D2C1BB20078F5D6 /* ScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD59252D2C1BB20078F5D6 /* ScanViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +98,7 @@
 		71FD591F2D2BCF9D0078F5D6 /* Calender+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calender+Ext.swift"; sourceTree = "<group>"; };
 		71FD59212D2BD39C0078F5D6 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		71FD59232D2C14940078F5D6 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
+		71FD59252D2C1BB20078F5D6 /* ScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 				71FD591B2D2BCA7A0078F5D6 /* ReceiptViewModel.swift */,
 				713C7ED92D2397AB009DBF09 /* ResultModalViewModel.swift */,
 				71FD59192D2BC9230078F5D6 /* ResultViewModel.swift */,
+				71FD59252D2C1BB20078F5D6 /* ScanViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				7126C3AC2CD47BD40039B60C /* ScanView.swift in Sources */,
 				714E726A2CDCD6C600982A20 /* ListView.swift in Sources */,
 				713C7EEB2D27B43B009DBF09 /* DateFormatter+Ext.swift in Sources */,
+				71FD59262D2C1BB20078F5D6 /* ScanViewModel.swift in Sources */,
 				71FD59222D2BD39C0078F5D6 /* Date+Ext.swift in Sources */,
 				713C7EED2D27BB32009DBF09 /* View+Ext.swift in Sources */,
 				309158702CE5A35B00C62DA8 /* ScannerRetakeView.swift in Sources */,

@@ -2,21 +2,7 @@ import SwiftUI
 
 struct ScanView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var cameraViewModel = CameraViewModel()
-    @ObservedObject var shoppingViewModel: ShoppingManager
-    @State private var recognizedText = ""
-    @StateObject var translation = TranslationSerivce()
-    @State private var translatedText1: String = ""
-    
-    @State private var isEditing: Bool = false
-    @State private var validItemsK: [String] = []
-    @State private var validItemsF: [String] = []
-    @State private var validPricesF: [Double] = []
-    @State private var quantity = 1
-    @State private var korUnitPrice = 0
-    @State private var frcUnitPrice = 0.0
-    @State private var validItemText = ""
-    @State private var validPriceText = ""
+    @StateObject var scanViewModel: ScanViewModel
     
     var body: some View {
         ZStack(alignment: .top){
@@ -24,30 +10,30 @@ struct ScanView: View {
                 .ignoresSafeArea()
             VStack {
                 ScannerRetakeView(
-                    translation: translation,
-                    isEditing: $isEditing,
-                    recognizedText: $recognizedText,
-                    validItemsK: $validItemsK,
-                    validItemsF: $validItemsF,
-                    validPricesF: $validPricesF,
-                    quantity: $quantity,
-                    validItemText: $validItemText,
-                    validPriceText: $validPriceText
+                    translation: scanViewModel.translation,
+                    isEditing: $scanViewModel.isEditing,
+                    recognizedText: $scanViewModel.recognizedText,
+                    validItemsK: $scanViewModel.validItemsK,
+                    validItemsF: $scanViewModel.validItemsF,
+                    validPricesF: $scanViewModel.validPricesF,
+                    quantity: $scanViewModel.quantity,
+                    validItemText: $scanViewModel.validItemText,
+                    validPriceText: $scanViewModel.validPriceText
                 ).padding(.bottom, 20)
                 
                 RegexView(
-                    translation: TranslationSerivce(),
-                    shoppingViewModel: shoppingViewModel,
-                    isEditing: $isEditing,
-                    recognizedText: $recognizedText,
-                    validItemsK: $validItemsK,
-                    validItemsF: $validItemsF,
-                    validPricesF: $validPricesF,
-                    quantity: $quantity,
-                    korUnitPrice: $korUnitPrice,
-                    frcUnitPrice: $frcUnitPrice,
-                    validItemText: $validItemText,
-                    validPriceText: $validPriceText
+                    translation: scanViewModel.translation,
+                    shoppingViewModel: scanViewModel.shoppingManager,
+                    isEditing: $scanViewModel.isEditing,
+                    recognizedText: $scanViewModel.recognizedText,
+                    validItemsK: $scanViewModel.validItemsK,
+                    validItemsF: $scanViewModel.validItemsF,
+                    validPricesF: $scanViewModel.validPricesF,
+                    quantity: $scanViewModel.quantity,
+                    korUnitPrice: $scanViewModel.korUnitPrice,
+                    frcUnitPrice: $scanViewModel.frcUnitPrice,
+                    validItemText: $scanViewModel.validItemText,
+                    validPriceText: $scanViewModel.validPriceText
                 )
                 .clipShape(RoundedCorner(radius: 12))
                 .overlay(
@@ -63,7 +49,7 @@ struct ScanView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    shoppingViewModel.cartItem = []
+                    scanViewModel.shoppingManager.cartItem = []
                     dismiss()
                 }) {
                     Image(systemName: "chevron.left")
@@ -99,5 +85,5 @@ struct KeyboardAvoidanceModifier: ViewModifier {
 }
 
 #Preview {
-    ScanView(shoppingViewModel: ShoppingManager())
+    ScanView(scanViewModel: ScanViewModel(shoppingManager: ShoppingManager(), cameraViewModel: CameraViewModel(), translation: TranslationSerivce()))
 }
