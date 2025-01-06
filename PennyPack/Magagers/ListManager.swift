@@ -1,6 +1,6 @@
 import Foundation
 
-class ListViewModel: ObservableObject {
+class ListManager: ObservableObject {
     @Published var shoppingList: [ShoppingList] = []
     
     init() {

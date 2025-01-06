@@ -5,8 +5,6 @@ struct CartView: View {
     @EnvironmentObject var pathRouter: PathRouter
     @Environment(\.dismiss) var dismiss
     @StateObject var cartViewModel: CartViewModel
-    @ObservedObject var shoppingViewModel: ShoppingManager  //없애야 되는것
-    @ObservedObject var listViewModel: ListViewModel  //없애야 되는것
     
     @FocusState var focusedField: Field?
     
@@ -94,7 +92,7 @@ struct CartView: View {
                                 Color.pLightGray
                                     .clipShape(RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight]))
                                     .padding(.horizontal)
-                                DropdownListView(listViewModel: listViewModel)
+                                DropdownListView(listViewModel: cartViewModel.listManager)
                                     .padding()
                                 RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight])
                                     .stroke(Color.pGray, lineWidth: 2)
@@ -112,6 +110,11 @@ struct CartView: View {
                             .padding(.top, 24)
                             .padding(.bottom,4)
                         VStack(spacing: 0){
+                            Button{
+                                print("****CartItem: ", cartViewModel.shoppingManager.cartItem)
+                            } label: {
+                                Text("CartItem: ")
+                            }
                             if cartViewModel.shoppingManager.cartItem.isEmpty {
                                 ZStack(alignment: .top){
                                     Color.pWhite
@@ -196,15 +199,14 @@ struct CartView: View {
                 
                 if cartViewModel.isAlert {
                     CustomAlertView(
-                        shoppingViewModel: shoppingViewModel,
-                        listViewModel: listViewModel,
+                        shoppingViewModel: cartViewModel.shoppingManager,
+                        listViewModel: cartViewModel.listManager,
                         isAlertPresented: $cartViewModel.isAlert,
                         isFinishPresented: $cartViewModel.isFinish,
                         totalPriceWon: $cartViewModel.totalPriceWon,
                         totalPriceEuro: $cartViewModel.totalPriceEuro)
                 }
             }
-            
             .onChange(of: cartViewModel.shoppingManager.cartItem) { _ in
                     cartViewModel.pricing()
             }
@@ -231,11 +233,11 @@ struct CartView: View {
                     Button(action: {
                         cartViewModel.isAlert = true
                         
-                        for index in listViewModel.shoppingList.indices {
-                            listViewModel.shoppingList[index].isPurchase = listViewModel.shoppingList[index].isChoise
+                        for index in cartViewModel.listManager.shoppingList.indices {
+                            cartViewModel.listManager.shoppingList[index].isPurchase = cartViewModel.listManager.shoppingList[index].isChoise
                         }
                         
-                        listViewModel.saveShoppingListToUserDefaults()
+                        cartViewModel.listManager.saveShoppingListToUserDefaults()
                     }) {
                         Text("종료")
                             .foregroundColor(.pBlue)
@@ -250,35 +252,20 @@ struct CartView: View {
             }
         )
         .background(
-            NavigationLink(destination: ScanView(shoppingViewModel: shoppingViewModel), isActive: $cartViewModel.isScan) {
+            NavigationLink(destination: ScanView(shoppingViewModel: cartViewModel.shoppingManager), isActive: $cartViewModel.isScan) {
                 EmptyView()
             }
         ).navigationBarBackButtonHidden()
     }
-    
-    
-    
-    
-    // 1. 밑에 주석 오류남. 아마 shoppingViewModel을 shoppingManager로 바꿔서 나는 에러일 가능성이 큼.
-    // 2. 네비게이션들에 있는 shoppingViewModel 없애야할거야 아마도.
-    // 3. 1,2번 후에 listModel도 없애보자.
-    
-    
-    
-    
 
     private var CartListView: some View {
         List{
-            ForEach(Array(cartViewModel.shoppingManager.cartItem.enumerated()), id: \.element.id) { index, item in
+            ForEach(cartViewModel.shoppingManager.cartItem.indices, id: \.self) { index in
+                let item = cartViewModel.shoppingManager.cartItem[index]
                 VStack(spacing: 0){
                     if cartViewModel.editingItemID == item.id {
                         HStack(spacing: 0){
-                            TextField("상품명", text: Binding(
-                                get: { item.korName },
-                                set: { newValue in
-                                    cartViewModel.shoppingManager.cartItem[index].korName = newValue
-                                }
-                            ))
+                            TextField("상품명", text: $cartViewModel.shoppingManager.cartItem[index].korName)
                             .font(.PTitle3)
                             .frame(width: 180, alignment: .leading)
                             .focused($focusedField, equals: .korName)
@@ -287,9 +274,8 @@ struct CartView: View {
                             }
                             .hideKeyboard()
                             
-                            HStack(spacing: 0){
-                                TextField("1", text: Binding(
-                                    get: { String(item.quantity) },
+                            HStack(spacing: 0){                                TextField("1", text: Binding(
+                                    get: { String(cartViewModel.shoppingManager.cartItem[index].quantity) },
                                     set: { newValue in
                                         if let intValue = Int(newValue) {
                                             cartViewModel.shoppingManager.cartItem[index].quantity = intValue
@@ -309,10 +295,10 @@ struct CartView: View {
                             
                             HStack(spacing: 0){
                                 TextField("0.00", text: Binding(
-                                    get: { String(format: "%.2f", item.frcUnitPrice)},
+                                    get: { String(format: "%.2f", cartViewModel.shoppingManager.cartItem[index].frcUnitPrice) },
                                     set: { newValue in
-                                        if let intValue = Double(newValue) {
-                                            cartViewModel.shoppingManager.cartItem[index].frcUnitPrice = intValue.rounded(toPlaces: 2)
+                                        if let doubleValue = Double(newValue) {
+                                            cartViewModel.shoppingManager.cartItem[index].frcUnitPrice = doubleValue.rounded(toPlaces: 2)
                                         }
                                     }
                                 ))
@@ -332,12 +318,7 @@ struct CartView: View {
                             .frame(width: 110, alignment: .trailing)
                         }
                         HStack{
-                            TextField("프랑스 이름", text: Binding(
-                                get: { item.frcName },
-                                set: { newValue in
-                                    cartViewModel.shoppingManager.cartItem[index].frcName = newValue
-                                }
-                            ))
+                            TextField("프랑스 이름", text: $cartViewModel.shoppingManager.cartItem[index].frcName)
                             .font(.PBody)
                             .frame(width: 180, alignment: .leading)
                             .focused($focusedField, equals: .frcName)
@@ -399,15 +380,13 @@ struct CartView: View {
 #Preview {
     // 필요한 의존성 생성
     let shoppingManager = ShoppingManager()
-    let listViewModel = ListViewModel()
-    let cartViewModel = CartViewModel(shoppingManager: shoppingManager)
+    let listManager = ListManager()
+    let cartViewModel = CartViewModel(shoppingManager: shoppingManager, listManager: listManager)
     let pathRouter = PathRouter()
 
     // CartView 초기화
     return CartView(
-        cartViewModel: cartViewModel,
-        shoppingViewModel: shoppingManager,
-        listViewModel: listViewModel
+        cartViewModel: cartViewModel
     )
     .environmentObject(pathRouter) // PathRouter를 EnvironmentObject로 전달
 }

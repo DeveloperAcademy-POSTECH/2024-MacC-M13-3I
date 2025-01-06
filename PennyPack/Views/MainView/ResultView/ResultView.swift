@@ -28,7 +28,7 @@ struct ResultView: View {
                 ResultModalView(
                     viewModel:ResultModalViewModel(shoppingViewModel: ShoppingManager()),
                     shoppingViewModel: ShoppingManager(),
-                    listViewModel: ListViewModel(),
+                    listViewModel: ListManager(),
                     isButton: .constant(false))
                     .presentationDetents([.height(125.0), .height(700)])
             }

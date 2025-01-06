@@ -2,7 +2,8 @@ import Foundation
 import SwiftUI
 
 class CartViewModel: ObservableObject{
-    let shoppingManager: ShoppingManager
+    @Published var shoppingManager: ShoppingManager
+    let listManager: ListManager
     
     @Published var recognizedText = ""
     @Published var isAlert: Bool = false
@@ -15,10 +16,11 @@ class CartViewModel: ObservableObject{
     @Published var editingItemID: UUID? = nil
   
     
-    init(shoppingManager: ShoppingManager) {
+    init(shoppingManager: ShoppingManager, listManager: ListManager) {
         self.shoppingManager = shoppingManager
+        self.listManager = listManager
     }
-
+    
     func korTotalPricing(from items: [CartItem]) -> Int {
         var total = 0
         for index in items.indices {

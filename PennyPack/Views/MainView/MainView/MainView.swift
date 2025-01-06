@@ -24,7 +24,7 @@ public final class PathViewModel: ObservableObject {
 struct MainView: View {
     @StateObject var pathRouter = PathRouter()
     @ObservedObject var shoppingViewModel: ShoppingManager
-    @ObservedObject var listViewModel: ListViewModel
+    @ObservedObject var listViewModel: ListManager
     
     @State private var listText = ""
     
@@ -160,13 +160,11 @@ struct MainView: View {
                 case .cart:
 //                    CartView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)
                     let shoppingManager = ShoppingManager() // ShoppingManager 생성
-                           let listViewModel = ListViewModel() // ListViewModel 생성
-                           let cartViewModel = CartViewModel(shoppingManager: shoppingManager) // CartViewModel 초기화
+                           let listManager = ListManager() // ListViewModel 생성
+                           let cartViewModel = CartViewModel(shoppingManager: shoppingManager, listManager: listManager) // CartViewModel 초기화
 
                            CartView(
-                               cartViewModel: cartViewModel,
-                               shoppingViewModel: shoppingManager,
-                               listViewModel: listViewModel
+                               cartViewModel: cartViewModel
                            )
                 }
             }
@@ -179,6 +177,6 @@ struct MainView: View {
 
 
 #Preview {
-    MainView(shoppingViewModel: ShoppingManager(), listViewModel: ListViewModel())
+    MainView(shoppingViewModel: ShoppingManager(), listViewModel: ListManager())
 }
 

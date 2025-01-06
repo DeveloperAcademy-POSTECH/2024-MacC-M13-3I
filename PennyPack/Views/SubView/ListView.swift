@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ListView: View {
     @ObservedObject var shoppingViewModel: ShoppingManager
-    @ObservedObject var listViewModel: ListViewModel
+    @ObservedObject var listViewModel: ListManager
     
     var body: some View {
         VStack{
@@ -53,5 +53,5 @@ struct ListView: View {
 }
 
 #Preview {
-    ListView(shoppingViewModel: ShoppingManager(), listViewModel: ListViewModel())
+    ListView(shoppingViewModel: ShoppingManager(), listViewModel: ListManager())
 }
