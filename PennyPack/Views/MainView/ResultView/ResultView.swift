@@ -3,7 +3,8 @@ import SwiftUI
 
 struct ResultView: View {
     @EnvironmentObject var pathRouter: PathRouter
-    @State var showSheet: Bool = true
+    @StateObject var resultViewModel: ResultViewModel
+    
     var body: some View {
             ZStack{
                 Color.pBlack
@@ -24,7 +25,7 @@ struct ResultView: View {
                         .foregroundColor(.pWhite)
                 }
             }
-            .sheet(isPresented: $showSheet) {
+            .sheet(isPresented: $resultViewModel.showSheet) {
                 ResultModalView(resultModalViewModel: ResultModalViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
                     .presentationDetents([.height(125.0), .height(700)])
             }
@@ -52,6 +53,6 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView()
+    ResultView(resultViewModel: ResultViewModel())
         .environmentObject(PathViewModel())
 }

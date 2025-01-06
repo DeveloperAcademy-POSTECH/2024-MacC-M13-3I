@@ -150,7 +150,7 @@ struct MainView: View {
                 switch route {
                 case .result:
                     VStack {
-                        ResultView()
+                        ResultView(resultViewModel: ResultViewModel())
                         Button {
                             pathRouter.removeAll()
                         } label: {
