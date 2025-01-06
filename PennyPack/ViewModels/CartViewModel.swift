@@ -3,7 +3,7 @@ import SwiftUI
 
 class CartViewModel: ObservableObject{
     @Published var shoppingManager: ShoppingManager
-    let listManager: ListManager
+    @Published var listManager: ListManager
     
     @Published var recognizedText = ""
     @Published var isAlert: Bool = false
