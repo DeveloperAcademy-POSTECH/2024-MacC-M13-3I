@@ -50,6 +50,7 @@
 		71FD59222D2BD39C0078F5D6 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD59212D2BD39C0078F5D6 /* Date+Ext.swift */; };
 		71FD59242D2C14940078F5D6 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD59232D2C14940078F5D6 /* CellView.swift */; };
 		71FD59262D2C1BB20078F5D6 /* ScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD59252D2C1BB20078F5D6 /* ScanViewModel.swift */; };
+		71FD59282D2C20960078F5D6 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD59272D2C20960078F5D6 /* MainViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +100,7 @@
 		71FD59212D2BD39C0078F5D6 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		71FD59232D2C14940078F5D6 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		71FD59252D2C1BB20078F5D6 /* ScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewModel.swift; sourceTree = "<group>"; };
+		71FD59272D2C20960078F5D6 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				713C7ED92D2397AB009DBF09 /* ResultModalViewModel.swift */,
 				71FD59192D2BC9230078F5D6 /* ResultViewModel.swift */,
 				71FD59252D2C1BB20078F5D6 /* ScanViewModel.swift */,
+				71FD59272D2C20960078F5D6 /* MainViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				713C7EDA2D2397AB009DBF09 /* ResultModalViewModel.swift in Sources */,
 				71FD591E2D2BCD2E0078F5D6 /* CalendarViewModel.swift in Sources */,
 				71FD591C2D2BCA7A0078F5D6 /* ReceiptViewModel.swift in Sources */,
+				71FD59282D2C20960078F5D6 /* MainViewModel.swift in Sources */,
 				714E726C2CDD085200982A20 /* DropdownListView.swift in Sources */,
 				714E72662CDBAC2600982A20 /* LanguageSelectedView.swift in Sources */,
 				713C7EF02D27C2A4009DBF09 /* CartViewModel.swift in Sources */,

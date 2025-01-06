@@ -23,11 +23,8 @@ public final class PathViewModel: ObservableObject {
 
 struct MainView: View {
     @StateObject var pathRouter = PathRouter()
-    @ObservedObject var shoppingViewModel: ShoppingManager
-    @ObservedObject var listViewModel: ListManager
-    
-    @State private var listText = ""
-    
+    @StateObject var mainViewModel: MainViewModel
+
     var body: some View {
         NavigationStack(path: $pathRouter.path) {
             ZStack{
@@ -41,7 +38,7 @@ struct MainView: View {
                             .foregroundColor(.pWhite)
                         Spacer()
                         NavigationLink(
-                            destination: CalendarView(calendarViewModle: CalendarViewModel(shoppingManager: shoppingViewModel, listManager: listViewModel)),
+                            destination: CalendarView(calendarViewModle: CalendarViewModel(shoppingManager: mainViewModel.shoppingManager, listManager: mainViewModel.listManager)),
                             label: {
                                 Image(systemName: "calendar")
                                     .font(.system(size: 24))
@@ -81,7 +78,7 @@ struct MainView: View {
                         VStack(spacing: 0){
                             HStack{
                                 Button{
-                                    listViewModel.addListShowcase(title: "")
+                                    mainViewModel.listManager.addListShowcase(title: "")
                                 } label: {
                                     Text("오늘의 장보기 리스트")
                                         .font(.PTitle2)
@@ -106,8 +103,8 @@ struct MainView: View {
                                     .clipShape(RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight]))
                                 
                                 VStack(spacing: 0){
-                                    ListView(shoppingViewModel: shoppingViewModel
-                                             , listViewModel: listViewModel)
+                                    ListView(shoppingViewModel: mainViewModel.shoppingManager
+                                             , listViewModel: mainViewModel.listManager)
                                     
                                 }.padding(.vertical)
                             }
@@ -142,8 +139,8 @@ struct MainView: View {
                 
             }
             .onAppear{
-                shoppingViewModel.loadShoppingListFromUserDefaults()
-                listViewModel.loadShoppingListFromUserDefaults()
+                mainViewModel.shoppingManager.loadShoppingListFromUserDefaults()
+                mainViewModel.listManager.loadShoppingListFromUserDefaults()
             }
             .environmentObject(pathRouter)
             .navigationDestination(for: NavigationRoute.self) { route in
@@ -158,7 +155,7 @@ struct MainView: View {
                         }
                     }
                 case .cart:
-                    CartView(cartViewModel: CartViewModel(shoppingManager: shoppingViewModel, listManager: listViewModel))
+                    CartView(cartViewModel: CartViewModel(shoppingManager: mainViewModel.shoppingManager, listManager: mainViewModel.listManager))
                 }
             }
         }.navigationBarBackButtonHidden()
@@ -170,6 +167,6 @@ struct MainView: View {
 
 
 #Preview {
-    MainView(shoppingViewModel: ShoppingManager(), listViewModel: ListManager())
+    MainView(mainViewModel: MainViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
 }
 
