@@ -158,14 +158,7 @@ struct MainView: View {
                         }
                     }
                 case .cart:
-//                    CartView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel)
-                    let shoppingManager = ShoppingManager() // ShoppingManager 생성
-                           let listManager = ListManager() // ListViewModel 생성
-                           let cartViewModel = CartViewModel(shoppingManager: shoppingManager, listManager: listManager) // CartViewModel 초기화
-
-                           CartView(
-                               cartViewModel: cartViewModel
-                           )
+                    CartView(cartViewModel: CartViewModel(shoppingManager: shoppingViewModel, listManager: listViewModel))
                 }
             }
         }.navigationBarBackButtonHidden()

@@ -25,11 +25,7 @@ struct ResultView: View {
                 }
             }
             .sheet(isPresented: $showSheet) {
-                ResultModalView(
-                    viewModel:ResultModalViewModel(shoppingViewModel: ShoppingManager()),
-                    shoppingViewModel: ShoppingManager(),
-                    listViewModel: ListManager(),
-                    isButton: .constant(false))
+                ResultModalView(resultModalViewModel: ResultModalViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
                     .presentationDetents([.height(125.0), .height(700)])
             }
             .toolbar {

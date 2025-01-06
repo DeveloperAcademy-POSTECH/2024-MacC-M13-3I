@@ -1,17 +1,16 @@
-//
-//  ResultModalViewModel.swift
-//  PennyPack
-//
-//  Created by siye on 12/31/24.
-//
-
 import Foundation
+import SwiftUI
 
-final class ResultModalViewModel: ObservableObject{
-    private let shoppingViewModel: ShoppingManager
-
-     init(shoppingViewModel: ShoppingManager) {
-         self.shoppingViewModel = shoppingViewModel
-     }
-
+class ResultModalViewModel: ObservableObject{
+    @Published var shoppingManager: ShoppingManager
+    @Published var listManager: ListManager
+    
+    @Published var isMainViewActive = false
+    @Published var isButton: Bool = false
+    
+    init(shoppingManager: ShoppingManager, listManager: ListManager) {
+        self.shoppingManager = shoppingManager
+        self.listManager = listManager
+    }
+      
 }
