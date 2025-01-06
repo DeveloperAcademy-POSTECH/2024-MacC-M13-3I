@@ -32,4 +32,22 @@ extension DateFormatter {
             day: components.day
         ))
     }
+    
+    static let calendarHeaderDateFormatterYear: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY"
+        return formatter
+    }()
+    
+    static let calendarHeaderDateFormatterMonth: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM월"
+        return formatter
+    }()
+    
+    static let calendarDayDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy dd"
+        return formatter
+    }()
 }

@@ -110,11 +110,6 @@ struct CartView: View {
                             .padding(.top, 24)
                             .padding(.bottom,4)
                         VStack(spacing: 0){
-                            Button{
-                                print("****CartItem: ", cartViewModel.shoppingManager.cartItem)
-                            } label: {
-                                Text("CartItem: ")
-                            }
                             if cartViewModel.shoppingManager.cartItem.isEmpty {
                                 ZStack(alignment: .top){
                                     Color.pWhite
@@ -247,12 +242,12 @@ struct CartView: View {
             }
         }
         .background(
-            NavigationLink(destination: ResultView(), isActive: $cartViewModel.isFinish) {
+            NavigationLink(destination: ResultView(resultViewModel: ResultViewModel()), isActive: $cartViewModel.isFinish) {
                 EmptyView()
             }
         )
         .background(
-            NavigationLink(destination: ScanView(shoppingViewModel: cartViewModel.shoppingManager), isActive: $cartViewModel.isScan) {
+            NavigationLink(destination: ScanView(scanViewModel: ScanViewModel(shoppingManager: cartViewModel.shoppingManager, cameraViewModel: CameraViewModel(),translation: TranslationSerivce())), isActive: $cartViewModel.isScan) {
                 EmptyView()
             }
         ).navigationBarBackButtonHidden()
