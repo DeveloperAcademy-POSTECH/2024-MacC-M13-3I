@@ -161,6 +161,3 @@ struct ScannerRetakeView: View {
         }
     }
 }
-
-
-

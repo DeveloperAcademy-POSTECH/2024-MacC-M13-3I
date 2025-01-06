@@ -8,9 +8,9 @@
 import Foundation
 
 final class ResultModalViewModel: ObservableObject{
-    private let shoppingViewModel: ShoppingViewModel
+    private let shoppingViewModel: ShoppingManager
 
-     init(shoppingViewModel: ShoppingViewModel) {
+     init(shoppingViewModel: ShoppingManager) {
          self.shoppingViewModel = shoppingViewModel
      }
 

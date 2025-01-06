@@ -2,8 +2,8 @@ import SwiftUI
 
 struct CustomAlertView: View {
     @EnvironmentObject var pathRouter: PathRouter
-    @ObservedObject var shoppingViewModel: ShoppingViewModel
-    @ObservedObject var listViewModel: ListViewModel
+    @ObservedObject var shoppingViewModel: ShoppingManager
+    @ObservedObject var listViewModel: ListManager
     @Binding var isAlertPresented: Bool
     @Binding var isFinishPresented: Bool
     @Binding var totalPriceWon: Int
@@ -94,5 +94,5 @@ struct CustomAlertView: View {
 }
 
 #Preview {
-    CustomAlertView(shoppingViewModel: ShoppingViewModel(), listViewModel: ListViewModel(), isAlertPresented: .constant(false), isFinishPresented: .constant(false), totalPriceWon: .constant(0), totalPriceEuro: .constant(0.0))
+    CustomAlertView(shoppingViewModel: ShoppingManager(), listViewModel: ListManager(), isAlertPresented: .constant(false), isFinishPresented: .constant(false), totalPriceWon: .constant(0), totalPriceEuro: .constant(0.0))
 }

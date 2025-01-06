@@ -26,9 +26,9 @@ struct ResultView: View {
             }
             .sheet(isPresented: $showSheet) {
                 ResultModalView(
-                    viewModel:ResultModalViewModel(shoppingViewModel: ShoppingViewModel()),
-                    shoppingViewModel: ShoppingViewModel(),
-                    listViewModel: ListViewModel(),
+                    viewModel:ResultModalViewModel(shoppingViewModel: ShoppingManager()),
+                    shoppingViewModel: ShoppingManager(),
+                    listViewModel: ListManager(),
                     isButton: .constant(false))
                     .presentationDetents([.height(125.0), .height(700)])
             }

@@ -2,6 +2,9 @@ import Foundation
 import SwiftUI
 
 class CartViewModel: ObservableObject{
+    @Published var shoppingManager: ShoppingManager
+    let listManager: ListManager
+    
     @Published var recognizedText = ""
     @Published var isAlert: Bool = false
     @Published var isFinish: Bool = false
@@ -11,13 +14,12 @@ class CartViewModel: ObservableObject{
     @Published var totalPriceWon: Int = 0
     @Published var totalPriceEuro: Double = 0.0
     @Published var editingItemID: UUID? = nil
-    @FocusState var focusedField: Field?
+  
     
-    enum Field: Hashable {
-        case korName, quantity, frcUnitPrice, frcName
+    init(shoppingManager: ShoppingManager, listManager: ListManager) {
+        self.shoppingManager = shoppingManager
+        self.listManager = listManager
     }
-    
-    // .focused($cartViewModel.focusedField, equals: .korName)
     
     func korTotalPricing(from items: [CartItem]) -> Int {
         var total = 0
@@ -35,4 +37,9 @@ class CartViewModel: ObservableObject{
         return total
     }
     
+    
+    func pricing() {
+        totalPriceWon = korTotalPricing(from: shoppingManager.cartItem)
+        totalPriceEuro = frcTotalPricing(from: shoppingManager.cartItem)
+    }
 }

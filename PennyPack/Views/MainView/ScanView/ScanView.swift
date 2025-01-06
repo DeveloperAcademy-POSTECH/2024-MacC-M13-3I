@@ -3,7 +3,7 @@ import SwiftUI
 struct ScanView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var cameraViewModel = CameraViewModel()
-    @ObservedObject var shoppingViewModel: ShoppingViewModel
+    @ObservedObject var shoppingViewModel: ShoppingManager
     @State private var recognizedText = ""
     @StateObject var translation = TranslationSerivce()
     @State private var translatedText1: String = ""
@@ -99,5 +99,5 @@ struct KeyboardAvoidanceModifier: ViewModifier {
 }
 
 #Preview {
-    ScanView(shoppingViewModel: ShoppingViewModel())
+    ScanView(shoppingViewModel: ShoppingManager())
 }

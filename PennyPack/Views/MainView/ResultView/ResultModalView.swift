@@ -3,8 +3,8 @@ import SwiftUI
 
 struct ResultModalView: View {
     @StateObject var viewModel: ResultModalViewModel
-    @ObservedObject var shoppingViewModel: ShoppingViewModel
-    @ObservedObject var listViewModel: ListViewModel
+    @ObservedObject var shoppingViewModel: ShoppingManager
+    @ObservedObject var listViewModel: ListManager
     @State private var isMainViewActive = false
     @Binding var isButton: Bool
     
@@ -127,5 +127,5 @@ struct ResultModalView: View {
 }
 
 #Preview {
-    ResultModalView(viewModel: ResultModalViewModel(shoppingViewModel: ShoppingViewModel()), shoppingViewModel: ShoppingViewModel(),listViewModel: ListViewModel(), isButton: .constant(false))
+    ResultModalView(viewModel: ResultModalViewModel(shoppingViewModel: ShoppingManager()), shoppingViewModel: ShoppingManager(),listViewModel: ListManager(), isButton: .constant(false))
 }

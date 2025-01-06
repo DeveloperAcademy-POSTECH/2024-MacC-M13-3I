@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct DropdownListView: View {
-    @ObservedObject var listViewModel: ListViewModel
+    @ObservedObject var listViewModel: ListManager
     @State var isButton: Bool = false
     
     var body: some View {
@@ -65,5 +65,5 @@ struct DropdownListView: View {
 }
 
 #Preview {
-    DropdownListView(listViewModel: ListViewModel())
+    DropdownListView(listViewModel: ListManager())
 }
