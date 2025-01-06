@@ -2,12 +2,9 @@ import SwiftUI
 
 struct CalendarView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var shoppingViewModel: ShoppingManager
-    @ObservedObject var listViewModel: ListManager
+    @StateObject var calendarViewModle: CalendarViewModel
+    
     @State private var month: Date = Date()
-    @State private var clickedCurrentMonthDates: Date?
-    @State var showSheet: Bool = false
-    @State var isShopping: Bool = false
     
     var body: some View {
         NavigationStack{
@@ -33,7 +30,7 @@ struct CalendarView: View {
                     )
                     .padding(.bottom, 68)
                     
-                    if !isShopping {
+                    if !calendarViewModle.isShopping {
                         Text("저장된 영수증이 없어요")
                             .font(.PTitle3)
                             .foregroundColor(.pDarkGray)
@@ -62,37 +59,37 @@ struct CalendarView: View {
                         .foregroundColor(.pWhite)
                 }
             }
-            .sheet(isPresented: $showSheet) {
-                ReceiptView(receiptViewModel: ReceiptViewModel(shoppingManager: shoppingViewModel, listManager: listViewModel))
+            .sheet(isPresented: $calendarViewModle.showSheet) {
+                ReceiptView(receiptViewModel: ReceiptViewModel(shoppingManager: calendarViewModle.shoppingManager, listManager: calendarViewModle.listManager))
                     .presentationDetents([.height(130), .height(540)])
             }
             .onAppear {
-                let dateToCheck = clickedCurrentMonthDates ?? Date()
+                let dateToCheck = calendarViewModle.clickedCurrentMonthDates ?? Date()
                 let formattedDate = DateFormatter.formatDateToDate(from: dateToCheck)
                 
-//                for item in shoppingViewModel.receiptDate {
+//                for item in calendarViewModle.shoppingManager.receiptDate {
 //                    let itemDate = DateFormatter.formatDateToDate(from: item.date)
 //                    
 //                    if itemDate == formattedDate {
-//                        isShopping = true
-//                        shoppingViewModel.selectedReceiptDate = item
-//                        showSheet.toggle()
+//                        calendarViewModle.isShopping = true
+//                        calendarViewModle.shoppingManager.selectedReceiptDate = item
+//                        calendarViewModle.showSheet.toggle()
 //                        break
 //                    }
 //                    else { 
-//                        isShopping = false
+//                        calendarViewModle.isShopping = false
 //                    }
 //                }
                 
-                if let latestItem = shoppingViewModel.receiptDate
+                if let latestItem = calendarViewModle.shoppingManager.receiptDate
                                 .filter({ DateFormatter.formatDateToDate(from: $0.date) == formattedDate })
                                 .max(by: { $0.date < $1.date }) {
                                 
-                                isShopping = true
-                                shoppingViewModel.selectedReceiptDate = latestItem
-                                showSheet.toggle()
+                    calendarViewModle.isShopping = true
+                    calendarViewModle.shoppingManager.selectedReceiptDate = latestItem
+                        calendarViewModle.showSheet.toggle()
                             } else {
-                                isShopping = false
+                                calendarViewModle.isShopping = false
                             }
             }
         }.navigationBarBackButtonHidden()
@@ -104,12 +101,12 @@ struct CalendarView: View {
         HStack(alignment: .center, spacing: 20) {
             Button(
                 action: {
-                    changeMonth(by: -1)
+                    calendarViewModle.changeMonth(by: -1)
                 },
                 label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(canMoveToPreviousMonth() ? .pWhite : . pGray)
+                        .foregroundColor(calendarViewModle.canMoveToPreviousMonth() ? .pWhite : . pGray)
                         .padding(8)
                         .padding(.horizontal, 2)
                         .background(Color("PDarkGray"))
@@ -117,14 +114,14 @@ struct CalendarView: View {
                     
                 }
             )
-            .disabled(!canMoveToPreviousMonth())
+            .disabled(!calendarViewModle.canMoveToPreviousMonth())
             Spacer()
             
             VStack(alignment: .center){
-                Text(month, formatter: Self.calendarHeaderDateFormatterMonth)
+                Text(calendarViewModle.month, formatter: DateFormatter.calendarHeaderDateFormatterMonth)
                     .font(.PTitle1)
                     .foregroundColor(.pWhite)
-                Text(month, formatter: Self.calendarHeaderDateFormatterYear)
+                Text(calendarViewModle.month, formatter: DateFormatter.calendarHeaderDateFormatterYear)
                     .font(.PTitle3)
                     .foregroundColor(.pWhite)
             }
@@ -132,19 +129,19 @@ struct CalendarView: View {
             Spacer()
             Button(
                 action: {
-                    changeMonth(by: 1)
+                    calendarViewModle.changeMonth(by: 1)
                 },
                 label: {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(canMoveToNextMonth() ? .pWhite : . pGray)
+                        .foregroundColor(calendarViewModle.canMoveToNextMonth() ? .pWhite : . pGray)
                         .padding(8)
                         .padding(.horizontal, 2)
                         .background(Color("PDarkGray"))
                         .cornerRadius(24)
                 }
             )
-            .disabled(!canMoveToNextMonth())
+            .disabled(!calendarViewModle.canMoveToNextMonth())
         }
     }
     
@@ -165,9 +162,9 @@ struct CalendarView: View {
     
     // MARK: - 날짜 그리드 뷰
     private var calendarGridView: some View {
-        let daysInMonth: Int = numberOfDays(in: month)
-        let firstWeekday: Int = firstWeekdayOfMonth(in: month) - 1
-        let lastDayOfMonthBefore = numberOfDays(in: previousMonth())
+        let daysInMonth: Int = calendarViewModle.numberOfDays(in: calendarViewModle.month)
+        let firstWeekday: Int = calendarViewModle.firstWeekdayOfMonth(in: calendarViewModle.month) - 1
+        let lastDayOfMonthBefore = calendarViewModle.numberOfDays(in: calendarViewModle.previousMonth())
         let numberOfRows = Int(ceil(Double(daysInMonth + firstWeekday) / 7.0))
         let visibleDaysOfNextMonth = numberOfRows * 7 - (daysInMonth + firstWeekday)
         
@@ -175,21 +172,19 @@ struct CalendarView: View {
             ForEach(-firstWeekday ..< daysInMonth + visibleDaysOfNextMonth, id: \.self) { index in
                 Group {
                     if index > -1 && index < daysInMonth {
-                        let date = getDate(for: index)
+                        let date = calendarViewModle.getDate(for: index)
                         let day = Calendar.current.component(.day, from: date)
-                        let clicked = clickedCurrentMonthDates == date
-                        let isToday = date.formattedCalendarDayDate == today.formattedCalendarDayDate
-                        let isDateInShoppingList = shoppingViewModel.receiptDate.contains { receiptDate in
-                                                Calendar.current.isDate(receiptDate.date, inSameDayAs: date)
-                                            }
-                        
-                        
+                        let clicked = calendarViewModle.clickedCurrentMonthDates == date
+                        let isToday = date.formattedCalendarDayDate == Date.today.formattedCalendarDayDate
+                        let isDateInShoppingList = calendarViewModle.shoppingManager.receiptDate.contains { receiptDate in
+                            Calendar.current.isDate(receiptDate.date, inSameDayAs: date)
+                        }
                         
                         CellView(day: day, clicked: clicked, isToday: isToday, isDateInShoppingList: isDateInShoppingList)
                     } else if let prevMonthDate = Calendar.current.date(
                         byAdding: .day,
                         value: index + lastDayOfMonthBefore,
-                        to: previousMonth()
+                        to: calendarViewModle.previousMonth()
                     ) {
                         let day = Calendar.current.component(.day, from: prevMonthDate)
                         
@@ -198,23 +193,23 @@ struct CalendarView: View {
                 }
                 .onTapGesture {
                     if 0 <= index && index < daysInMonth {
-                        let date = getDate(for: index)
-                        clickedCurrentMonthDates = date
+                        let date = calendarViewModle.getDate(for: index)
+                            calendarViewModle.clickedCurrentMonthDates = date
                         
-                        clickedCurrentMonthDates.map { date in
+                            calendarViewModle.clickedCurrentMonthDates.map { date in
                             let formattedDate = DateFormatter.formatDateToDate(from: date)
-                            for item in shoppingViewModel.receiptDate {
+                            for item in calendarViewModle.shoppingManager.receiptDate {
                                 let date = DateFormatter.formatDateToDate(from: item.date)
                                 
                                 if date == formattedDate {
-                                    isShopping = true
-                                    shoppingViewModel.selectedReceiptDate = item
-                                    showSheet.toggle()
+                                    calendarViewModle.isShopping = true
+                                    calendarViewModle.shoppingManager.selectedReceiptDate = item
+                                        calendarViewModle.showSheet.toggle()
                                     break
                                 }
                                 
                                 else {
-                                    isShopping = false
+                                    calendarViewModle.isShopping = false
                                 }
                             }
                         }
@@ -305,23 +300,7 @@ private struct CellView: View {
 
 // MARK: - CalendarView Static 프로퍼티
 private extension CalendarView {
-  var today: Date {
-    let now = Date()
-    let components = Calendar.current.dateComponents([.year, .month, .day], from: now)
-    return Calendar.current.date(from: components)!
-  }
-  
-  static let calendarHeaderDateFormatterYear: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "YYYY"
-    return formatter
-  }()
     
-    static let calendarHeaderDateFormatterMonth: DateFormatter = {
-      let formatter = DateFormatter()
-      formatter.dateFormat = "MM월"
-      return formatter
-    }()
     
     static let weekdaySymbols: [String] = {
             var calendar = Calendar.current
@@ -330,107 +309,6 @@ private extension CalendarView {
         }()
 }
 
-// MARK: - 내부 로직 메서드
-private extension CalendarView {
-  func getDate(for index: Int) -> Date {
-    let calendar = Calendar.current
-    guard let firstDayOfMonth = calendar.date(
-      from: DateComponents(
-        year: calendar.component(.year, from: month),
-        month: calendar.component(.month, from: month),
-        day: 1
-      )
-    ) else {
-      return Date()
-    }
-    
-    var dateComponents = DateComponents()
-    dateComponents.day = index
-    
-    let timeZone = TimeZone.current
-    let offset = Double(timeZone.secondsFromGMT(for: firstDayOfMonth))
-    dateComponents.second = Int(offset)
-    
-    let date = calendar.date(byAdding: dateComponents, to: firstDayOfMonth) ?? Date()
-    return date
-  }
-  
-  // MARK: 해당 월에 존재하는 일자 수
-  func numberOfDays(in date: Date) -> Int {
-    return Calendar.current.range(of: .day, in: .month, for: date)?.count ?? 0
-  }
-  
-  // MARK: 해당 월의 첫 날짜가 갖는 해당 주의 몇번째 요일
-  func firstWeekdayOfMonth(in date: Date) -> Int {
-    let components = Calendar.current.dateComponents([.year, .month], from: date)
-    let firstDayOfMonth = Calendar.current.date(from: components)!
-    
-    return Calendar.current.component(.weekday, from: firstDayOfMonth)
-  }
-  
-  // MARK: 이전 월 마지막 일자
-  func previousMonth() -> Date {
-    let components = Calendar.current.dateComponents([.year, .month], from: month)
-    let firstDayOfMonth = Calendar.current.date(from: components)!
-    let previousMonth = Calendar.current.date(byAdding: .month, value: -1, to: firstDayOfMonth)!
-    
-    return previousMonth
-  }
-  
-  // MARK: 월 변경
-  func changeMonth(by value: Int) {
-    self.month = adjustedMonth(by: value)
-  }
-  
-  // MARK: 이전 월로 이동 가능한지 확인
-  func canMoveToPreviousMonth() -> Bool {
-    let currentDate = Date()
-    let calendar = Calendar.current
-    let targetDate = calendar.date(byAdding: .month, value: -3, to: currentDate) ?? currentDate
-    
-    if adjustedMonth(by: -1) < targetDate {
-      return false
-    }
-    return true
-  }
-  
-  // MARK: 다음 월로 이동 가능한지 확인
-  func canMoveToNextMonth() -> Bool {
-    let currentDate = Date()
-    let calendar = Calendar.current
-    let targetDate = calendar.date(byAdding: .month, value: 3, to: currentDate) ?? currentDate
-    
-    if adjustedMonth(by: 1) > targetDate {
-      return false
-    }
-    return true
-  }
-  
-  // MARK: 변경하려는 월 반환
-  func adjustedMonth(by value: Int) -> Date {
-    if let newMonth = Calendar.current.date(byAdding: .month, value: value, to: month) {
-      return newMonth
-    }
-    return month
-  }
-}
-
-// MARK: - Date 익스텐션
-extension Date {
-  static let calendarDayDateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "MMMM yyyy dd"
-    return formatter
-  }()
-  
-  var formattedCalendarDayDate: String {
-    return Date.calendarDayDateFormatter.string(from: self)
-  }
-}
-
-// MARK: - 프리뷰
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    CalendarView(shoppingViewModel: ShoppingManager(),listViewModel: ListManager())
-  }
+#Preview {
+    CalendarView(calendarViewModle: CalendarViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
 }
