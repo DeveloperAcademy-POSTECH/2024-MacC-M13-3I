@@ -44,6 +44,7 @@
 		71C23EB82CD8514E006F7A1E /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EB72CD8514E006F7A1E /* CurrencyService.swift */; };
 		71C23EBC2CD85C5D006F7A1E /* TranslationSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C23EBB2CD85C5D006F7A1E /* TranslationSerivce.swift */; };
 		71FD591A2D2BC9230078F5D6 /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD59192D2BC9230078F5D6 /* ResultViewModel.swift */; };
+		71FD591C2D2BCA7A0078F5D6 /* ReceiptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD591B2D2BCA7A0078F5D6 /* ReceiptViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		71C23EBE2CD867AC006F7A1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		71C23EC52CD90D41006F7A1E /* APIKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = APIKey.xcconfig; sourceTree = "<group>"; };
 		71FD59192D2BC9230078F5D6 /* ResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewModel.swift; sourceTree = "<group>"; };
+		71FD591B2D2BCA7A0078F5D6 /* ReceiptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				713C7ED92D2397AB009DBF09 /* ResultModalViewModel.swift */,
 				713C7EEF2D27C2A4009DBF09 /* CartViewModel.swift */,
 				71FD59192D2BC9230078F5D6 /* ResultViewModel.swift */,
+				71FD591B2D2BCA7A0078F5D6 /* ReceiptViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				717EFE782CEAC4EF00FA59C9 /* CustomAlertView.swift in Sources */,
 				3091586A2CE10B4900C62DA8 /* CameraViewModel.swift in Sources */,
 				713C7EDA2D2397AB009DBF09 /* ResultModalViewModel.swift in Sources */,
+				71FD591C2D2BCA7A0078F5D6 /* ReceiptViewModel.swift in Sources */,
 				714E726C2CDD085200982A20 /* DropdownListView.swift in Sources */,
 				714E72662CDBAC2600982A20 /* LanguageSelectedView.swift in Sources */,
 				713C7EF02D27C2A4009DBF09 /* CartViewModel.swift in Sources */,

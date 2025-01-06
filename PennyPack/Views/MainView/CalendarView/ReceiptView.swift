@@ -1,11 +1,7 @@
 import SwiftUI
 
-
 struct ReceiptView: View {
-    @ObservedObject var shoppingViewModel: ShoppingManager
-    @ObservedObject var listViewModel: ListManager
-    @State private var isMainViewActive = false
-    @Binding var isButton: Bool
+    @StateObject var receiptViewModel: ReceiptViewModel
     
     var body: some View {
         NavigationStack{
@@ -16,7 +12,7 @@ struct ReceiptView: View {
                     VStack (alignment: .leading, spacing: 0) {
                         VStack(alignment: .leading, spacing: 0){
                             HStack {
-                                Text(DateFormatter.formatDate(from: shoppingViewModel.selectedReceiptDate?.date ?? Date()))
+                                Text(DateFormatter.formatDate(from: receiptViewModel.shoppingManager.selectedReceiptDate?.date ?? Date()))
                                     .font(.PTitle2)
                                     .foregroundColor(.pWhite)
                                 Spacer()
@@ -33,11 +29,11 @@ struct ReceiptView: View {
                         .padding(.horizontal, 24)
                         .background(.pBlack)
                         HStack{
-                            Text("\(String(format: "%.2f", (shoppingViewModel.selectedReceiptDate?.frcTotal ?? 0))) €")
+                            Text("\(String(format: "%.2f", (receiptViewModel.shoppingManager.selectedReceiptDate?.frcTotal ?? 0))) €")
                                 .font(.PTitle1)
                                 .foregroundColor(.pBlack)
                             Spacer()
-                            Text("\(shoppingViewModel.selectedReceiptDate?.korTotal ?? 0) 원")
+                            Text("\(receiptViewModel.shoppingManager.selectedReceiptDate?.korTotal ?? 0) 원")
                                 .font(.PTitle1)
                                 .foregroundColor(.pDarkGray)
                         }
@@ -71,7 +67,7 @@ struct ReceiptView: View {
                                 .font(.PCallout)
                                 .foregroundColor(.pBlack)
                                 .padding(.bottom, 12)
-                                if let items = shoppingViewModel.selectedReceiptDate?.items  {
+                                if let items = receiptViewModel.shoppingManager.selectedReceiptDate?.items  {
                                     VStack(spacing: 8){
                                         ForEach(items) { item in
                                             HStack(spacing: 0){
@@ -104,7 +100,7 @@ struct ReceiptView: View {
                                     .frame(height: 140)
                                     .foregroundColor(.pLightGray)
                                     .cornerRadius(12)
-                                DropdownListView(listViewModel: listViewModel)
+                                DropdownListView(listViewModel: receiptViewModel.listManager)
                                     .frame(width: 330,height: 120)
                             }
                         }
@@ -119,5 +115,5 @@ struct ReceiptView: View {
 }
 
 #Preview {
-    ReceiptView(shoppingViewModel: ShoppingManager(),listViewModel: ListManager(), isButton: .constant(false))
+    ReceiptView(receiptViewModel: ReceiptViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
 }

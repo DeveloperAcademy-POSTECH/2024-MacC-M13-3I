@@ -63,7 +63,7 @@ struct CalendarView: View {
                 }
             }
             .sheet(isPresented: $showSheet) {
-                ReceiptView(shoppingViewModel: shoppingViewModel, listViewModel: listViewModel, isButton: .constant(false))
+                ReceiptView(receiptViewModel: ReceiptViewModel(shoppingManager: shoppingViewModel, listManager: listViewModel))
                     .presentationDetents([.height(130), .height(540)])
             }
             .onAppear {
