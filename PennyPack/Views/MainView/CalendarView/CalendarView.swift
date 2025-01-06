@@ -4,8 +4,6 @@ struct CalendarView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var calendarViewModle: CalendarViewModel
     
-    @State private var month: Date = Date()
-    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -84,13 +82,12 @@ struct CalendarView: View {
                 if let latestItem = calendarViewModle.shoppingManager.receiptDate
                                 .filter({ DateFormatter.formatDateToDate(from: $0.date) == formattedDate })
                                 .max(by: { $0.date < $1.date }) {
-                                
                     calendarViewModle.isShopping = true
                     calendarViewModle.shoppingManager.selectedReceiptDate = latestItem
                         calendarViewModle.showSheet.toggle()
-                            } else {
-                                calendarViewModle.isShopping = false
-                            }
+                } else {
+                    calendarViewModle.isShopping = false
+                }
             }
         }.navigationBarBackButtonHidden()
     }
@@ -149,8 +146,8 @@ struct CalendarView: View {
     // MARK: - 요일 표시
     private var weekdayView: some View {
         HStack {
-            ForEach(Self.weekdaySymbols.indices, id: \.self) { symbol in
-                Text(Self.weekdaySymbols[symbol].uppercased())
+            ForEach(Date.weekdaySymbolsInKorean.indices, id: \.self) { symbol in
+                Text(Date.weekdaySymbolsInKorean[symbol].uppercased())
                     .font(.PTitle3)
                     .foregroundColor(.pBlack)
                     .frame(maxWidth: .infinity)
@@ -220,94 +217,6 @@ struct CalendarView: View {
     }
 }
 
-// MARK: - 일자 셀 뷰
-private struct CellView: View {
-    private var isDateInShoppingList: Bool
-  private var day: Int
-  private var clicked: Bool
-  private var isToday: Bool
-  private var isCurrentMonthDay: Bool
-    
-    fileprivate init(
-      day: Int,
-      clicked: Bool = false,
-      isToday: Bool = false,
-      isCurrentMonthDay: Bool = true,
-      isDateInShoppingList: Bool = false
-    ) {
-      self.day = day
-      self.clicked = clicked
-      self.isToday = isToday
-      self.isCurrentMonthDay = isCurrentMonthDay
-        self.isDateInShoppingList = isDateInShoppingList
-    }
-  
-  fileprivate var body: some View {
-    VStack {
-        if clicked {
-
-            Circle()
-                .fill(Color.pDarkGray)
-                .frame(width: 48, height:48)
-                .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(.pWhite)
-            
-            
-        } else if isDateInShoppingList {
-            ZStack{
-                Circle()
-                    .fill(Color.pBlue)
-                    .frame(width: 48, height:48)
-                    .overlay(Text(String(day)).font(.PBody))
-                    .foregroundColor(.pWhite)
-                if isToday{
-                        Circle()
-                            .fill(.clear)
-                            .stroke(Color.pDarkGray)
-                            .frame(width: 48, height:48)
-                            .overlay(Text(String(day)).font(.PBody))
-                            .foregroundColor(Color.pBlack)
-                }
-            }
-            
-        } else if isToday {
-            Circle()
-                .fill(.pWhite)
-                .stroke(Color.pDarkGray)
-                .frame(width: 48, height:48)
-                .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(Color.pBlack)
-            
-        } else if isCurrentMonthDay{
-            Circle()
-                .fill(Color.pWhite)
-                .frame(width: 48, height:48)
-                .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(Color.pBlack)
-        } else {
-            Circle()
-                .fill(Color.pWhite)
-                .frame(width: 48, height:48)
-                .overlay(Text(String(day)).font(.PBody))
-                .foregroundColor(Color.pWhite)
-        }
-      
-      Spacer()
-    }
-    .frame(height: 48)
-  }
-}
-
-// MARK: - CalendarView Static 프로퍼티
-private extension CalendarView {
-    
-    
-    static let weekdaySymbols: [String] = {
-            var calendar = Calendar.current
-            calendar.locale = Locale(identifier: "ko_KR")
-            return calendar.shortWeekdaySymbols
-        }()
-}
 
 #Preview {
     CalendarView(calendarViewModle: CalendarViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))

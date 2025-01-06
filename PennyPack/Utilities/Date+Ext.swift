@@ -10,4 +10,9 @@ extension Date {
         let components = Calendar.current.dateComponents([.year, .month, .day], from: now)
         return Calendar.current.date(from: components)!
     }
+    static var weekdaySymbolsInKorean: [String] {
+        var calendar = Calendar.current
+        calendar.locale = Locale(identifier: "ko_KR")
+        return calendar.shortWeekdaySymbols
+    }
 }
