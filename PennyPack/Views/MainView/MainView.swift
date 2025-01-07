@@ -1,26 +1,5 @@
 import SwiftUI
 
-enum NavigationRoute: Hashable {
-    case cart
-    case result
-}
-
-final class PathRouter: ObservableObject {
-    @Published var path = [NavigationRoute]()
-    
-    func push(_ route: NavigationRoute) {
-        path.append(route)
-    }
-    
-    func removeAll() {
-        path.removeAll()
-    }
-}
-
-public final class PathViewModel: ObservableObject {
-    @Published var path = NavigationPath()
-}
-
 struct MainView: View {
     @StateObject var pathRouter = PathRouter()
     @StateObject var mainViewModel: MainViewModel
@@ -162,9 +141,6 @@ struct MainView: View {
             .environmentObject(pathRouter)
     }
 }
-
-
-
 
 #Preview {
     MainView(mainViewModel: MainViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
