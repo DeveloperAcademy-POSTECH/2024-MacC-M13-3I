@@ -193,13 +193,7 @@ struct CartView: View {
                 }
                 
                 if cartViewModel.isAlert {
-                    CustomAlertView(
-                        shoppingViewModel: cartViewModel.shoppingManager,
-                        listViewModel: cartViewModel.listManager,
-                        isAlertPresented: $cartViewModel.isAlert,
-                        isFinishPresented: $cartViewModel.isFinish,
-                        totalPriceWon: $cartViewModel.totalPriceWon,
-                        totalPriceEuro: $cartViewModel.totalPriceEuro)
+                    CustomAlertView(cartViewModel: cartViewModel)
                 }
             }
             .onChange(of: cartViewModel.shoppingManager.cartItem) { _ in
