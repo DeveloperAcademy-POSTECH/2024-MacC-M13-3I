@@ -36,4 +36,40 @@ class ScanViewModel: ObservableObject{
         validItemText = ""
         validPriceText = ""
     }
+    
+    
+    func executeTranslation(completion: @escaping () -> Void) {
+        validItemsK.removeAll()
+        let dispatchGroup = DispatchGroup()
+        
+        for item in validItemsF {
+            dispatchGroup.enter()
+            translation.translateText(text: item) { result in
+                DispatchQueue.main.async {
+                    if !self.validItemsK.contains(result) {
+                        self.validItemsK.append(result)
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            print("번역 완료: \(self.validItemsK.joined(separator: ", "))")
+            completion()
+        }
+    }
+
+    func firstExecuteTranslation() {
+        validItemsK.removeAll()
+        for item in validItemsF {
+            translation.translateText(text: item) { result in
+                DispatchQueue.main.async {
+                    if !self.validItemsK.contains(result) {
+                        self.validItemsK.append(result)
+                    }
+                }
+            }
+        }
+    }
 }
