@@ -11,21 +11,8 @@ struct ScanView: View {
             VStack {
                 ScannerRetakeView(scanViewModel: scanViewModel)
                 .padding(.bottom, 20)
-                
-                RegexView(
-                    translation: scanViewModel.translation,
-                    shoppingViewModel: scanViewModel.shoppingManager,
-                    isEditing: $scanViewModel.isEditing,
-                    recognizedText: $scanViewModel.recognizedText,
-                    validItemsK: $scanViewModel.validItemsK,
-                    validItemsF: $scanViewModel.validItemsF,
-                    validPricesF: $scanViewModel.validPricesF,
-                    quantity: $scanViewModel.quantity,
-                    korUnitPrice: $scanViewModel.korUnitPrice,
-                    frcUnitPrice: $scanViewModel.frcUnitPrice,
-                    validItemText: $scanViewModel.validItemText,
-                    validPriceText: $scanViewModel.validPriceText
-                )
+                RegexView(scanViewModel: scanViewModel)
+            
                 .clipShape(RoundedCorner(radius: 12))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)

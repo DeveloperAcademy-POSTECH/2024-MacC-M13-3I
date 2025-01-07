@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		309158682CDBC59200C62DA8 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309158672CDBC59200C62DA8 /* Regex.swift */; };
+		309158682CDBC59200C62DA8 /* RegexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309158672CDBC59200C62DA8 /* RegexView.swift */; };
 		3091586A2CE10B4900C62DA8 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309158692CE10B4900C62DA8 /* CameraManager.swift */; };
 		3091586C2CE10C2700C62DA8 /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586B2CE10C2700C62DA8 /* CameraModel.swift */; };
 		3091586E2CE10C5200C62DA8 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586D2CE10C5200C62DA8 /* CameraPreview.swift */; };
 		309158702CE5A35B00C62DA8 /* ScannerRetakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091586F2CE5A35B00C62DA8 /* ScannerRetakeView.swift */; };
 		711B03D72D2CFB7C00379E8A /* Camera+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711B03D62D2CFB7C00379E8A /* Camera+Ext.swift */; };
+		711B03D92D2D06CB00379E8A /* RegexHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711B03D82D2D06CB00379E8A /* RegexHelper.swift */; };
+		711B03DB2D2D06F400379E8A /* QuantitySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711B03DA2D2D06F400379E8A /* QuantitySelectorView.swift */; };
 		7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126C3912CD477470039B60C /* PennyPackApp.swift */; };
 		7126C3962CD477480039B60C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3952CD477480039B60C /* Assets.xcassets */; };
 		7126C3992CD477480039B60C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7126C3982CD477480039B60C /* Preview Assets.xcassets */; };
@@ -54,12 +56,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		309158672CDBC59200C62DA8 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
+		309158672CDBC59200C62DA8 /* RegexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexView.swift; sourceTree = "<group>"; };
 		309158692CE10B4900C62DA8 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		3091586B2CE10C2700C62DA8 /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
 		3091586D2CE10C5200C62DA8 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
 		3091586F2CE5A35B00C62DA8 /* ScannerRetakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerRetakeView.swift; sourceTree = "<group>"; };
 		711B03D62D2CFB7C00379E8A /* Camera+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Camera+Ext.swift"; sourceTree = "<group>"; };
+		711B03D82D2D06CB00379E8A /* RegexHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelper.swift; sourceTree = "<group>"; };
+		711B03DA2D2D06F400379E8A /* QuantitySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantitySelectorView.swift; sourceTree = "<group>"; };
 		7126C38E2CD477470039B60C /* PennyPack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PennyPack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7126C3912CD477470039B60C /* PennyPackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PennyPackApp.swift; sourceTree = "<group>"; };
 		7126C3952CD477480039B60C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -117,8 +121,11 @@
 		711B03D42D2CF30A00379E8A /* ScanComponent */ = {
 			isa = PBXGroup;
 			children = (
-				3091586F2CE5A35B00C62DA8 /* ScannerRetakeView.swift */,
 				71B665812D2CE0C300033E7D /* Coordinator.swift */,
+				711B03DA2D2D06F400379E8A /* QuantitySelectorView.swift */,
+				711B03D82D2D06CB00379E8A /* RegexHelper.swift */,
+				309158672CDBC59200C62DA8 /* RegexView.swift */,
+				3091586F2CE5A35B00C62DA8 /* ScannerRetakeView.swift */,
 			);
 			path = ScanComponent;
 			sourceTree = "<group>";
@@ -256,7 +263,6 @@
 		713C7EE02D279748009DBF09 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				309158672CDBC59200C62DA8 /* Regex.swift */,
 				714E726B2CDD085200982A20 /* DropdownListView.swift */,
 			);
 			path = Components;
@@ -401,8 +407,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				711B03DB2D2D06F400379E8A /* QuantitySelectorView.swift in Sources */,
 				3091586E2CE10C5200C62DA8 /* CameraPreview.swift in Sources */,
 				71C23EB82CD8514E006F7A1E /* CurrencyService.swift in Sources */,
+				711B03D92D2D06CB00379E8A /* RegexHelper.swift in Sources */,
 				3091586C2CE10C2700C62DA8 /* CameraModel.swift in Sources */,
 				7126C3AE2CD47BDC0039B60C /* CartView.swift in Sources */,
 				7126C3A62CD47BA30039B60C /* MainView.swift in Sources */,
@@ -427,7 +435,7 @@
 				71FD591A2D2BC9230078F5D6 /* ResultViewModel.swift in Sources */,
 				7126C3B02CD47BE50039B60C /* ResultView.swift in Sources */,
 				71FD592A2D2CC3F00078F5D6 /* PathRouter.swift in Sources */,
-				309158682CDBC59200C62DA8 /* Regex.swift in Sources */,
+				309158682CDBC59200C62DA8 /* RegexView.swift in Sources */,
 				713C7EE72D27A61A009DBF09 /* DataModel.swift in Sources */,
 				7126C3922CD477470039B60C /* PennyPackApp.swift in Sources */,
 				7126C3AC2CD47BD40039B60C /* ScanView.swift in Sources */,
