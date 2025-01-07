@@ -76,5 +76,5 @@ struct KeyboardAvoidanceModifier: ViewModifier {
 }
 
 #Preview {
-    ScanView(scanViewModel: ScanViewModel(shoppingManager: ShoppingManager(), cameraViewModel: CameraViewModel(), translation: TranslationSerivce()))
+    ScanView(scanViewModel: ScanViewModel(shoppingManager: ShoppingManager(), cameraManager: CameraManager(), translation: TranslationSerivce()))
 }

@@ -4,10 +4,10 @@ import Combine
 
 //########################
 //이름 바꾸는게 나은지 아닌지.
-//CameraViewModel, CameraPreview, CameraModel 관리해야함.
+// CameraPreview, CameraModel 관리해야함.
 //Regex도 해야함.
 
-class CameraViewModel: ObservableObject {
+class CameraManager: ObservableObject {
     let model: CameraModel
     private let session: AVCaptureSession
     private var subscriptions = Set<AnyCancellable>()
@@ -73,7 +73,7 @@ class CameraViewModel: ObservableObject {
     /// 2. 햅틱 + CameraModel에 View에서 넘겨 받은 코드블럭(completion) 전달
     func capturePhoto(completion: @escaping (UIImage) -> Void) {
         model.capturePhoto(completion: completion)
-        print("[CameraViewModel]: Photo captured!")
+        print("[CameraManager]: Photo captured!")
         showPreview = true
         
         model.disableHaptic()
@@ -112,7 +112,7 @@ class CameraViewModel: ObservableObject {
     
     func enterChatView() {
         disableCameraAndHaptic()
-        print("[CameraViewModel]: Entered chat view, camera and haptic disabled")
+        print("[CameraManager]: Entered chat view, camera and haptic disabled")
     }
     
     private func disableCameraAndHaptic() {
@@ -127,19 +127,3 @@ class CameraViewModel: ObservableObject {
         model.enableHaptic()
     }
 }
-
-struct CameraGuidePreview: UIViewRepresentable {
-    let session: AVCaptureSession
-    
-    func makeUIView(context: Context) -> UIView {
-        let view = UIView(frame: UIScreen.main.bounds)
-        let previewLayer = AVCaptureVideoPreviewLayer(session: session)
-        previewLayer.frame = view.bounds
-        previewLayer.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(previewLayer)
-        return view
-    }
-    
-    func updateUIView(_ uiView: UIView, context: Context) {}
-}
-

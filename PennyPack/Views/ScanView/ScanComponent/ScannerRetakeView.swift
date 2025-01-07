@@ -37,20 +37,20 @@ struct ScannerRetakeView: View {
             }
         } else {
             VStack {
-                scanViewModel.cameraViewModel.cameraPreview.ignoresSafeArea()
+                scanViewModel.cameraManager.cameraPreview.ignoresSafeArea()
                     .overlay(
                         RoundedRectangle(cornerRadius: 11)
                             .stroke(Color.white.opacity(0.5), lineWidth: 3)
                     )
                     .onAppear {
-                        scanViewModel.cameraViewModel.configure()
+                        scanViewModel.cameraManager.configure()
                     }
                     .gesture(MagnificationGesture()
                         .onChanged { val in
-                            scanViewModel.cameraViewModel.zoom(factor: val)
+                            scanViewModel.cameraManager.zoom(factor: val)
                         }
                         .onEnded { _ in
-                            scanViewModel.cameraViewModel.zoomInitialize()
+                            scanViewModel.cameraManager.zoomInitialize()
                         }
                     )
                     .frame(width: 360, height: 350)
@@ -58,7 +58,7 @@ struct ScannerRetakeView: View {
                     .padding(.top, 86)
                 Button(action: {
                     /// 1. 카메라 버튼 클릭
-                    scanViewModel.cameraViewModel.capturePhoto { image in
+                    scanViewModel.cameraManager.capturePhoto { image in
                         /// 5. Camera Model에서 사진이 찍히면, completion을 호출하면서 image로 찍힌 사진을 전달해줌. recentImage 설정
                         DispatchQueue.main.async {
                             self.scanViewModel.recentImage = image

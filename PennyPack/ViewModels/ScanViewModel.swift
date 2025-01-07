@@ -3,7 +3,7 @@ import SwiftUI
 
 class ScanViewModel: ObservableObject{
     @Published var shoppingManager: ShoppingManager
-    @Published var cameraViewModel: CameraViewModel
+    @Published var cameraManager: CameraManager
     @Published var translation: TranslationSerivce
     
     @Published var recognizedText = ""
@@ -20,9 +20,9 @@ class ScanViewModel: ObservableObject{
     @Published var isPicture: Bool = false
     @Published var recentImage: UIImage?
  
-    init(shoppingManager: ShoppingManager, cameraViewModel: CameraViewModel, translation: TranslationSerivce) {
+    init(shoppingManager: ShoppingManager, cameraManager: CameraManager, translation: TranslationSerivce) {
         self.shoppingManager = shoppingManager
-        self.cameraViewModel = cameraViewModel
+        self.cameraManager = cameraManager
         self.translation = translation
     }
     

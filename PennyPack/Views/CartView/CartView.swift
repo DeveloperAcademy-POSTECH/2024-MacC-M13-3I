@@ -243,7 +243,7 @@ struct CartView: View {
             }
         )
         .background(
-            NavigationLink(destination: ScanView(scanViewModel: ScanViewModel(shoppingManager: cartViewModel.shoppingManager, cameraViewModel: CameraViewModel(),translation: TranslationSerivce())), isActive: $cartViewModel.isScan) {
+            NavigationLink(destination: ScanView(scanViewModel: ScanViewModel(shoppingManager: cartViewModel.shoppingManager, cameraManager: CameraManager(),translation: TranslationSerivce())), isActive: $cartViewModel.isScan) {
                 EmptyView()
             }
         ).navigationBarBackButtonHidden()

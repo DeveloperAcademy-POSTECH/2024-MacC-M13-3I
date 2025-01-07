@@ -3,9 +3,7 @@ import AVFoundation
 import UIKit
 import Vision
 
-
 class CameraModel: NSObject, ObservableObject,AVCaptureVideoDataOutputSampleBufferDelegate {
-    
     let photoOutput = AVCapturePhotoOutput()
     let videoOutput = AVCaptureVideoDataOutput()
     
@@ -19,7 +17,7 @@ class CameraModel: NSObject, ObservableObject,AVCaptureVideoDataOutputSampleBuff
     @Published var session = AVCaptureSession()
     @Published var isSessionActive = false
     @Published var isHapticEnabled = true
-    @Published private var showCapturedImage = false
+    @Published var showCapturedImage = false
     
     private var impactFeedback : UIImpactFeedbackGenerator?
     private var lastHapticTime: Date = Date.distantPast
@@ -182,34 +180,3 @@ class CameraModel: NSObject, ObservableObject,AVCaptureVideoDataOutputSampleBuff
         }
     }
 }
-
-extension CameraModel: AVCapturePhotoCaptureDelegate {
-    func photoOutput(_ output: AVCapturePhotoOutput, willBeginCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
-        self.isCameraBusy = true
-    }
-    
-    func photoOutput(_ output: AVCapturePhotoOutput, willCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
-        if isSilentModeOn {
-            print("[Camera]: Silent sound activated")
-            AudioServicesDisposeSystemSoundID(1108)
-        }
-    }
-    
-    func photoOutput(_ output: AVCapturePhotoOutput, didCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
-        if isSilentModeOn {
-            AudioServicesDisposeSystemSoundID(1108)
-        }
-    }
-    
-    /// 4. 정상적으로 사진이 찍힌 경우, 전달받은 코드블럭(completion)을 호출하면서 이미지 전달 `self.completion(recentImage)`
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        guard let imageData = photo.fileDataRepresentation() else { return }
-        self.recentImage = UIImage(data: imageData)
-        self.isCameraBusy = false
-        showCapturedImage = true
-        guard let recentImage else { return }
-        self.completion(recentImage)
-        print("[CameraModel]: Capture routine's done")
-    }
-}
-
