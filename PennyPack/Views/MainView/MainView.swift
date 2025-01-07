@@ -82,8 +82,7 @@ struct MainView: View {
                                     .clipShape(RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight]))
                                 
                                 VStack(spacing: 0){
-                                    ListView(shoppingViewModel: mainViewModel.shoppingManager
-                                             , listViewModel: mainViewModel.listManager)
+                                    ListView(mainViewModel: mainViewModel)
                                     
                                 }.padding(.vertical)
                             }

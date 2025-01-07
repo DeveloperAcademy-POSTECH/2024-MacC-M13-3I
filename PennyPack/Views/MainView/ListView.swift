@@ -1,21 +1,19 @@
 import SwiftUI
 
 struct ListView: View {
-    @ObservedObject var shoppingViewModel: ShoppingManager
-    @ObservedObject var listViewModel: ListManager
-    
+    @ObservedObject var mainViewModel: MainViewModel
     var body: some View {
         VStack{
             List{
-                ForEach($listViewModel.shoppingList, id: \.id){ $item in
+                ForEach($mainViewModel.listManager.shoppingList, id: \.id){ $item in
                     if !item.isPurchase {
                         TextField("마트에서 살 물건을 이곳에 적어주세요.", text: $item.title)
                             .onSubmit {
-                                listViewModel.saveShoppingListToUserDefaults()
+                                mainViewModel.listManager.saveShoppingListToUserDefaults()
                             }
                     }
                 }
-                .onDelete(perform: listViewModel.removeList)
+                .onDelete(perform: mainViewModel.listManager.removeList)
                 .listRowSeparator(.hidden)
                 .listRowBackground(
                     Rectangle()
@@ -23,7 +21,7 @@ struct ListView: View {
                         .cornerRadius(12)
                 )
                 Button {
-                    listViewModel.addList(title: "")
+                    mainViewModel.listManager.addList(title: "")
                 } label: {
                     HStack{
                         Spacer()
@@ -53,5 +51,5 @@ struct ListView: View {
 }
 
 #Preview {
-    ListView(shoppingViewModel: ShoppingManager(), listViewModel: ListManager())
+    ListView(mainViewModel: MainViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
 }
