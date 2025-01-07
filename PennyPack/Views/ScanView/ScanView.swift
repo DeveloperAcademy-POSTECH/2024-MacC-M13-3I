@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ScanView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var scanViewModel: ScanViewModel
+    @ObservedObject var scanViewModel: ScanViewModel
     
     var body: some View {
         ZStack(alignment: .top){

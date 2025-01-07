@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ReceiptView: View {
-    @StateObject var receiptViewModel: ReceiptViewModel
+    @ObservedObject var receiptViewModel: ReceiptViewModel
     
     var body: some View {
         NavigationStack{

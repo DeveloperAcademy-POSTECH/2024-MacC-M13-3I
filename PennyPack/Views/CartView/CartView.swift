@@ -4,7 +4,7 @@ import SwiftUI
 struct CartView: View {
     @EnvironmentObject var pathRouter: PathRouter
     @Environment(\.dismiss) var dismiss
-    @StateObject var cartViewModel: CartViewModel
+    @ObservedObject var cartViewModel: CartViewModel
     
     @FocusState var focusedField: Field?
     
@@ -242,7 +242,9 @@ struct CartView: View {
             }
         }
         .background(
-            NavigationLink(destination: ResultView(resultViewModel: ResultViewModel()), isActive: $cartViewModel.isFinish) {
+            NavigationLink(destination:
+                            ResultView(resultViewModel: ResultViewModel(shoppingManager: cartViewModel.shoppingManager, listManager: cartViewModel.listManager)),
+                           isActive: $cartViewModel.isFinish) {
                 EmptyView()
             }
         )

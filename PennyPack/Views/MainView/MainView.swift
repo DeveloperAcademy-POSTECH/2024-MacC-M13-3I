@@ -2,7 +2,7 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject var pathRouter = PathRouter()
-    @StateObject var mainViewModel: MainViewModel
+    @StateObject var mainViewModel = MainViewModel(shoppingManager: ShoppingManager(), listManager: ListManager())
 
     var body: some View {
         NavigationStack(path: $pathRouter.path) {
@@ -17,7 +17,7 @@ struct MainView: View {
                             .foregroundColor(.pWhite)
                         Spacer()
                         NavigationLink(
-                            destination: CalendarView(calendarViewModle: CalendarViewModel(shoppingManager: mainViewModel.shoppingManager, listManager: mainViewModel.listManager)),
+                            destination: CalendarView(calendarViewModel: CalendarViewModel(shoppingManager: mainViewModel.shoppingManager, listManager: mainViewModel.listManager)),
                             label: {
                                 Image(systemName: "calendar")
                                     .font(.system(size: 24))
@@ -126,7 +126,7 @@ struct MainView: View {
                 switch route {
                 case .result:
                     VStack {
-                        ResultView(resultViewModel: ResultViewModel())
+                        ResultView(resultViewModel: ResultViewModel(shoppingManager: mainViewModel.shoppingManager, listManager: mainViewModel.listManager))
                         Button {
                             pathRouter.removeAll()
                         } label: {
