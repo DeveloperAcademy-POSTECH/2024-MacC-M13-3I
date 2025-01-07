@@ -181,7 +181,7 @@
 				713C7EDE2D279735009DBF09 /* MainView */,
 				713C7EE32D279866009DBF09 /* ResultView */,
 				713C7EE52D2798A7009DBF09 /* ScanView */,
-				713C7EE02D279748009DBF09 /* SubView */,
+				713C7EE02D279748009DBF09 /* Components */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,12 +238,12 @@
 			path = MainView;
 			sourceTree = "<group>";
 		};
-		713C7EE02D279748009DBF09 /* SubView */ = {
+		713C7EE02D279748009DBF09 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				714E726B2CDD085200982A20 /* DropdownListView.swift */,
 			);
-			path = SubView;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		713C7EE12D27983A009DBF09 /* CalendarView */ = {

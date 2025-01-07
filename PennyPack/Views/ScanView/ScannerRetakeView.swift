@@ -52,7 +52,6 @@ class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
 }
 
 struct ScannerRetakeView: View {
-    
     @StateObject private var cameraViewModel = CameraViewModel()
     @ObservedObject var translation: TranslationSerivce
     

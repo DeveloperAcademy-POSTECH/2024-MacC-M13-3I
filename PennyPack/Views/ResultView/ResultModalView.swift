@@ -103,7 +103,7 @@ struct ResultModalView: View {
                                     .frame(height: 140)
                                     .foregroundColor(.pLightGray)
                                     .cornerRadius(12)
-                                DropdownListView(listViewModel: resultViewModel.listManager)
+                                DropdownListView(listManager: resultViewModel.listManager)
                                     .frame(width: 330,height: 120)
                             }
                             

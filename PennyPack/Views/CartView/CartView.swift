@@ -92,7 +92,7 @@ struct CartView: View {
                                 Color.pLightGray
                                     .clipShape(RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight]))
                                     .padding(.horizontal)
-                                DropdownListView(listViewModel: cartViewModel.listManager)
+                                DropdownListView(listManager: cartViewModel.listManager)
                                     .padding()
                                 RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight])
                                     .stroke(Color.pGray, lineWidth: 2)

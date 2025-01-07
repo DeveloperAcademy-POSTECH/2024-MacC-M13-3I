@@ -100,7 +100,7 @@ struct ReceiptView: View {
                                     .frame(height: 140)
                                     .foregroundColor(.pLightGray)
                                     .cornerRadius(12)
-                                DropdownListView(listViewModel: receiptViewModel.listManager)
+                                DropdownListView(listManager: receiptViewModel.listManager)
                                     .frame(width: 330,height: 120)
                             }
                         }

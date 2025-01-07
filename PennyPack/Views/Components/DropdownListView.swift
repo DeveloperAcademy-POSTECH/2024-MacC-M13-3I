@@ -1,13 +1,12 @@
 import SwiftUI
 
 struct DropdownListView: View {
-    @ObservedObject var listViewModel: ListManager
-    @State var isButton: Bool = false
+    @ObservedObject var listManager: ListManager
     
     var body: some View {
         VStack(spacing: 0){
             List{
-                ForEach($listViewModel.shoppingList) { $list in
+                ForEach($listManager.shoppingList) { $list in
                     if !list.isPurchase {
                         Button(action: {
                             list.isChoise.toggle()
@@ -47,7 +46,7 @@ struct DropdownListView: View {
                             }
                         }
                     }
-                }.onDelete(perform: listViewModel.removeList)
+                }.onDelete(perform: listManager.removeList)
                 .listRowSeparator(.hidden)
                 .listRowBackground(
                     Rectangle()
@@ -65,5 +64,5 @@ struct DropdownListView: View {
 }
 
 #Preview {
-    DropdownListView(listViewModel: ListManager())
+    DropdownListView(listManager: ListManager())
 }
