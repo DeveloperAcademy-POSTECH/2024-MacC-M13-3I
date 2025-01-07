@@ -9,17 +9,8 @@ struct ScanView: View {
             Color.pBlack
                 .ignoresSafeArea()
             VStack {
-                ScannerRetakeView(
-                    translation: scanViewModel.translation,
-                    isEditing: $scanViewModel.isEditing,
-                    recognizedText: $scanViewModel.recognizedText,
-                    validItemsK: $scanViewModel.validItemsK,
-                    validItemsF: $scanViewModel.validItemsF,
-                    validPricesF: $scanViewModel.validPricesF,
-                    quantity: $scanViewModel.quantity,
-                    validItemText: $scanViewModel.validItemText,
-                    validPriceText: $scanViewModel.validPriceText
-                ).padding(.bottom, 20)
+                ScannerRetakeView(scanViewModel: scanViewModel)
+                .padding(.bottom, 20)
                 
                 RegexView(
                     translation: scanViewModel.translation,

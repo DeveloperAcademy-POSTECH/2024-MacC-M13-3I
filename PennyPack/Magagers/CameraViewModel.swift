@@ -2,6 +2,11 @@ import SwiftUI
 import AVFoundation
 import Combine
 
+//########################
+//이름 바꾸는게 나은지 아닌지.
+//CameraViewModel, CameraPreview, CameraModel 관리해야함.
+//Regex도 해야함.
+
 class CameraViewModel: ObservableObject {
     let model: CameraModel
     private let session: AVCaptureSession

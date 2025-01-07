@@ -17,12 +17,23 @@ class ScanViewModel: ObservableObject{
     @Published var frcUnitPrice = 0.0
     @Published var validItemText = ""
     @Published var validPriceText = ""
-    
+    @Published var isPicture: Bool = false
+    @Published var recentImage: UIImage?
+ 
     init(shoppingManager: ShoppingManager, cameraViewModel: CameraViewModel, translation: TranslationSerivce) {
         self.shoppingManager = shoppingManager
         self.cameraViewModel = cameraViewModel
         self.translation = translation
     }
     
-    
+    func reset() {
+        isEditing = false
+        recognizedText = ""
+        validItemsK.removeAll()
+        validItemsF.removeAll()
+        validPricesF.removeAll()
+        quantity = 1
+        validItemText = ""
+        validPriceText = ""
+    }
 }
