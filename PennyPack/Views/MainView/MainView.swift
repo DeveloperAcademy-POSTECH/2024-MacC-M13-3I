@@ -1,29 +1,8 @@
 import SwiftUI
 
-enum NavigationRoute: Hashable {
-    case cart
-    case result
-}
-
-final class PathRouter: ObservableObject {
-    @Published var path = [NavigationRoute]()
-    
-    func push(_ route: NavigationRoute) {
-        path.append(route)
-    }
-    
-    func removeAll() {
-        path.removeAll()
-    }
-}
-
-public final class PathViewModel: ObservableObject {
-    @Published var path = NavigationPath()
-}
-
 struct MainView: View {
     @StateObject var pathRouter = PathRouter()
-    @StateObject var mainViewModel: MainViewModel
+    @StateObject var mainViewModel = MainViewModel(shoppingManager: ShoppingManager(), listManager: ListManager())
 
     var body: some View {
         NavigationStack(path: $pathRouter.path) {
@@ -38,7 +17,7 @@ struct MainView: View {
                             .foregroundColor(.pWhite)
                         Spacer()
                         NavigationLink(
-                            destination: CalendarView(calendarViewModle: CalendarViewModel(shoppingManager: mainViewModel.shoppingManager, listManager: mainViewModel.listManager)),
+                            destination: CalendarView(calendarViewModel: CalendarViewModel(shoppingManager: mainViewModel.shoppingManager, listManager: mainViewModel.listManager)),
                             label: {
                                 Image(systemName: "calendar")
                                     .font(.system(size: 24))
@@ -103,8 +82,7 @@ struct MainView: View {
                                     .clipShape(RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight]))
                                 
                                 VStack(spacing: 0){
-                                    ListView(shoppingViewModel: mainViewModel.shoppingManager
-                                             , listViewModel: mainViewModel.listManager)
+                                    ListView(mainViewModel: mainViewModel)
                                     
                                 }.padding(.vertical)
                             }
@@ -147,7 +125,7 @@ struct MainView: View {
                 switch route {
                 case .result:
                     VStack {
-                        ResultView(resultViewModel: ResultViewModel())
+                        ResultView(resultViewModel: ResultViewModel(shoppingManager: mainViewModel.shoppingManager, listManager: mainViewModel.listManager))
                         Button {
                             pathRouter.removeAll()
                         } label: {
@@ -162,9 +140,6 @@ struct MainView: View {
             .environmentObject(pathRouter)
     }
 }
-
-
-
 
 #Preview {
     MainView(mainViewModel: MainViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))

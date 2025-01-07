@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CalendarView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var calendarViewModle: CalendarViewModel
+    @ObservedObject var calendarViewModel: CalendarViewModel
     
     var body: some View {
         NavigationStack{
@@ -28,7 +28,7 @@ struct CalendarView: View {
                     )
                     .padding(.bottom, 68)
                     
-                    if !calendarViewModle.isShopping {
+                    if !calendarViewModel.isShopping {
                         Text("저장된 영수증이 없어요")
                             .font(.PTitle3)
                             .foregroundColor(.pDarkGray)
@@ -57,12 +57,12 @@ struct CalendarView: View {
                         .foregroundColor(.pWhite)
                 }
             }
-            .sheet(isPresented: $calendarViewModle.showSheet) {
-                ReceiptView(receiptViewModel: ReceiptViewModel(shoppingManager: calendarViewModle.shoppingManager, listManager: calendarViewModle.listManager))
+            .sheet(isPresented: $calendarViewModel.showSheet) {
+                ReceiptView(receiptViewModel: ReceiptViewModel(shoppingManager: calendarViewModel.shoppingManager, listManager: calendarViewModel.listManager))
                     .presentationDetents([.height(130), .height(540)])
             }
             .onAppear {
-                let dateToCheck = calendarViewModle.clickedCurrentMonthDates ?? Date()
+                let dateToCheck = calendarViewModel.clickedCurrentMonthDates ?? Date()
                 let formattedDate = DateFormatter.formatDateToDate(from: dateToCheck)
                 
 //                for item in calendarViewModle.shoppingManager.receiptDate {
@@ -79,14 +79,14 @@ struct CalendarView: View {
 //                    }
 //                }
                 
-                if let latestItem = calendarViewModle.shoppingManager.receiptDate
+                if let latestItem = calendarViewModel.shoppingManager.receiptDate
                                 .filter({ DateFormatter.formatDateToDate(from: $0.date) == formattedDate })
                                 .max(by: { $0.date < $1.date }) {
-                    calendarViewModle.isShopping = true
-                    calendarViewModle.shoppingManager.selectedReceiptDate = latestItem
-                        calendarViewModle.showSheet.toggle()
+                    calendarViewModel.isShopping = true
+                    calendarViewModel.shoppingManager.selectedReceiptDate = latestItem
+                    calendarViewModel.showSheet.toggle()
                 } else {
-                    calendarViewModle.isShopping = false
+                    calendarViewModel.isShopping = false
                 }
             }
         }.navigationBarBackButtonHidden()
@@ -98,12 +98,12 @@ struct CalendarView: View {
         HStack(alignment: .center, spacing: 20) {
             Button(
                 action: {
-                    calendarViewModle.changeMonth(by: -1)
+                    calendarViewModel.changeMonth(by: -1)
                 },
                 label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(calendarViewModle.canMoveToPreviousMonth() ? .pWhite : . pGray)
+                        .foregroundColor(calendarViewModel.canMoveToPreviousMonth() ? .pWhite : . pGray)
                         .padding(8)
                         .padding(.horizontal, 2)
                         .background(Color("PDarkGray"))
@@ -111,14 +111,14 @@ struct CalendarView: View {
                     
                 }
             )
-            .disabled(!calendarViewModle.canMoveToPreviousMonth())
+            .disabled(!calendarViewModel.canMoveToPreviousMonth())
             Spacer()
             
             VStack(alignment: .center){
-                Text(calendarViewModle.month, formatter: DateFormatter.calendarHeaderDateFormatterMonth)
+                Text(calendarViewModel.month, formatter: DateFormatter.calendarHeaderDateFormatterMonth)
                     .font(.PTitle1)
                     .foregroundColor(.pWhite)
-                Text(calendarViewModle.month, formatter: DateFormatter.calendarHeaderDateFormatterYear)
+                Text(calendarViewModel.month, formatter: DateFormatter.calendarHeaderDateFormatterYear)
                     .font(.PTitle3)
                     .foregroundColor(.pWhite)
             }
@@ -126,19 +126,19 @@ struct CalendarView: View {
             Spacer()
             Button(
                 action: {
-                    calendarViewModle.changeMonth(by: 1)
+                    calendarViewModel.changeMonth(by: 1)
                 },
                 label: {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(calendarViewModle.canMoveToNextMonth() ? .pWhite : . pGray)
+                        .foregroundColor(calendarViewModel.canMoveToNextMonth() ? .pWhite : . pGray)
                         .padding(8)
                         .padding(.horizontal, 2)
                         .background(Color("PDarkGray"))
                         .cornerRadius(24)
                 }
             )
-            .disabled(!calendarViewModle.canMoveToNextMonth())
+            .disabled(!calendarViewModel.canMoveToNextMonth())
         }
     }
     
@@ -159,9 +159,9 @@ struct CalendarView: View {
     
     // MARK: - 날짜 그리드 뷰
     private var calendarGridView: some View {
-        let daysInMonth: Int = calendarViewModle.numberOfDays(in: calendarViewModle.month)
-        let firstWeekday: Int = calendarViewModle.firstWeekdayOfMonth(in: calendarViewModle.month) - 1
-        let lastDayOfMonthBefore = calendarViewModle.numberOfDays(in: calendarViewModle.previousMonth())
+        let daysInMonth: Int = calendarViewModel.numberOfDays(in: calendarViewModel.month)
+        let firstWeekday: Int = calendarViewModel.firstWeekdayOfMonth(in: calendarViewModel.month) - 1
+        let lastDayOfMonthBefore = calendarViewModel.numberOfDays(in: calendarViewModel.previousMonth())
         let numberOfRows = Int(ceil(Double(daysInMonth + firstWeekday) / 7.0))
         let visibleDaysOfNextMonth = numberOfRows * 7 - (daysInMonth + firstWeekday)
         
@@ -169,11 +169,11 @@ struct CalendarView: View {
             ForEach(-firstWeekday ..< daysInMonth + visibleDaysOfNextMonth, id: \.self) { index in
                 Group {
                     if index > -1 && index < daysInMonth {
-                        let date = calendarViewModle.getDate(for: index)
+                        let date = calendarViewModel.getDate(for: index)
                         let day = Calendar.current.component(.day, from: date)
-                        let clicked = calendarViewModle.clickedCurrentMonthDates == date
+                        let clicked = calendarViewModel.clickedCurrentMonthDates == date
                         let isToday = date.formattedCalendarDayDate == Date.today.formattedCalendarDayDate
-                        let isDateInShoppingList = calendarViewModle.shoppingManager.receiptDate.contains { receiptDate in
+                        let isDateInShoppingList = calendarViewModel.shoppingManager.receiptDate.contains { receiptDate in
                             Calendar.current.isDate(receiptDate.date, inSameDayAs: date)
                         }
                         
@@ -181,7 +181,7 @@ struct CalendarView: View {
                     } else if let prevMonthDate = Calendar.current.date(
                         byAdding: .day,
                         value: index + lastDayOfMonthBefore,
-                        to: calendarViewModle.previousMonth()
+                        to: calendarViewModel.previousMonth()
                     ) {
                         let day = Calendar.current.component(.day, from: prevMonthDate)
                         
@@ -190,23 +190,23 @@ struct CalendarView: View {
                 }
                 .onTapGesture {
                     if 0 <= index && index < daysInMonth {
-                        let date = calendarViewModle.getDate(for: index)
-                            calendarViewModle.clickedCurrentMonthDates = date
+                        let date = calendarViewModel.getDate(for: index)
+                        calendarViewModel.clickedCurrentMonthDates = date
                         
-                            calendarViewModle.clickedCurrentMonthDates.map { date in
+                        calendarViewModel.clickedCurrentMonthDates.map { date in
                             let formattedDate = DateFormatter.formatDateToDate(from: date)
-                            for item in calendarViewModle.shoppingManager.receiptDate {
+                            for item in calendarViewModel.shoppingManager.receiptDate {
                                 let date = DateFormatter.formatDateToDate(from: item.date)
                                 
                                 if date == formattedDate {
-                                    calendarViewModle.isShopping = true
-                                    calendarViewModle.shoppingManager.selectedReceiptDate = item
-                                        calendarViewModle.showSheet.toggle()
+                                    calendarViewModel.isShopping = true
+                                    calendarViewModel.shoppingManager.selectedReceiptDate = item
+                                    calendarViewModel.showSheet.toggle()
                                     break
                                 }
                                 
                                 else {
-                                    calendarViewModle.isShopping = false
+                                    calendarViewModel.isShopping = false
                                 }
                             }
                         }
@@ -219,5 +219,5 @@ struct CalendarView: View {
 
 
 #Preview {
-    CalendarView(calendarViewModle: CalendarViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
+    CalendarView(calendarViewModel: CalendarViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
 }

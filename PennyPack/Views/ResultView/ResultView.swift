@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ResultView: View {
     @EnvironmentObject var pathRouter: PathRouter
-    @StateObject var resultViewModel: ResultViewModel
+    @ObservedObject var resultViewModel: ResultViewModel
     
     var body: some View {
             ZStack{
@@ -26,7 +26,7 @@ struct ResultView: View {
                 }
             }
             .sheet(isPresented: $resultViewModel.showSheet) {
-                ResultModalView(resultModalViewModel: ResultModalViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
+                ResultModalView(resultViewModel: resultViewModel)
                     .presentationDetents([.height(125.0), .height(700)])
             }
             .toolbar {
@@ -53,6 +53,6 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView(resultViewModel: ResultViewModel())
+    ResultView(resultViewModel: ResultViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
         .environmentObject(PathViewModel())
 }

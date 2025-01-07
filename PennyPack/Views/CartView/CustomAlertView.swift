@@ -2,12 +2,7 @@ import SwiftUI
 
 struct CustomAlertView: View {
     @EnvironmentObject var pathRouter: PathRouter
-    @ObservedObject var shoppingViewModel: ShoppingManager
-    @ObservedObject var listViewModel: ListManager
-    @Binding var isAlertPresented: Bool
-    @Binding var isFinishPresented: Bool
-    @Binding var totalPriceWon: Int
-    @Binding var totalPriceEuro: Double
+    @ObservedObject var cartViewModel: CartViewModel
     
     var body: some View {
         ZStack{
@@ -18,7 +13,7 @@ struct CustomAlertView: View {
                     .font(.PTitle3)
                     .foregroundColor(.pBlack)
                     .padding(.top, 28)
-                if listViewModel.shoppingList.filter { !$0.isPurchase }.isEmpty {
+                if cartViewModel.listManager.shoppingList.filter { !$0.isPurchase }.isEmpty {
                     Text("장보기를 종료하시겠습니까?")
                         .font(.PBody)
                         .foregroundColor(.gray)
@@ -35,7 +30,7 @@ struct CustomAlertView: View {
                     .padding(.vertical, 16)
                     
                     VStack(alignment: .leading, spacing: 4){
-                        ForEach($listViewModel.shoppingList) { $list in
+                        ForEach($cartViewModel.listManager.shoppingList) { $list in
                             if !list.isPurchase {
                                     Text(list.title)
                                         .font(.PBody)
@@ -52,8 +47,7 @@ struct CustomAlertView: View {
                 
                 HStack(spacing: 0){
                     Button{
-                        isAlertPresented.toggle()
-                        print("isAlertPresented: ",isAlertPresented)
+                        cartViewModel.isAlert.toggle()
                     } label: {
                         Text("돌아가기")
                             .font(.PBody)
@@ -66,14 +60,13 @@ struct CustomAlertView: View {
                         .frame(width: 1,height: 44)
                         .background(.pBackground)
                     Button{
-                        isFinishPresented.toggle()
-                        print("isFinish: ",isFinishPresented)
+                        cartViewModel.isFinish.toggle()
                         pathRouter.push(.result)
-                        let receiptDate = ReceiptDate(date: Date(), items: shoppingViewModel.cartItem, korTotal: totalPriceWon, frcTotal: totalPriceEuro, place: "프랑스마트")
+                        let receiptDate = ReceiptDate(date: Date(), items: cartViewModel.shoppingManager.cartItem, korTotal: cartViewModel.totalPriceWon, frcTotal: cartViewModel.totalPriceEuro, place: "프랑스마트")
                         
-                        shoppingViewModel.receiptDate.append(receiptDate)
-                        shoppingViewModel.cartItem = []
-                        shoppingViewModel.saveShoppingListToUserDefaults()
+                        cartViewModel.shoppingManager.receiptDate.append(receiptDate)
+                        cartViewModel.shoppingManager.cartItem = []
+                        cartViewModel.shoppingManager.saveShoppingListToUserDefaults()
                         
                     } label: {
                         Text("종료하기")
@@ -94,5 +87,5 @@ struct CustomAlertView: View {
 }
 
 #Preview {
-    CustomAlertView(shoppingViewModel: ShoppingManager(), listViewModel: ListManager(), isAlertPresented: .constant(false), isFinishPresented: .constant(false), totalPriceWon: .constant(0), totalPriceEuro: .constant(0.0))
+    CustomAlertView(cartViewModel: CartViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
 }

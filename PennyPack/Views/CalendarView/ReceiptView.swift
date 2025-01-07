@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ReceiptView: View {
-    @StateObject var receiptViewModel: ReceiptViewModel
+    @ObservedObject var receiptViewModel: ReceiptViewModel
     
     var body: some View {
         NavigationStack{
@@ -100,7 +100,7 @@ struct ReceiptView: View {
                                     .frame(height: 140)
                                     .foregroundColor(.pLightGray)
                                     .cornerRadius(12)
-                                DropdownListView(listViewModel: receiptViewModel.listManager)
+                                DropdownListView(listManager: receiptViewModel.listManager)
                                     .frame(width: 330,height: 120)
                             }
                         }

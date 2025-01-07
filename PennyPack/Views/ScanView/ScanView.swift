@@ -2,24 +2,15 @@ import SwiftUI
 
 struct ScanView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var scanViewModel: ScanViewModel
+    @ObservedObject var scanViewModel: ScanViewModel
     
     var body: some View {
         ZStack(alignment: .top){
             Color.pBlack
                 .ignoresSafeArea()
             VStack {
-                ScannerRetakeView(
-                    translation: scanViewModel.translation,
-                    isEditing: $scanViewModel.isEditing,
-                    recognizedText: $scanViewModel.recognizedText,
-                    validItemsK: $scanViewModel.validItemsK,
-                    validItemsF: $scanViewModel.validItemsF,
-                    validPricesF: $scanViewModel.validPricesF,
-                    quantity: $scanViewModel.quantity,
-                    validItemText: $scanViewModel.validItemText,
-                    validPriceText: $scanViewModel.validPriceText
-                ).padding(.bottom, 20)
+                ScannerRetakeView(scanViewModel: scanViewModel)
+                .padding(.bottom, 20)
                 
                 RegexView(
                     translation: scanViewModel.translation,
@@ -85,5 +76,5 @@ struct KeyboardAvoidanceModifier: ViewModifier {
 }
 
 #Preview {
-    ScanView(scanViewModel: ScanViewModel(shoppingManager: ShoppingManager(), cameraViewModel: CameraViewModel(), translation: TranslationSerivce()))
+    ScanView(scanViewModel: ScanViewModel(shoppingManager: ShoppingManager(), cameraManager: CameraManager(), translation: TranslationSerivce()))
 }

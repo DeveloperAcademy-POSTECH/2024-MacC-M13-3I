@@ -4,7 +4,7 @@ import SwiftUI
 struct CartView: View {
     @EnvironmentObject var pathRouter: PathRouter
     @Environment(\.dismiss) var dismiss
-    @StateObject var cartViewModel: CartViewModel
+    @ObservedObject var cartViewModel: CartViewModel
     
     @FocusState var focusedField: Field?
     
@@ -92,7 +92,7 @@ struct CartView: View {
                                 Color.pLightGray
                                     .clipShape(RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight]))
                                     .padding(.horizontal)
-                                DropdownListView(listViewModel: cartViewModel.listManager)
+                                DropdownListView(listManager: cartViewModel.listManager)
                                     .padding()
                                 RoundedCorner(radius: 8, corners: [.bottomLeft, .bottomRight])
                                     .stroke(Color.pGray, lineWidth: 2)
@@ -193,13 +193,7 @@ struct CartView: View {
                 }
                 
                 if cartViewModel.isAlert {
-                    CustomAlertView(
-                        shoppingViewModel: cartViewModel.shoppingManager,
-                        listViewModel: cartViewModel.listManager,
-                        isAlertPresented: $cartViewModel.isAlert,
-                        isFinishPresented: $cartViewModel.isFinish,
-                        totalPriceWon: $cartViewModel.totalPriceWon,
-                        totalPriceEuro: $cartViewModel.totalPriceEuro)
+                    CustomAlertView(cartViewModel: cartViewModel)
                 }
             }
             .onChange(of: cartViewModel.shoppingManager.cartItem) { _ in
@@ -242,12 +236,14 @@ struct CartView: View {
             }
         }
         .background(
-            NavigationLink(destination: ResultView(resultViewModel: ResultViewModel()), isActive: $cartViewModel.isFinish) {
+            NavigationLink(destination:
+                            ResultView(resultViewModel: ResultViewModel(shoppingManager: cartViewModel.shoppingManager, listManager: cartViewModel.listManager)),
+                           isActive: $cartViewModel.isFinish) {
                 EmptyView()
             }
         )
         .background(
-            NavigationLink(destination: ScanView(scanViewModel: ScanViewModel(shoppingManager: cartViewModel.shoppingManager, cameraViewModel: CameraViewModel(),translation: TranslationSerivce())), isActive: $cartViewModel.isScan) {
+            NavigationLink(destination: ScanView(scanViewModel: ScanViewModel(shoppingManager: cartViewModel.shoppingManager, cameraManager: CameraManager(),translation: TranslationSerivce())), isActive: $cartViewModel.isScan) {
                 EmptyView()
             }
         ).navigationBarBackButtonHidden()

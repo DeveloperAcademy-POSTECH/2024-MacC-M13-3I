@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ResultModalView: View {
-    @StateObject var resultModalViewModel: ResultModalViewModel
+    @ObservedObject var resultViewModel: ResultViewModel
     
     var body: some View {
         NavigationStack{
@@ -11,7 +11,7 @@ struct ResultModalView: View {
                 ScrollView{
                     VStack (alignment: .leading, spacing: 0) {
                         HStack {
-                            Text(DateFormatter.formatDateToYYYYMDHHMM(from: resultModalViewModel.shoppingManager.receiptDate.last?.date ?? Date()))
+                            Text(DateFormatter.formatDateToYYYYMDHHMM(from: resultViewModel.shoppingManager.receiptDate.last?.date ?? Date()))
                                 .font(.PTitle3)
                             Spacer()
                         }
@@ -51,7 +51,7 @@ struct ResultModalView: View {
                                 .font(.PCallout)
                                 .foregroundColor(.pBlack)
                                 .padding(.bottom, 12)
-                                if let items = resultModalViewModel.shoppingManager.receiptDate.last?.items {
+                                if let items = resultViewModel.shoppingManager.receiptDate.last?.items {
                                     VStack(spacing: 8){
                                         ForEach(items) { item in
                                             HStack(spacing: 0){
@@ -82,9 +82,9 @@ struct ResultModalView: View {
                                     .font(.PTitle3)
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 0){
-                                    Text("\(resultModalViewModel.shoppingManager.receiptDate.last?.korTotal ?? 0) 원")
+                                    Text("\(resultViewModel.shoppingManager.receiptDate.last?.korTotal ?? 0) 원")
                                         .font(.PTitle3)
-                                    Text("\(String(format: "%.2f", (resultModalViewModel.shoppingManager.receiptDate.last?.frcTotal ?? 0))) €")
+                                    Text("\(String(format: "%.2f", (resultViewModel.shoppingManager.receiptDate.last?.frcTotal ?? 0))) €")
                                         .font(.PTitle1)
                                 }
                             }.padding(.bottom,36)
@@ -103,7 +103,7 @@ struct ResultModalView: View {
                                     .frame(height: 140)
                                     .foregroundColor(.pLightGray)
                                     .cornerRadius(12)
-                                DropdownListView(listViewModel: resultModalViewModel.listManager)
+                                DropdownListView(listManager: resultViewModel.listManager)
                                     .frame(width: 330,height: 120)
                             }
                             
@@ -121,14 +121,5 @@ struct ResultModalView: View {
 }
 
 #Preview {
-    // 필요한 의존성 생성
-    let shoppingManager = ShoppingManager()
-    let listManager = ListManager()
-    let resultModalViewModel = ResultModalViewModel(shoppingManager: shoppingManager, listManager: listManager)
-    
-    return ResultModalView(resultModalViewModel: resultModalViewModel)
+    ResultModalView(resultViewModel: ResultViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
 }
-//
-//#Preview {
-//    ResultModalView(resultModalViewModel: ResultModalViewModel(shoppingViewModel: ShoppingManager()), shoppingViewModel: ShoppingManager(),listViewModel: ListManager(), isButton: .constant(false))
-//}
