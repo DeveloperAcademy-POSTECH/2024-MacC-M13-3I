@@ -1,8 +1,9 @@
 import SwiftUI
 
 struct MainView: View {
+    @Environment(\.modelContext) var modelContext
     @StateObject var pathRouter = PathRouter()
-    @StateObject var mainViewModel = MainViewModel(shoppingManager: ShoppingManager(), listManager: ListManager())
+    @StateObject var mainViewModel = MainViewModel(shoppingManager: [ShoppingManager()], listManager: [ListManager()])
 
     var body: some View {
         NavigationStack(path: $pathRouter.path) {
@@ -17,7 +18,7 @@ struct MainView: View {
                             .foregroundColor(.pWhite)
                         Spacer()
                         NavigationLink(
-                            destination: CalendarView(calendarViewModel: CalendarViewModel(shoppingManager: mainViewModel.shoppingManager, listManager: mainViewModel.listManager)),
+                            destination: CalendarView(calendarViewModel: CalendarViewModel(shoppingManager: mainViewModel.shoppingManager.first!, listManager: mainViewModel.listManager.first!)),
                             label: {
                                 Image(systemName: "calendar")
                                     .font(.system(size: 24))
@@ -57,7 +58,9 @@ struct MainView: View {
                         VStack(spacing: 0){
                             HStack{
                                 Button{
-                                    mainViewModel.listManager.addListShowcase(title: "")
+//                                    mainViewModel.listManager.addListShowcase(title: "")
+                                    mainViewModel.listManager.first?.addListShowcase(title: "")  // 배열에서 첫 번째 ListManager 객체를 선택하여 메서드 호출
+
                                 } label: {
                                     Text("오늘의 장보기 리스트")
                                         .font(.PTitle2)
@@ -117,15 +120,15 @@ struct MainView: View {
                 
             }
             .onAppear{
-                mainViewModel.shoppingManager.loadShoppingListFromUserDefaults()
-                mainViewModel.listManager.loadShoppingListFromUserDefaults()
+                mainViewModel.shoppingManager
+                mainViewModel.listManager
             }
             .environmentObject(pathRouter)
             .navigationDestination(for: NavigationRoute.self) { route in
                 switch route {
                 case .result:
                     VStack {
-                        ResultView(resultViewModel: ResultViewModel(shoppingManager: mainViewModel.shoppingManager, listManager: mainViewModel.listManager))
+                        ResultView(resultViewModel: ResultViewModel(shoppingManager: mainViewModel.shoppingManager.first!, listManager: mainViewModel.listManager.first!))
                         Button {
                             pathRouter.removeAll()
                         } label: {
@@ -133,7 +136,7 @@ struct MainView: View {
                         }
                     }
                 case .cart:
-                    CartView(cartViewModel: CartViewModel(shoppingManager: mainViewModel.shoppingManager, listManager: mainViewModel.listManager))
+                    CartView(cartViewModel: CartViewModel(shoppingManager: mainViewModel.shoppingManager.first!, listManager: mainViewModel.listManager.first!))
                 }
             }
         }.navigationBarBackButtonHidden()
@@ -142,6 +145,6 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView(mainViewModel: MainViewModel(shoppingManager: ShoppingManager(), listManager: ListManager()))
+    MainView(mainViewModel: MainViewModel(shoppingManager: [ShoppingManager()], listManager: [ListManager()]))
 }
 

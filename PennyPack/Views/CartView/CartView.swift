@@ -4,7 +4,7 @@ import SwiftUI
 struct CartView: View {
     @EnvironmentObject var pathRouter: PathRouter
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var cartViewModel: CartViewModel
+    @StateObject var cartViewModel: CartViewModel
     
     @FocusState var focusedField: Field?
     
@@ -213,7 +213,7 @@ struct CartView: View {
                             .foregroundColor(.pBlue)
                     }
                 }
-                ToolbarItem(placement: .principal){
+                ToolbarItem(placement: .principal) {
                     Text("장보기")
                         .font(.PTitle2)
                         .foregroundColor(.pWhite)
@@ -226,7 +226,7 @@ struct CartView: View {
                             cartViewModel.listManager.shoppingList[index].isPurchase = cartViewModel.listManager.shoppingList[index].isChoise
                         }
                         
-                        cartViewModel.listManager.saveShoppingListToUserDefaults()
+//                        cartViewModel.listManager.saveShoppingListToUserDefaults()
                     }) {
                         Text("종료")
                             .foregroundColor(.pBlue)
@@ -265,7 +265,8 @@ struct CartView: View {
                             }
                             .hideKeyboard()
                             
-                            HStack(spacing: 0){                                TextField("1", text: Binding(
+                            HStack(spacing: 0){                                
+                                TextField("1", text: Binding(
                                     get: { String(cartViewModel.shoppingManager.cartItem[index].quantity) },
                                     set: { newValue in
                                         if let intValue = Int(newValue) {
