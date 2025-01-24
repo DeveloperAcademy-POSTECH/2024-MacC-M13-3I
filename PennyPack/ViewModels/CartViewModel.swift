@@ -1,9 +1,9 @@
 import Foundation
 import SwiftUI
 
-class CartViewModel: ObservableObject{
-    @Published var shoppingManager: ShoppingManager
-    @Published var listManager: ListManager
+class CartViewModel: ObservableObject {
+    @Bindable var shoppingManager: ShoppingManager
+    @Bindable var listManager: ListManager
     
     @Published var recognizedText = ""
     @Published var isAlert: Bool = false

@@ -66,7 +66,7 @@ struct CustomAlertView: View {
                         
                         cartViewModel.shoppingManager.receiptDate.append(receiptDate)
                         cartViewModel.shoppingManager.cartItem = []
-                        cartViewModel.shoppingManager.saveShoppingListToUserDefaults()
+                        cartViewModel.shoppingManager
                         
                     } label: {
                         Text("종료하기")

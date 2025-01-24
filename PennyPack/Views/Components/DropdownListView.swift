@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct DropdownListView: View {
-    @ObservedObject var listManager: ListManager
+    @Environment(\.modelContext) private var context
+    @Bindable var listManager: ListManager
     
     var body: some View {
         VStack(spacing: 0){
