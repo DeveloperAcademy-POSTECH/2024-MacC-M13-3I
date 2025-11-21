@@ -30,15 +30,21 @@ PennyPack은 한국인 교환학생을 위해 특별히 디자인된 앱입니�
 <img width="500" alt="PennyPack2" src="https://github.com/user-attachments/assets/9c6ac214-ed86-40d3-b673-6cb78437cf40" />
 <img width="500" alt="PennyPack3" src="https://github.com/user-attachments/assets/aa3281da-51d1-41da-b59d-4c176c3fe54d" />
 <img width="500" alt="PennyPack4" src="https://github.com/user-attachments/assets/3567a079-94eb-45d1-ac42-b55e7eb3a1c3" />
+
 PennyPack으로 아낀 경제적 체력적 비용을, 더 많은 여행과 경험에 할애하며, 한 번 뿐인 교환학생 생활을 만끽하세요!
 
 
 <br></br>
 
 ## :sparkles: Skills & Tech Stack
-- swiftUI
+- SwiftUI
+- SwiftData
+- VisionKit
+- AVFoundation (Camera Manager)
+- Translation API (DeepL)
+- REST API (환율 API)
+- UIViewControllerRepresentable
 
-  
 <br></br>
 
 ## 👩‍👩‍👧‍👧 Authors
