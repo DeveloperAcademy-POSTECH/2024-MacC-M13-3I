@@ -1,7 +1,6 @@
 # 🤞All is well🍀
 ## 👨‍👩‍👧 Team Buildings
 - **목표**: 경계없는 도전, 자유롭고 broad한 배움
-- 우리 앱을 사용함으로써 사용자의 삶을 확연하게 편리하게 만들고 싶다.
 - 직관적인 대상의, 근본적인 문제의 원인을 파악하여, 여러 방식의 솔루션을 도출해보자!
 - 사용자의 피드백으로 성장하자!
 <img width="500" alt="PennyPack4" src="https://github.com/user-attachments/assets/3567a079-94eb-45d1-ac42-b55e7eb3a1c3" />
